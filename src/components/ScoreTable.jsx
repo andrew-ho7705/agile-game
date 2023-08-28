@@ -1,12 +1,12 @@
 const ScoreTable = () => {
     const headerStyle = "border border-gray-400 px-4 py-2";
     return (
-        <div className="flex flex-row ">
+        <div className="flex flex-row">
             <div>
-                {[...Array(5)].map((_, rowIndex) => (
+                {["Scoreboard", "Round 1", "Round 2", "Round 3", "Round 4", "Round 5"].map((_, rowIndex) => (
                     <tr key={rowIndex}>
                         <td className={headerStyle}>
-                            <b>Iteration {rowIndex + 1}</b>
+                            <b>{_}</b>
                         </td>
                     </tr>
                 ))}
@@ -24,14 +24,14 @@ const ScoreTable = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {[...Array(6)].map((_, rowIndex) => (
+                        {[...Array(5)].map((_, rowIndex) => (
                             <tr
                                 key={rowIndex}
                                 className={
                                     rowIndex % 2 === 0 ? "bg-gray-100" : ""
                                 }
                             >
-                                {[...Array(6)].map((_, colIndex) => (
+                                {[...Array(5)].map((_, colIndex) => (
                                     <td
                                         key={colIndex}
                                         className="text-center border border-gray-400 px-4 py-2"
