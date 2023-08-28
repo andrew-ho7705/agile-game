@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { getTime } from "../utils/Utils";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import sfx from "../sounds/mixkit-alert-alarm-1005.mp3"
 const TimerPage = ({ timeInSeconds }) => {
     const [time, setTime] = useState(timeInSeconds);
     const navigate = useNavigate();
-    const audio = new Audio(sfx);
+    const audio = useMemo(() => new Audio(sfx), []);
 
     useEffect(() => {
 
