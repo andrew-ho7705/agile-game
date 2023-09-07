@@ -27,7 +27,7 @@ const Game = () => {
                         <input
                             type="radio"
                             id="Two Minute Timer"
-                            className="bg-slate-800 text-white"
+                            className="bg-slate-800 text-white mx-2"
                             onClick={() => {
                                 setTypeOfTimer("twoMin");
                                 handleRadioClick();
@@ -37,24 +37,24 @@ const Game = () => {
                         <input
                             type="radio"
                             id="One Minute Timer"
-                            className="bg-slate-800 text-white"
+                            className="bg-slate-800 text-white mx-2"
                             onClick={() => {
                                 setTypeOfTimer("oneMin");
                                 handleRadioClick();
                             }}
                         />
-                        {" One Minute Timer"}
+                        {"One Minute Timer"}
                     </ul>
 
                     <Link
                         to={typeOfTimer === "oneMin" ? "timer2" : "timer1"}
-                        className="text-3xl px-5"
+                        className="text-3xl px-36"
                     >
                         Start
                     </Link>
-                    <Link to="/" className="text-3xl px-5">
-                        Back To Home
-                    </Link>
+                    {/* for testing purposes */}
+                    
+                    <Link to="/" className="text-3xl px-36"> Back </Link>
                 </div>
             </footer>
         </>

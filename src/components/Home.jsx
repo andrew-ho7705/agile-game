@@ -6,7 +6,7 @@ const Home = () => {
             <header className="text-center text-6xl py-52">
                 Agile Aces Game
             </header>
-            <Link to="/game" className="flex">
+            <Link to="/estimate" className="flex">
                 <span className="m-auto text-5xl">Click Here To Begin!</span>
             </Link>
         </div>

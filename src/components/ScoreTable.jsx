@@ -1,50 +1,70 @@
+import { useState } from "react";
+
+const iterationScores = {
+    estimatedScore: 0,
+    ballsInBox: 0,
+    defects: 0,
+    totalScore: 0,
+    delta: 0,
+};
+
+export const scoreTable = [
+    { ...iterationScores },
+    { ...iterationScores },
+    { ...iterationScores },
+    { ...iterationScores },
+    { ...iterationScores },
+];
+
 const ScoreTable = () => {
-    const headerStyle = "border border-gray-400 px-4 py-2";
+    const [gameIteration, setGameIteration] = useState(1);
+
     return (
-        <div className="flex flex-row">
+        <>  
+            <div className="ml-36">
+                {["Estimated Score", "Balls In Box", "Defects", "Total Score", "∆"].map((header) => 
+                    <span className="border px-4">{header}</span>
+                )}
+            </div>
             <div>
-                {["Scoreboard", "Round 1", "Round 2", "Round 3", "Round 4", "Round 5"].map((_, rowIndex) => (
-                    <tr key={rowIndex}>
-                        <td className={headerStyle}>
-                            <b>{_}</b>
-                        </td>
-                    </tr>
+                {scoreTable.map((score, iteration) => (
+                    <div key={iteration} hidden={iteration > gameIteration - 1}>
+                        <div iteration={iteration} className="flex flex-row">
+                            <span className="px-9 ">
+                                {"Iteration " + parseInt(iteration + 1)}
+                            </span>
+                            {iteration === 0 ? (
+                                <div id="estimated" className="px-16 mr-7">
+                                    {score.estimatedScore}
+                                </div>
+                            ) : (
+                                <input
+                                    id="estimated"
+                                    className="border w-16 px-20"
+                                ></input>
+                            )}
+                            <div id="ballsInBox" className="px-9">
+                                {score.ballsInBox}
+                            </div>
+                            <input
+                                id="defects"
+                                type="text"
+                                className="border w-16 ml-6 px-10"
+                            ></input>
+                            <div id="totalScore" className="px-14">
+                                {score.ballsInBox - score.defects}
+                            </div>
+                            <div id="delta" className="px-5 ">
+                                {score.ballsInBox === 0
+                                    ? 0
+                                    : score.estimatedScore - score.ballsInBox}
+                            </div>
+                        </div>
+                    </div>
                 ))}
+                <button className="p-24 " onClick={() => setGameIteration(gameIteration + 1)}>Mock Increment Iteration</button>
             </div>
-            <div className="flex flex-row">
-                <div></div>
-                <table>
-                    <thead>
-                        <tr className="bg-gray-200">
-                            <th className={headerStyle}>Estimated Score</th>
-                            <th className={headerStyle}>Balls In Box</th>
-                            <th className={headerStyle}>Defects</th>
-                            <th className={headerStyle}>Total Score</th>
-                            <th className={headerStyle}>∆</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {[...Array(5)].map((_, rowIndex) => (
-                            <tr
-                                key={rowIndex}
-                                className={
-                                    rowIndex % 2 === 0 ? "bg-gray-100" : ""
-                                }
-                            >
-                                {[...Array(5)].map((_, colIndex) => (
-                                    <td
-                                        key={colIndex}
-                                        className="text-center border border-gray-400 px-4 py-2"
-                                    >
-                                        Row {rowIndex + 1}, Col {colIndex + 1}
-                                    </td>
-                                ))}
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        </>
     );
 };
 
