@@ -58,7 +58,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                 </div>
             )}
             <div className="text-4xl"> {time === 0 ? "Time's Up!" : ""}</div>
-            {time === 0 && (
+            {time === 0 && soundEnabled ? (
                 <Link
                     to="/game"
                     className="text-3xl px-5"
@@ -66,7 +66,9 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                 >
                     Next
                 </Link>
-            )}
+            ) : time === 0 && !soundEnabled ? (
+                <div className="text-3xl px-5">Press Enter to Continue!</div>
+            ) : null}
 
             <Link to={soundEnabled ? "/game" : "/"} className="text-3xl px-5">
                 Back
