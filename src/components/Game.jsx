@@ -19,7 +19,8 @@ const Game = () => {
     }
 
     return (
-        <>
+        <div className="flex h-screen items-center justify-center">
+        <div className="border">
             <ScoreTable />
             <footer className="absolute bottom-5 left-1/3">
                 <div>
@@ -57,7 +58,8 @@ const Game = () => {
                     <Link to="/" className="text-3xl px-36"> Back </Link>
                 </div>
             </footer>
-        </>
+        </div>
+        </div>
     );
 };
 

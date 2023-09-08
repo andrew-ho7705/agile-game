@@ -45,13 +45,13 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                         placeholder={estimate}
                         onChange={(e) => setEstimate(e.target.value)}
                         onKeyDown={(e) => {
-                            if(e.key === "Enter") {
+                            if (e.key === "Enter") {
                                 if (isNaN(estimate)) {
-                                alert("Error: Estimate must be a number!");
-                                return;
-                            }
-                            scoreTable[0].estimatedScore = estimate;
-                            navigate("/game");
+                                    alert("Error: Estimate must be a number!");
+                                    return;
+                                }
+                                scoreTable[0].estimatedScore = estimate;
+                                navigate("/game");
                             }
                         }}
                     ></input>

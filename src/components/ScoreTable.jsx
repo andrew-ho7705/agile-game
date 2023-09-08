@@ -17,52 +17,90 @@ export const scoreTable = [
 ];
 
 const ScoreTable = () => {
-    const [gameIteration, setGameIteration] = useState(1);
+    const gameIteration = 5;
+    const [gameScore, setGameScore] = useState(scoreTable);
 
     return (
-        <>  
+        <>
             <div className="ml-36">
-                {["Estimated Score", "Balls In Box", "Defects", "Total Score", "∆"].map((header) => 
+                {[
+                    "Estimated Score",
+                    "Balls In Box",
+                    "Defects",
+                    "Total Score",
+                    "∆",
+                ].map((header) => (
                     <span className="border px-4">{header}</span>
-                )}
+                ))}
             </div>
             <div>
                 {scoreTable.map((score, iteration) => (
                     <div key={iteration} hidden={iteration > gameIteration - 1}>
                         <div iteration={iteration} className="flex flex-row">
-                            <span className="px-9 ">
+                            <span className="px-9">
                                 {"Iteration " + parseInt(iteration + 1)}
                             </span>
                             {iteration === 0 ? (
-                                <div id="estimated" className="px-16 mr-7">
+                                <div
+                                    id="estimated"
+                                    className="w-36 mr-2 text-center"
+                                >
                                     {score.estimatedScore}
                                 </div>
                             ) : (
                                 <input
-                                    id="estimated"
-                                    className="border w-16 px-20"
-                                ></input>
+                                    id="estimatedScore"
+                                    type="text"
+                                    className="border w-36 mr-2 align-middle text-black"
+                                    inputMode="numeric"
+                                    onChange={(e) => {
+                                        const updatedScore = [...gameScore];
+                                        updatedScore[iteration].estimatedScore =
+                                            parseInt(e.target.value);
+                                        setGameScore(updatedScore);
+                                    }}
+                                />
                             )}
-                            <div id="ballsInBox" className="px-9">
+                            {/* <div
+                                id="ballsInBox"
+                                className="w-28 mr-2 text-center"
+                            >
                                 {score.ballsInBox}
-                            </div>
+                            </div> */}
+                            <input
+                                id="ballsInBox"
+                                type="text"
+                                className="border w-28 mr-2 text-black"
+                                onChange={(e) => {
+                                    const updatedScore = [...gameScore];
+                                    updatedScore[iteration].ballsInBox =
+                                        parseInt(e.target.value);
+                                    setGameScore(updatedScore);
+                                }}
+                            />
                             <input
                                 id="defects"
                                 type="text"
-                                className="border w-16 ml-6 px-10"
-                            ></input>
-                            <div id="totalScore" className="px-14">
-                                {score.ballsInBox - score.defects}
+                                className="border w-20 mx-1 text-black"
+                                onChange={(e) => {
+                                    const updatedScore = [...gameScore];
+                                    updatedScore[iteration].defects =
+                                       parseInt(e.target.value);
+                                    setGameScore(updatedScore);
+                                }}
+                            />
+                            <div
+                                id="totalScore"
+                                className="w-28 mr-1 text-center"
+                            >
+                                {gameScore[iteration].ballsInBox - gameScore[iteration].defects}
                             </div>
-                            <div id="delta" className="px-5 ">
-                                {score.ballsInBox === 0
-                                    ? 0
-                                    : score.estimatedScore - score.ballsInBox}
+                            <div id="delta" className="w-10 mr-1 text-center">
+                            {gameScore[iteration].estimatedScore - (gameScore[iteration].ballsInBox - gameScore[iteration].defects)}
                             </div>
                         </div>
                     </div>
                 ))}
-                <button className="p-24 " onClick={() => setGameIteration(gameIteration + 1)}>Mock Increment Iteration</button>
             </div>
         </>
     );
