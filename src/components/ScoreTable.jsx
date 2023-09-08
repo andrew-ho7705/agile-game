@@ -84,8 +84,9 @@ const ScoreTable = () => {
                                 className="border w-20 mx-1 text-black"
                                 onChange={(e) => {
                                     const updatedScore = [...gameScore];
-                                    updatedScore[iteration].defects =
-                                       parseInt(e.target.value);
+                                    updatedScore[iteration].defects = parseInt(
+                                        e.target.value
+                                    );
                                     setGameScore(updatedScore);
                                 }}
                             />
@@ -93,10 +94,13 @@ const ScoreTable = () => {
                                 id="totalScore"
                                 className="w-28 mr-1 text-center"
                             >
-                                {gameScore[iteration].ballsInBox - gameScore[iteration].defects}
+                                {gameScore[iteration].ballsInBox -
+                                    gameScore[iteration].defects}
                             </div>
                             <div id="delta" className="w-10 mr-1 text-center">
-                            {gameScore[iteration].estimatedScore - (gameScore[iteration].ballsInBox - gameScore[iteration].defects)}
+                                {gameScore[iteration].estimatedScore -
+                                    (gameScore[iteration].ballsInBox -
+                                        gameScore[iteration].defects)}
                             </div>
                         </div>
                     </div>
