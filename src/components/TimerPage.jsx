@@ -2,7 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { getTime } from "../utils/Utils";
 import { useNavigate } from "react-router-dom";
-import { scoreTable } from "./ScoreTable";
+import { scoreTable, iterationScores } from "./ScoreTable";
 import sfx from "../sounds/mixkit-alert-alarm-1005.mp3";
 
 const TimerPage = ({ timeInSeconds, soundEnabled }) => {
@@ -70,7 +70,19 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                 <div className="text-3xl px-5">Press Enter to Continue!</div>
             ) : null}
 
-            <Link to={soundEnabled ? "/game" : "/"} className="text-3xl px-5">
+            <Link
+                to={soundEnabled ? "/game" : "/"}
+                className="text-3xl px-5"
+                onClick={() => {
+                    scoreTable = [
+                        { ...iterationScores },
+                        { ...iterationScores },
+                        { ...iterationScores },
+                        { ...iterationScores },
+                        { ...iterationScores },
+                    ];
+                }}
+            >
                 Back
             </Link>
         </div>

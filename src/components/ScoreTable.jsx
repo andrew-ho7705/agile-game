@@ -1,11 +1,9 @@
 import { useState } from "react";
 
-const iterationScores = {
+export const iterationScores = {
     estimatedScore: 0,
     ballsInBox: 0,
     defects: 0,
-    totalScore: 0,
-    delta: 0,
 };
 
 export const scoreTable = [
@@ -29,8 +27,8 @@ const ScoreTable = () => {
                     "Defects",
                     "Total Score",
                     "∆",
-                ].map((header) => (
-                    <span className="border px-4">{header}</span>
+                ].map((header, key) => (
+                    <span key={key} className="border px-4">{header}</span>
                 ))}
             </div>
             <div>
