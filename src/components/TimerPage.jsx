@@ -41,7 +41,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                     </div>
                     <input
                         type="text"
-                        className="border border-black w-10"
+                        className="border border-black w-64 h-24 text-center text-6xl"
                         placeholder={estimate}
                         onChange={(e) => setEstimate(e.target.value)}
                         onKeyDown={(e) => {
