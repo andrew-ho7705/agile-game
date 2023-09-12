@@ -41,6 +41,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                     </div>
                     <input
                         type="text"
+                        id="estimate"
                         className="border border-black w-64 h-24 text-center text-6xl"
                         placeholder={estimate}
                         onChange={(e) => setEstimate(e.target.value)}

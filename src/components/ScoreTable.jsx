@@ -96,9 +96,9 @@ const ScoreTable = () => {
                                     gameScore[iteration].defects}
                             </div>
                             <div id="delta" className="w-10 mr-1 text-center">
-                                {gameScore[iteration].estimatedScore -
+                                {-1*(gameScore[iteration].estimatedScore -
                                     (gameScore[iteration].ballsInBox +
-                                        gameScore[iteration].defects)}
+                                        gameScore[iteration].defects))}
                             </div>
                         </div>
                     </div>
