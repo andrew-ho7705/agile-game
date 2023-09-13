@@ -1,22 +1,9 @@
-import { useState } from "react";
-
-export const iterationScores = {
-    estimatedScore: 0,
-    ballsInBox: 0,
-    defects: 0,
-};
-
-export const scoreTable = [
-    { ...iterationScores },
-    { ...iterationScores },
-    { ...iterationScores },
-    { ...iterationScores },
-    { ...iterationScores },
-];
+import { useContext } from "react";
+import { GameScoreContext, GameIterationContext } from "../App";
 
 const ScoreTable = () => {
-    const gameIteration = 5;
-    const [gameScore, setGameScore] = useState(scoreTable);
+    const [gameScore, setGameScore] = useContext(GameScoreContext);
+    const [gameIteration] = useContext(GameIterationContext);
 
     return (
         <>
@@ -28,11 +15,13 @@ const ScoreTable = () => {
                     "Total Score",
                     "∆",
                 ].map((header, key) => (
-                    <span key={key} className="border px-4">{header}</span>
+                    <span key={key} className="border px-4">
+                        {header}
+                    </span>
                 ))}
             </div>
             <div>
-                {scoreTable.map((score, iteration) => (
+                {gameScore.map((score, iteration) => (
                     <div key={iteration} hidden={iteration > gameIteration - 1}>
                         <div iteration={iteration} className="flex flex-row">
                             <span className="px-9">
@@ -51,12 +40,16 @@ const ScoreTable = () => {
                                     type="text"
                                     className="border w-36 mr-2 align-middle text-black"
                                     inputMode="numeric"
-                                    onChange={(e) => {
-                                        const updatedScore = [...gameScore];
-                                        updatedScore[iteration].estimatedScore =
-                                            parseInt(e.target.value);
-                                        setGameScore(updatedScore);
-                                    }}
+                                    // onChange={(e) => {
+                                    //     setGameScore(() => {
+                                    //         return {
+                                    //             ...gameScore,
+                                    //             estimatedScore: parseInt(
+                                    //                 e.target.value
+                                    //             ),
+                                    //         };
+                                    //     });
+                                    // }}
                                 />
                             )}
                             {/* <div
@@ -69,36 +62,61 @@ const ScoreTable = () => {
                                 id="ballsInBox"
                                 type="text"
                                 className="border w-28 mr-2 text-black"
-                                onChange={(e) => {
-                                    const updatedScore = [...gameScore];
-                                    updatedScore[iteration].ballsInBox =
-                                        parseInt(e.target.value);
-                                    setGameScore(updatedScore);
-                                }}
+                                // onChange={(e) => {
+                                //     setGameScore(() => {
+                                //         return {
+                                //             ...gameScore,
+                                //             ballsInBox: parseInt(
+                                //                 e.target.value
+                                //             ),
+                                //         };
+                                //     });
+                                // }}
                             />
                             <input
                                 id="defects"
                                 type="text"
                                 className="border w-20 mx-1 text-black"
-                                onChange={(e) => {
-                                    const updatedScore = [...gameScore];
-                                    updatedScore[iteration].defects = parseInt(
-                                        e.target.value
-                                    );
-                                    setGameScore(updatedScore);
-                                }}
+                                // onChange={(e) => {
+                                //     setGameScore(() => {
+                                //         return {
+                                //             ...gameScore,
+                                //             defects: parseInt(e.target.value),
+                                //         };
+                                //     });
+                                // }}
                             />
                             <div
                                 id="totalScore"
                                 className="w-28 mr-1 text-center"
+                                // onChange={(e) => {
+                                //     setGameScore(() => {
+                                //         return {
+                                //             ...gameScore,
+                                //             totalScore: parseInt(
+                                //                 e.target.value
+                                //             ),
+                                //         };
+                                //     });
+                                // }}
                             >
-                                {gameScore[iteration].ballsInBox -
-                                    gameScore[iteration].defects}
+                                {gameScore[iteration].totalScore}
                             </div>
-                            <div id="delta" className="w-10 mr-1 text-center">
-                                {-1*(gameScore[iteration].estimatedScore -
-                                    (gameScore[iteration].ballsInBox +
-                                        gameScore[iteration].defects))}
+                            <div
+                                id="delta"
+                                className="w-10 mr-1 text-center"
+                                // onChange={(e) => {
+                                //     setGameScore(
+                                //         "delta",
+                                //         parseInt(e.target.value),
+                                //         iteration
+                                //     );
+                                // }}
+                            >
+                                {-1 *
+                                    (gameScore[iteration].estimatedScore -
+                                        (gameScore[iteration].ballsInBox +
+                                            gameScore[iteration].defects))}
                             </div>
                         </div>
                     </div>

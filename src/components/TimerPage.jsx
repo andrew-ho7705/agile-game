@@ -1,15 +1,18 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useContext } from "react";
 import { Link } from "react-router-dom";
 import { getTime } from "../utils/Utils";
 import { useNavigate } from "react-router-dom";
-import { scoreTable, iterationScores } from "./ScoreTable";
 import sfx from "../sounds/mixkit-alert-alarm-1005.mp3";
+import { GameScoreContext, GameIterationContext, TimerContext } from "../App";
 
 const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     const [time, setTime] = useState(timeInSeconds);
+    const [typeOfTimer] = useContext(TimerContext);
     const [estimate, setEstimate] = useState(0);
     const navigate = useNavigate();
     const audio = useMemo(() => new Audio(sfx), []);
+    const [, setGameScore] = useContext(GameScoreContext);
+    const [gameIteration, setGameIteration] = useContext(GameIterationContext);
 
     useEffect(() => {
         const timerId = setInterval(() => {
@@ -51,7 +54,11 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                                     alert("Error: Estimate must be a number!");
                                     return;
                                 }
-                                scoreTable[0].estimatedScore = estimate;
+                                setGameScore(
+                                    "estimatedScore",
+                                    parseInt(estimate),
+                                    0
+                                );
                                 navigate("/game");
                             }
                         }}
@@ -63,7 +70,14 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                 <Link
                     to="/game"
                     className="text-3xl px-5"
-                    onClick={() => audio.pause()}
+                    onClick={
+                        typeOfTimer === "oneMin"
+                            ? () => {
+                                  audio.pause();
+                                  setGameIteration(gameIteration + 1);
+                              }
+                            : () => audio.pause()
+                    }
                 >
                     Next
                 </Link>
@@ -71,19 +85,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                 <div className="text-3xl px-5">Press Enter to Continue!</div>
             ) : null}
 
-            <Link
-                to={soundEnabled ? "/game" : "/"}
-                className="text-3xl px-5"
-                onClick={() => {
-                    scoreTable = [
-                        { ...iterationScores },
-                        { ...iterationScores },
-                        { ...iterationScores },
-                        { ...iterationScores },
-                        { ...iterationScores },
-                    ];
-                }}
-            >
+            <Link to={soundEnabled ? "/game" : "/"} className="text-3xl px-5">
                 Back
             </Link>
         </div>
