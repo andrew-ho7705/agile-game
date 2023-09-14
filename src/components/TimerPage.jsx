@@ -3,16 +3,21 @@ import { Link } from "react-router-dom";
 import { getTime } from "../utils/Utils";
 import { useNavigate } from "react-router-dom";
 import sfx from "../sounds/mixkit-alert-alarm-1005.mp3";
-import { GameScoreContext, GameIterationContext, TimerContext } from "../App";
+import {
+    GameScoreContext,
+    GameIterationContext,
+    TimerContext,
+    EstimateContext,
+} from "../App";
 
 const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     const [time, setTime] = useState(timeInSeconds);
     const [typeOfTimer] = useContext(TimerContext);
-    const [estimate, setEstimate] = useState(0);
     const navigate = useNavigate();
     const audio = useMemo(() => new Audio(sfx), []);
     const [, setGameScore] = useContext(GameScoreContext);
     const [gameIteration, setGameIteration] = useContext(GameIterationContext);
+    const [estimateScore, setEstimateScore] = useContext(EstimateContext);
 
     useEffect(() => {
         const timerId = setInterval(() => {
@@ -46,19 +51,30 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                         type="text"
                         id="estimate"
                         className="border border-black w-64 h-24 text-center text-6xl"
-                        placeholder={estimate}
-                        onChange={(e) => setEstimate(e.target.value)}
+                        placeholder={estimateScore}
+                        onChange={(e) =>
+                            setEstimateScore(parseInt(e.target.value))
+                        }
                         onKeyDown={(e) => {
                             if (e.key === "Enter") {
-                                if (isNaN(estimate)) {
+                                if (isNaN(estimateScore)) {
                                     alert("Error: Estimate must be a number!");
                                     return;
                                 }
-                                setGameScore(
-                                    "estimatedScore",
-                                    parseInt(estimate),
-                                    0
-                                );
+                                setGameScore((prevGameScore) => {
+                                    return prevGameScore.map((score, index) => {
+                                        if (index === 0) {
+                                            return {
+                                                ...score,
+                                                estimatedScore: parseInt(
+                                                    e.target.value
+                                                ),
+                                            };
+                                        } else {
+                                            return score;
+                                        }
+                                    });
+                                });
                                 navigate("/game");
                             }
                         }}
@@ -85,9 +101,9 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                 <div className="text-3xl px-5">Press Enter to Continue!</div>
             ) : null}
 
-            <Link to={soundEnabled ? "/game" : "/"} className="text-3xl px-5">
+            {/* <Link to={soundEnabled ? "/game" : "/"} className="text-3xl px-5">
                 Back
-            </Link>
+            </Link> */}
         </div>
     );
 };

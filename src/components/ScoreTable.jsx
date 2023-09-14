@@ -13,7 +13,7 @@ const ScoreTable = () => {
                     "Balls In Box",
                     "Defects",
                     "Total Score",
-                    "∆",
+                    "Delta",
                 ].map((header, key) => (
                     <span key={key} className="border px-4">
                         {header}
@@ -40,16 +40,26 @@ const ScoreTable = () => {
                                     type="text"
                                     className="border w-36 mr-2 align-middle text-black"
                                     inputMode="numeric"
-                                    // onChange={(e) => {
-                                    //     setGameScore(() => {
-                                    //         return {
-                                    //             ...gameScore,
-                                    //             estimatedScore: parseInt(
-                                    //                 e.target.value
-                                    //             ),
-                                    //         };
-                                    //     });
-                                    // }}
+                                    onChange={(e) => {
+                                        setGameScore((prevGameScore) => {
+                                            return prevGameScore.map(
+                                                (score, index) => {
+                                                    if (index === iteration) {
+                                                        return {
+                                                            ...score,
+                                                            estimatedScore:
+                                                                parseInt(
+                                                                    e.target
+                                                                        .value
+                                                                ),
+                                                        };
+                                                    } else {
+                                                        return score;
+                                                    }
+                                                }
+                                            );
+                                        });
+                                    }}
                                 />
                             )}
                             {/* <div
@@ -62,61 +72,64 @@ const ScoreTable = () => {
                                 id="ballsInBox"
                                 type="text"
                                 className="border w-28 mr-2 text-black"
-                                // onChange={(e) => {
-                                //     setGameScore(() => {
-                                //         return {
-                                //             ...gameScore,
-                                //             ballsInBox: parseInt(
-                                //                 e.target.value
-                                //             ),
-                                //         };
-                                //     });
-                                // }}
+                                onChange={(e) => {
+                                    setGameScore((prevGameScore) => {
+                                        return prevGameScore.map(
+                                            (score, index) => {
+                                                if (index === iteration) {
+                                                    return {
+                                                        ...score,
+                                                        ballsInBox: parseInt(
+                                                            e.target.value
+                                                        ) | 0,
+                                                    };
+                                                } else {
+                                                    return score;
+                                                }
+                                            }
+                                        );
+                                    });
+                                }}
                             />
                             <input
                                 id="defects"
                                 type="text"
                                 className="border w-20 mx-1 text-black"
-                                // onChange={(e) => {
-                                //     setGameScore(() => {
-                                //         return {
-                                //             ...gameScore,
-                                //             defects: parseInt(e.target.value),
-                                //         };
-                                //     });
-                                // }}
+                                onChange={(e) => {
+                                    setGameScore((prevGameScore) => {
+                                        return prevGameScore.map(
+                                            (score, index) => {
+                                                if (index === iteration) {
+                                                    return {
+                                                        ...score,
+                                                        defects: parseInt(
+                                                            e.target.value
+                                                        ) | 0,
+                                                    };
+                                                } else {
+                                                    return score;
+                                                }
+                                            }
+                                        );
+                                    });
+                                }}
                             />
                             <div
                                 id="totalScore"
                                 className="w-28 mr-1 text-center"
-                                // onChange={(e) => {
-                                //     setGameScore(() => {
-                                //         return {
-                                //             ...gameScore,
-                                //             totalScore: parseInt(
-                                //                 e.target.value
-                                //             ),
-                                //         };
-                                //     });
-                                // }}
                             >
-                                {gameScore[iteration].totalScore}
+                                {gameScore[gameIteration - 1].defects === 0 || isNaN(gameScore[gameIteration - 1].defects)
+                                    ? 0
+                                    : gameScore[iteration].ballsInBox -
+                                      gameScore[iteration].defects}
                             </div>
-                            <div
-                                id="delta"
-                                className="w-10 mr-1 text-center"
-                                // onChange={(e) => {
-                                //     setGameScore(
-                                //         "delta",
-                                //         parseInt(e.target.value),
-                                //         iteration
-                                //     );
-                                // }}
-                            >
-                                {-1 *
-                                    (gameScore[iteration].estimatedScore -
-                                        (gameScore[iteration].ballsInBox +
-                                            gameScore[iteration].defects))}
+                            <div id="delta" className="w-10 mr-1 text-center">
+                                {gameScore[gameIteration - 1].defects === 0 || isNaN(gameScore[gameIteration - 1].defects)
+                                    ? 0
+                                    : -1 * 
+                                      ((gameScore[iteration].estimatedScore -
+                                          gameScore[iteration].ballsInBox +
+                                              gameScore[iteration].defects))}
                             </div>
                         </div>
                     </div>

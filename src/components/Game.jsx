@@ -1,12 +1,10 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import ScoreTable from "./ScoreTable";
-import { GameScoreContext, GameIterationContext, TimerContext, scoreTable } from "../App";
+import { TimerContext } from "../App";
 
 const Game = () => {
     const [typeOfTimer, setTypeOfTimer] = useContext(TimerContext);
-    const [, setGameScore] = useContext(GameScoreContext);
-    const [, setGameIteration] = useContext(GameIterationContext);
 
     function handleRadioClick() {
         const option1 = document.getElementById("One Minute Timer");
@@ -51,7 +49,13 @@ const Game = () => {
                         </ul>
 
                         <Link
-                            to={typeOfTimer === "oneMin" ? "timer2" : typeOfTimer ==="" ? null : "timer1"}
+                            to={
+                                typeOfTimer === "oneMin"
+                                    ? "timer2"
+                                    : typeOfTimer === ""
+                                    ? null
+                                    : "timer1"
+                            }
                             className="text-3xl px-36"
                         >
                             Start
