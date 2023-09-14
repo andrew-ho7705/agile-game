@@ -91,8 +91,77 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                             ? () => {
                                   audio.pause();
                                   setGameIteration(gameIteration + 1);
+                                  setGameScore((prevGameScore) => {
+                                      return prevGameScore.map(
+                                          (score, index) => {
+                                              console.log(index);
+                                              if (index === gameIteration - 1) {
+                                                  return {
+                                                      ...score,
+                                                      delta:
+                                                          prevGameScore[index]
+                                                              .defects === 0 ||
+                                                          isNaN(
+                                                              prevGameScore[
+                                                                  index
+                                                              ].defects
+                                                          )
+                                                              ? 0
+                                                              : -1 *
+                                                                (prevGameScore[
+                                                                    index
+                                                                ]
+                                                                    .estimatedScore -
+                                                                    prevGameScore[
+                                                                        index
+                                                                    ]
+                                                                        .ballsInBox +
+                                                                    prevGameScore[
+                                                                        index
+                                                                    ].defects),
+
+                                                      totalScore:
+                                                          prevGameScore[index]
+                                                              .defects === 0 ||
+                                                          isNaN(
+                                                              prevGameScore[
+                                                                  index
+                                                              ].defects
+                                                          )
+                                                              ? 0
+                                                              : prevGameScore[
+                                                                    index
+                                                                ].ballsInBox -
+                                                                prevGameScore[
+                                                                    index
+                                                                ].defects,
+                                                  };
+                                              } else {
+                                                  return score;
+                                              }
+                                          }
+                                      );
+                                  });
                               }
-                            : () => audio.pause()
+                            : () => {
+                                  audio.pause();
+                                  setGameScore((prevGameScore) => {
+                                      return prevGameScore.map(
+                                          (score, index) => {
+                                              if (index === gameIteration - 1) {
+                                                  return {
+                                                      ...score,
+                                                      estimatedScore:
+                                                          prevGameScore[index]
+                                                              .estimatedScore,
+                                                  };
+                                              } else {
+                                                  return score;
+                                              }
+                                          }
+                                      );
+                                  });
+                              }
                     }
                 >
                     Next
@@ -100,10 +169,6 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
             ) : time === 0 && !soundEnabled ? (
                 <div className="text-3xl px-5">Press Enter to Continue!</div>
             ) : null}
-
-            {/* <Link to={soundEnabled ? "/game" : "/"} className="text-3xl px-5">
-                Back
-            </Link> */}
         </div>
     );
 };
