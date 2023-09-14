@@ -21,7 +21,7 @@ const Game = () => {
     }
 
     return (
-        <div className="flex h-screen items-center justify-center">
+        <div className="flex h-screen justify-center">
             <div className="flex flex-col">
                 <div>
                     <ScoreTable />

@@ -42,7 +42,7 @@ const ScoreTable = () => {
 
     return (
         <div>
-            <div className="border">
+            <div className="border border-cyan-900">
                 <div className="ml-36">
                     {[
                         "Estimated Score",
@@ -51,7 +51,7 @@ const ScoreTable = () => {
                         "Total Score",
                         "Delta",
                     ].map((header, key) => (
-                        <span key={key} className="border px-4">
+                        <span key={key} className="border px-4 text-5xl border-cyan-900">
                             {header}
                         </span>
                     ))}
@@ -61,18 +61,19 @@ const ScoreTable = () => {
                         <div
                             key={iteration}
                             hidden={iteration > gameIteration - 1}
+                            className="text-3xl py-8"
                         >
                             <div
                                 iteration={iteration}
                                 className="flex flex-row"
                             >
-                                <span className="px-9">
+                                <span className="mx-2 text-3xl">
                                     {"Iteration " + parseInt(iteration + 1)}
                                 </span>
                                 {iteration === 0 ? (
                                     <div
                                         id="estimated"
-                                        className="w-36 mr-2 text-center"
+                                        className="w-80 ml-6 mr-12 text-center border"
                                     >
                                         {score.estimatedScore}
                                     </div>
@@ -80,7 +81,7 @@ const ScoreTable = () => {
                                     <input
                                         id="estimatedScore"
                                         type="text"
-                                        className="border w-36 mr-2 align-middle text-black text-center"
+                                        className="border w-80 ml-5 mr-12 text-center"
                                         value={gameScore[iteration].estimatedScore.toString() | " "}
                                         onChange={(e) => {
                                             setGameScore((prevGameScore) => {
@@ -109,7 +110,7 @@ const ScoreTable = () => {
                                 (
                                     <div
                                         id="estimatedScore"
-                                        className="w-36 mr-2 text-black text-center"
+                                        className="w-80 ml-5 mr-12 text-center"
                                     >
                                         {
                                             gameScore[gameIteration - 2]
@@ -121,7 +122,7 @@ const ScoreTable = () => {
                                     <input
                                         id="ballsInBox"
                                         type="text"
-                                        className="border w-28 mr-2 text-black text-center"
+                                        className="border w-52 ml-2 mr-14 text-center"
                                         onChange={(e) => {
                                             setGameScore((prevGameScore) => {
                                                 return prevGameScore.map(
@@ -148,7 +149,7 @@ const ScoreTable = () => {
                                 ) : (
                                     <div
                                         id="ballsInBox"
-                                        className="w-28 mr-2 text-black text-center"
+                                        className="w-52 ml-2 mr-14 text-black text-center border"
                                     >
                                         {
                                             gameScore[gameIteration - 2]
@@ -157,11 +158,11 @@ const ScoreTable = () => {
                                     </div>
                                 )}
 
-                                {iteration > gameIteration - 2 || iteration === 6 ? (
+                                {iteration > gameIteration - 2 ? (
                                     <input
                                         id="defects"
                                         type="text"
-                                        className="border w-20 mx-1 text-black text-center"
+                                        className="border w-32 mr-12 text-center"
                                         onChange={(e) => {
                                             setGameScore((prevGameScore) => {
                                                 return prevGameScore.map(
@@ -188,21 +189,21 @@ const ScoreTable = () => {
                                 ) : (
                                     <div
                                         id="defects"
-                                        className="w-20 mr-2 text-black text-center"
+                                        className="w-32 mr-12 text-center border"
                                     >
                                         {gameScore[gameIteration - 2].defects}
                                     </div>
                                 )}
                                 <div
                                     id="totalScore"
-                                    className="w-28 mr-1 text-center"
+                                    className="w-56 mr-8 text-center border"
                                 >
                                     {gameScore[iteration].ballsInBox -
                                         gameScore[iteration].defects}
                                 </div>
                                 <div
                                     id="delta"
-                                    className="w-16 mr-1 text-center"
+                                    className="w-28 mr-1 text-center border"
                                 >
                                     {-1 *
                                         (gameScore[iteration].estimatedScore -
