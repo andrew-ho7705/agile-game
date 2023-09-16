@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import Game from "./components/Game";
 import TimerPage from "./components/TimerPage";
 import EstimateScore from "./components/EstimateScore";
+import End from "./components/End";
 import { useState, createContext } from "react";
 
 export const GameScoreContext = createContext();
@@ -21,7 +22,7 @@ export const scoreTable = [
 function App() {
     const [gameScore, setGameScore] = useState(scoreTable);
     const [gameIteration, setGameIteration] = useState(5);
-    const [typeOfTimer, setTypeOfTimer] = useState("");
+    const [typeOfTimer, setTypeOfTimer] = useState('');
     const [estimate, setEstimate] = useState(0);
 
     return (
@@ -56,6 +57,7 @@ function App() {
                                     />
                                 }
                             />
+                            <Route path="/end" element={<End />} />
                         </Routes>
                     </EstimateContext.Provider>
                 </TimerContext.Provider>

@@ -39,15 +39,16 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     }, [time, navigate, timeInSeconds, audio, soundEnabled]);
 
     return (
-        <div className="text-center py-56">
+        <div className="text-center py-40">
             <div className="text-8xl">{getTime(time)}</div>
             {!soundEnabled && (
                 <div className="flex flex-col justify-center items-center">
-                    <div className="text-4xl">
+                    <div className="text-6xl w-3/5">
                         Estimate How Many Points Your Team Will Score In
                         Iteration 1!
                     </div>
                     <input
+                        autoComplete={false}
                         type="text"
                         id="estimate"
                         className="border border-black w-64 h-24 text-center text-6xl"
@@ -78,10 +79,10 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                                 navigate("/game");
                             }
                         }}
-                    ></input>
+                    />
                 </div>
             )}
-            <div className="text-4xl"> {time === 0 ? "Time's Up!" : ""}</div>
+            <div className="text-6xl"> {time === 0 ? "Time's Up!" : ""}</div>
             {time === 0 && soundEnabled ? (
                 <Link
                     to="/game"
@@ -94,7 +95,6 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                                   setGameScore((prevGameScore) => {
                                       return prevGameScore.map(
                                           (score, index) => {
-                                              console.log(index);
                                               if (index === gameIteration - 1) {
                                                   return {
                                                       ...score,
@@ -167,7 +167,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                     Next
                 </Link>
             ) : time === 0 && !soundEnabled ? (
-                <div className="text-3xl px-5">Press Enter to Continue!</div>
+                <div className="text-5xl px-5">Press Enter to Continue!</div>
             ) : null}
         </div>
     );
