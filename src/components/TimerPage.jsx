@@ -67,7 +67,11 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                             type="number"
                             className="border border-black rounded-lg w-44 h-16 text-center text-6xl"
                             onChange={(e) => {
-                                setEstimateScore(isNaN(parseInt(e.target.value)) ? 0 : parseInt(e.target.value));
+                                setEstimateScore(
+                                    isNaN(parseInt(e.target.value))
+                                        ? 0
+                                        : parseInt(e.target.value)
+                                );
                                 setGameScore((prevGameScore) => {
                                     return prevGameScore.map((score, index) => {
                                         if (index === 0) {
@@ -105,25 +109,20 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                                                       ...score,
                                                       delta:
                                                           -1 *
-                                                                (prevGameScore[
-                                                                    index
-                                                                ]
-                                                                    .estimatedScore -
-                                                                    prevGameScore[
-                                                                        index
-                                                                    ]
-                                                                        .ballsInBox +
-                                                                    prevGameScore[
-                                                                        index
-                                                                    ].defects),
+                                                          (prevGameScore[index]
+                                                              .estimatedScore -
+                                                              prevGameScore[
+                                                                  index
+                                                              ].ballsInBox +
+                                                              prevGameScore[
+                                                                  index
+                                                              ].defects),
 
                                                       totalScore:
-                                                          prevGameScore[
-                                                                    index
-                                                                ].ballsInBox -
-                                                                prevGameScore[
-                                                                    index
-                                                                ].defects,
+                                                          prevGameScore[index]
+                                                              .ballsInBox -
+                                                          prevGameScore[index]
+                                                              .defects,
                                                   };
                                               } else {
                                                   return score;
@@ -156,7 +155,9 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                     Next
                 </Link>
             ) : time === 0 && !soundEnabled ? (
-                <Link to="/game" className="text-5xl px-5">Press Here to Continue!</Link>
+                <Link to="/game" className="text-5xl px-5">
+                    Press Here to Continue!
+                </Link>
             ) : null}
         </div>
     );

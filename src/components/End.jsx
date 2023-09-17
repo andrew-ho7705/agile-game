@@ -5,10 +5,9 @@ import {
     TeamNameContext,
 } from "../App";
 import { Link } from "react-router-dom";
-import { scoreTable } from "../App";
 
 export const End = () => {
-    const [gameScore, setGameScore] = useContext(GameScoreContext);
+    const [gameScore] = useContext(GameScoreContext);
     const [gameIteration] = useContext(GameIterationContext);
     const [teamName] = useContext(TeamNameContext);
 
@@ -103,11 +102,10 @@ export const End = () => {
                     </div>
                 </div>
                 <footer className="absolute bottom-0 left-1/3 ml-12">
-                    <h1 className="text-5xl mt-10 mb-3 ">Thanks for Playing!</h1>
-                    <Link
-                        to="/"
-                        className="text-5xl w-fit ml-20"
-                    >
+                    <h1 className="text-5xl mt-10 mb-3 ">
+                        Thanks for Playing!
+                    </h1>
+                    <Link to="/" className="text-5xl w-fit ml-20">
                         New Game?
                     </Link>
                 </footer>

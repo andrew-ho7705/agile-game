@@ -18,13 +18,13 @@ const ScoreTable = () => {
                                 ...score,
                                 delta:
                                     -1 *
-                                          (prevGameScore[index].estimatedScore -
-                                              prevGameScore[index].ballsInBox +
-                                              prevGameScore[index].defects),
+                                    (prevGameScore[index].estimatedScore -
+                                        prevGameScore[index].ballsInBox +
+                                        prevGameScore[index].defects),
 
                                 totalScore:
                                     prevGameScore[index].ballsInBox -
-                                          prevGameScore[index].defects,
+                                    prevGameScore[index].defects,
                             };
                         }
                         return score;
