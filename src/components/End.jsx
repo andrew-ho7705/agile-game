@@ -102,12 +102,11 @@ export const End = () => {
                         </div>
                     </div>
                 </div>
-                <footer className="absolute bottom-0 left-1/3 mb-7">
-                    <h1 className="text-6xl mt-10 mb-3">Thanks for Playing!</h1>
+                <footer className="absolute bottom-0 left-1/3 ml-12">
+                    <h1 className="text-5xl mt-10 mb-3 ">Thanks for Playing!</h1>
                     <Link
                         to="/"
-                        onClick={setGameScore(scoreTable)}
-                        className="text-5xl w-fit ml-28"
+                        className="text-5xl w-fit ml-20"
                     >
                         New Game?
                     </Link>

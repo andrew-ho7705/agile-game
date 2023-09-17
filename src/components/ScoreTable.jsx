@@ -17,19 +17,13 @@ const ScoreTable = () => {
                             return {
                                 ...score,
                                 delta:
-                                    prevGameScore[index].defects === 0 ||
-                                    isNaN(prevGameScore[index].defects)
-                                        ? 0
-                                        : -1 *
+                                    -1 *
                                           (prevGameScore[index].estimatedScore -
                                               prevGameScore[index].ballsInBox +
                                               prevGameScore[index].defects),
 
                                 totalScore:
-                                    prevGameScore[index].defects === 0 ||
-                                    isNaN(prevGameScore[index].defects)
-                                        ? 0
-                                        : prevGameScore[index].ballsInBox -
+                                    prevGameScore[index].ballsInBox -
                                           prevGameScore[index].defects,
                             };
                         }
@@ -99,7 +93,6 @@ const ScoreTable = () => {
                                                           .estimatedScore
                                             }
                                             onChange={(e) => {
-                                                
                                                 setGameScore(
                                                     (prevGameScore) => {
                                                         return prevGameScore.map(
@@ -144,7 +137,6 @@ const ScoreTable = () => {
                                             type="number"
                                             className="border border-red-700 w-52 ml-2 mr-14 text-center"
                                             onChange={(e) => {
-                                                
                                                 setGameScore(
                                                     (prevGameScore) => {
                                                         return prevGameScore.map(
@@ -191,7 +183,6 @@ const ScoreTable = () => {
                                             type="number"
                                             className="border border-red-700 w-32 mr-12 text-center"
                                             onChange={(e) => {
-                                                
                                                 setGameScore(
                                                     (prevGameScore) => {
                                                         return prevGameScore.map(

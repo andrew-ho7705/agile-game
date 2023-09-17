@@ -66,7 +66,6 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                             autoComplete="false"
                             type="number"
                             className="border border-black rounded-lg w-44 h-16 text-center text-6xl"
-                            value={(isNaN(estimateScore) || estimateScore === 0) ? "" : estimateScore}
                             onChange={(e) => {
                                 setEstimateScore(isNaN(parseInt(e.target.value)) ? 0 : parseInt(e.target.value));
                                 setGameScore((prevGameScore) => {
@@ -105,15 +104,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                                                   return {
                                                       ...score,
                                                       delta:
-                                                          prevGameScore[index]
-                                                              .defects === 0 ||
-                                                          isNaN(
-                                                              prevGameScore[
-                                                                  index
-                                                              ].defects
-                                                          )
-                                                              ? 0
-                                                              : -1 *
+                                                          -1 *
                                                                 (prevGameScore[
                                                                     index
                                                                 ]
@@ -127,15 +118,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                                                                     ].defects),
 
                                                       totalScore:
-                                                          prevGameScore[index]
-                                                              .defects === 0 ||
-                                                          isNaN(
-                                                              prevGameScore[
-                                                                  index
-                                                              ].defects
-                                                          )
-                                                              ? 0
-                                                              : prevGameScore[
+                                                          prevGameScore[
                                                                     index
                                                                 ].ballsInBox -
                                                                 prevGameScore[
