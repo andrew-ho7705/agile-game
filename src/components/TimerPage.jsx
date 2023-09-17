@@ -8,6 +8,7 @@ import {
     GameIterationContext,
     TimerContext,
     EstimateContext,
+    TeamNameContext,
 } from "../App";
 
 const TimerPage = ({ timeInSeconds, soundEnabled }) => {
@@ -18,6 +19,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     const [, setGameScore] = useContext(GameScoreContext);
     const [gameIteration, setGameIteration] = useContext(GameIterationContext);
     const [estimateScore, setEstimateScore] = useContext(EstimateContext);
+    const [teamName, setTeamName] = useContext(TeamNameContext);
 
     useEffect(() => {
         const timerId = setInterval(() => {
@@ -39,29 +41,34 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     }, [time, navigate, timeInSeconds, audio, soundEnabled]);
 
     return (
-        <div className="text-center py-40">
-            <div className="text-8xl">{getTime(time)}</div>
+        <div className="text-center py-40 text-slate-50">
+            <div className="text-9xl">{getTime(time)}</div>
             {!soundEnabled && (
                 <div className="flex flex-col justify-center items-center">
-                    <div className="text-6xl w-3/5">
-                        Estimate How Many Points Your Team Will Score In
-                        Iteration 1!
+                    <div className="text-5xl w-4/5 mb-10">
+                        Enter Your Team Name and Estimate How Many Points You
+                        Will Score In Iteration 1!
                     </div>
-                    <input
-                        autoComplete={false}
-                        type="text"
-                        id="estimate"
-                        className="border border-black w-64 h-24 text-center text-6xl"
-                        placeholder={estimateScore}
-                        onChange={(e) =>
-                            setEstimateScore(parseInt(e.target.value))
-                        }
-                        onKeyDown={(e) => {
-                            if (e.key === "Enter") {
-                                if (isNaN(estimateScore)) {
-                                    alert("Error: Estimate must be a number!");
-                                    return;
-                                }
+                    <div className="flex flex-row mb-10">
+                        <span className="text-4xl mx-2 mt-2">Team Name:</span>
+                        <input
+                            autoComplete="false"
+                            type="text"
+                            className="border border-black rounded-lg w-fit h-16 text-center text-3xl "
+                            placeholder="Enter Team Name..."
+                            value={teamName}
+                            onChange={(e) => setTeamName(e.target.value)}
+                        />
+                        <span className="text-4xl mx-2 mt-2">
+                            Estimated Score:
+                        </span>
+                        <input
+                            autoComplete="false"
+                            type="number"
+                            className="border border-black rounded-lg w-44 h-16 text-center text-6xl"
+                            value={(isNaN(estimateScore) || estimateScore === 0) ? "" : estimateScore}
+                            onChange={(e) => {
+                                setEstimateScore(isNaN(parseInt(e.target.value)) ? 0 : parseInt(e.target.value));
                                 setGameScore((prevGameScore) => {
                                     return prevGameScore.map((score, index) => {
                                         if (index === 0) {
@@ -76,17 +83,16 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                                         }
                                     });
                                 });
-                                navigate("/game");
-                            }
-                        }}
-                    />
+                            }}
+                        />
+                    </div>
                 </div>
             )}
             <div className="text-6xl"> {time === 0 ? "Time's Up!" : ""}</div>
             {time === 0 && soundEnabled ? (
                 <Link
                     to="/game"
-                    className="text-3xl px-5"
+                    className="text-6xl px-5"
                     onClick={
                         typeOfTimer === "oneMin"
                             ? () => {
@@ -167,7 +173,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                     Next
                 </Link>
             ) : time === 0 && !soundEnabled ? (
-                <div className="text-5xl px-5">Press Enter to Continue!</div>
+                <Link to="/game" className="text-5xl px-5">Press Here to Continue!</Link>
             ) : null}
         </div>
     );

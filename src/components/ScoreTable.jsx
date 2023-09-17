@@ -41,9 +41,9 @@ const ScoreTable = () => {
     }, [gameIteration, gameScore, setGameScore]);
 
     return (
-        <>
-            <div className="border border-cyan-900">
-                <div className="ml-36">
+        <div className="text-slate-50">
+            <div className="border border-cyan-900 mt-2">
+                <div className="ml-36 mt-1">
                     {[
                         "Estimated Score",
                         "Balls In Box",
@@ -85,20 +85,21 @@ const ScoreTable = () => {
                                         </div>
                                     ) : iteration === gameIteration - 1 ? (
                                         <input
-                                            autoComplete={false}
+                                            autoComplete="false"
                                             id="estimatedScore"
-                                            type="text"
-                                            className="border w-80 mr-12 text-center"
+                                            type="number"
+                                            className="border w-80 ml-5 mr-12 text-center"
                                             value={
                                                 isNaN(
                                                     gameScore[iteration]
                                                         .estimatedScore
                                                 )
-                                                    ? 0
+                                                    ? ""
                                                     : gameScore[iteration]
                                                           .estimatedScore
                                             }
                                             onChange={(e) => {
+                                                
                                                 setGameScore(
                                                     (prevGameScore) => {
                                                         return prevGameScore.map(
@@ -138,11 +139,12 @@ const ScoreTable = () => {
                                     )}
                                     {iteration > gameIteration - 2 ? (
                                         <input
-                                            autoComplete={false}
+                                            autoComplete="false"
                                             id="ballsInBox"
-                                            type="text"
+                                            type="number"
                                             className="border border-red-700 w-52 ml-2 mr-14 text-center"
                                             onChange={(e) => {
+                                                
                                                 setGameScore(
                                                     (prevGameScore) => {
                                                         return prevGameScore.map(
@@ -184,11 +186,12 @@ const ScoreTable = () => {
 
                                     {iteration > gameIteration - 2 ? (
                                         <input
-                                            autoComplete={false}
+                                            autoComplete="false"
                                             id="defects"
-                                            type="text"
+                                            type="number"
                                             className="border border-red-700 w-32 mr-12 text-center"
                                             onChange={(e) => {
+                                                
                                                 setGameScore(
                                                     (prevGameScore) => {
                                                         return prevGameScore.map(
@@ -228,19 +231,34 @@ const ScoreTable = () => {
                                         id="totalScore"
                                         className="w-56 mr-8 text-center"
                                     >
-                                        {gameScore[iteration].ballsInBox -
-                                            gameScore[iteration].defects}
+                                        {isNaN(
+                                            gameScore[iteration].ballsInBox -
+                                                gameScore[iteration].defects
+                                        )
+                                            ? 0
+                                            : gameScore[iteration].ballsInBox -
+                                              gameScore[iteration].defects}
                                     </div>
                                     <div
                                         id="delta"
                                         className="w-28 mr-1 text-center"
                                     >
-                                        {-1 *
-                                            (gameScore[iteration]
-                                                .estimatedScore -
-                                                gameScore[iteration]
-                                                    .ballsInBox +
-                                                gameScore[iteration].defects)}
+                                        {isNaN(
+                                            -1 *
+                                                (gameScore[iteration]
+                                                    .estimatedScore -
+                                                    gameScore[iteration]
+                                                        .ballsInBox +
+                                                    gameScore[iteration]
+                                                        .defects)
+                                        )
+                                            ? 0
+                                            : -1 *
+                                              (gameScore[iteration]
+                                                  .estimatedScore -
+                                                  gameScore[iteration]
+                                                      .ballsInBox +
+                                                  gameScore[iteration].defects)}
                                     </div>
                                 </div>
                             </div>
@@ -248,7 +266,7 @@ const ScoreTable = () => {
                     })}
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

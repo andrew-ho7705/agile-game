@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
     return (
-        <div className="p-16">
+        <div className="p-16 text-slate-50">
             <header className="text-center text-8xl py-48">
                 Agile Aces Game
             </header>

@@ -1,11 +1,12 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import ScoreTable from "./ScoreTable";
-import { TimerContext, GameIterationContext } from "../App";
+import { TimerContext, GameIterationContext, TeamNameContext } from "../App";
 
 const Game = () => {
     const [typeOfTimer, setTypeOfTimer] = useContext(TimerContext);
     const [gameIteration] = useContext(GameIterationContext);
+    const [teamName] = useContext(TeamNameContext);
 
     function handleRadioClick() {
         const option1 = document.getElementById("One Minute Timer");
@@ -21,38 +22,39 @@ const Game = () => {
     }
 
     return (
-        <div className="flex flex-row h-screen justify-center">
+        <div className="flex flex-row h-screen justify-center text-slate-50">
             <div>
+                <span className="text-3xl">{teamName}</span>
                 <div>
                     <ScoreTable />
-                    <footer className="absolute bottom-0 ml-80 px-24 mb-12">
+                    <footer className="absolute bottom-0 ml-80 px-24 mb-5">
                         <div>
                             <ul className="px-5 text-3xl">
                                 <input
-                                    autoComplete={false}
+                                    autoComplete="false"
                                     type="radio"
                                     id="Two Minute Timer"
-                                    className="bg-slate-800 text-white text-6xl mx-2"
+                                    className="text-6xl mx-2 h-5 w-5"
                                     onClick={() => {
-                                        setTypeOfTimer('twoMin');
+                                        setTypeOfTimer("twoMin");
                                         handleRadioClick();
                                     }}
                                 />
                                 Two Minute Timer
                                 <input
-                                    autoComplete={false}    
+                                    autoComplete="false"
                                     type="radio"
                                     id="One Minute Timer"
-                                    className="bg-slate-800 text-white mx-2"
+                                    className="mx-2 h-5 w-5"
                                     onClick={() => {
-                                        setTypeOfTimer('oneMin');
+                                        setTypeOfTimer("oneMin");
                                         handleRadioClick();
                                     }}
                                 />
                                 One Minute Timer
                             </ul>
                             <div className="flex flex-col">
-                                {gameIteration <= 5? (
+                                {gameIteration <= 5 ? (
                                     <Link
                                         to={
                                             typeOfTimer === "oneMin"
