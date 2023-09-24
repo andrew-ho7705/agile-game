@@ -6,6 +6,10 @@ import TimerPage from "./components/TimerPage";
 import EstimateScore from "./components/EstimateScore";
 import End from "./components/End";
 import { useState, createContext } from "react";
+import Amplify, { API } from "aws-amplify";
+
+const myApi = "apidbf93144";
+const path = "/gameScores";
 
 export const GameScoreContext = createContext();
 export const GameIterationContext = createContext();
