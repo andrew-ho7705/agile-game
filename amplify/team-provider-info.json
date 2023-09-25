@@ -1,25 +1,25 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-agilegame-dev-164441-authRole",
-      "UnauthRoleArn": "arn:aws:iam::177856583877:role/amplify-agilegame-dev-164441-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::177856583877:role/amplify-agilegame-dev-164441-authRole",
+      "AuthRoleName": "amplify-agilegame-dev-223723-authRole",
+      "UnauthRoleArn": "arn:aws:iam::177856583877:role/amplify-agilegame-dev-223723-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::177856583877:role/amplify-agilegame-dev-223723-authRole",
       "Region": "us-east-2",
-      "DeploymentBucketName": "amplify-agilegame-dev-164441-deployment",
-      "UnauthRoleName": "amplify-agilegame-dev-164441-unauthRole",
-      "StackName": "amplify-agilegame-dev-164441",
-      "StackId": "arn:aws:cloudformation:us-east-2:177856583877:stack/amplify-agilegame-dev-164441/30932ba0-5b1b-11ee-9f22-02e9f878d025",
-      "AmplifyAppId": "d2ofn3t4wvnekx"
+      "DeploymentBucketName": "amplify-agilegame-dev-223723-deployment",
+      "UnauthRoleName": "amplify-agilegame-dev-223723-unauthRole",
+      "StackName": "amplify-agilegame-dev-223723",
+      "StackId": "arn:aws:cloudformation:us-east-2:177856583877:stack/amplify-agilegame-dev-223723/75b396d0-5b4c-11ee-96fe-0a920b5700c5",
+      "AmplifyAppId": "dons19rpoc5p9"
     },
     "categories": {
       "function": {
-        "agilegamee129b7d6": {
-          "deploymentBucketName": "amplify-agilegame-dev-164441-deployment",
-          "s3Key": "amplify-builds/agilegamee129b7d6-6f757575485634435a2b-build.zip"
+        "GameScoreHandler": {
+          "deploymentBucketName": "amplify-agilegame-dev-223723-deployment",
+          "s3Key": "amplify-builds/GameScoreHandler-7254454a4d414f515154-build.zip"
         }
       },
       "api": {
-        "apidbf93144": {}
+        "agileAcesAPI": {}
       }
     }
   }

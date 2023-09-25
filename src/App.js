@@ -6,6 +6,12 @@ import TimerPage from "./components/TimerPage";
 import EstimateScore from "./components/EstimateScore";
 import End from "./components/End";
 import { useState, createContext } from "react";
+import { Amplify }  from "aws-amplify";
+import awsExports from "./aws-exports";
+Amplify.configure(awsExports);
+
+const myAPI = "agileAcesAPI";
+const path = "/gameScores";
 
 export const GameScoreContext = createContext();
 export const GameIterationContext = createContext();

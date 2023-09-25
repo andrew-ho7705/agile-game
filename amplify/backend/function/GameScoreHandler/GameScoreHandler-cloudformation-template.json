@@ -47,12 +47,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "agilegamee129b7d6",
+            "GameScoreHandler",
             {
               "Fn::Join": [
                 "",
                 [
-                  "agilegamee129b7d6",
+                  "GameScoreHandler",
                   "-",
                   {
                     "Ref": "env"
@@ -89,12 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "agilegameLambdaRole172a099b",
+            "agilegameLambdaRolecfc19b36",
             {
               "Fn::Join": [
                 "",
                 [
-                  "agilegameLambdaRole172a099b",
+                  "agilegameLambdaRolecfc19b36",
                   "-",
                   {
                     "Ref": "env"

@@ -1,6 +1,6 @@
 {
   "api": {
-    "apidbf93144": {
+    "agileAcesAPI": {
       "dependsOn": [
         {
           "attributes": [
@@ -8,7 +8,7 @@
             "Arn"
           ],
           "category": "function",
-          "resourceName": "agilegamee129b7d6"
+          "resourceName": "GameScoreHandler"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -16,26 +16,26 @@
     }
   },
   "function": {
-    "agilegamee129b7d6": {
+    "GameScoreHandler": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
   "parameters": {
-    "AMPLIFY_function_agilegamee129b7d6_deploymentBucketName": {
+    "AMPLIFY_function_GameScoreHandler_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "agilegamee129b7d6"
+          "resourceName": "GameScoreHandler"
         }
       ]
     },
-    "AMPLIFY_function_agilegamee129b7d6_s3Key": {
+    "AMPLIFY_function_GameScoreHandler_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "agilegamee129b7d6"
+          "resourceName": "GameScoreHandler"
         }
       ]
     }

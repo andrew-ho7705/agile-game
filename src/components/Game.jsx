@@ -2,9 +2,9 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import ScoreTable from "./ScoreTable";
 import { TimerContext, GameIterationContext, TeamNameContext } from "../App";
-import { API } from "aws-amplify";
-const myApi = "apidbf93144";
-const path = "/gameScore";
+// import { API } from "aws-amplify";
+// const myApi = "apidbf93144";
+// const path = "/gameScore";
 
 const Game = () => {
     const [typeOfTimer, setTypeOfTimer] = useContext(TimerContext);
@@ -24,24 +24,24 @@ const Game = () => {
         });
     };
 
-    const requestBody = {
-        "TableName": "GameScores",
-        "Item": {
-            "teamName": {
-                "S": "testTeamName",
-            }
-        }
-    };
+    // const requestBody = {
+    //     "TableName": "GameScores",
+    //     "Item": {
+    //         "teamName": {
+    //             "S": "testTeamName",
+    //         }
+    //     }
+    // };
 
-    const handlePutGameScore = () => {
-        API.post(myApi, path, requestBody)
-            .then(response => {
-                console.log(response);
-            })
-            .catch(error => {
-                console.error("Error posting to DB: ", error);
-            });
-    };
+    // const handlePutGameScore = () => {
+    //     API.post(myApi, path, requestBody)
+    //         .then(response => {
+    //             console.log(response);
+    //         })
+    //         .catch(error => {
+    //             console.error("Error posting to DB: ", error);
+    //         });
+    // };
 
     return (
         <div className="flex flex-row h-screen justify-center text-slate-50">
@@ -93,7 +93,7 @@ const Game = () => {
                                     <Link
                                         to="/end"
                                         className="text-6xl flex justify-center"
-                                        onClick={handlePutGameScore}
+                                        // onClick={handlePutGameScore}
                                     >
                                         End
                                     </Link>

@@ -2,8 +2,8 @@
   "aws_project_region": "us-east-2",
   "aws_cloud_logic_custom": [
     {
-      "name": "apidbf93144",
-      "endpoint": "https://9c8yzgqa9i.execute-api.us-east-2.amazonaws.com/dev",
+      "name": "agileAcesAPI",
+      "endpoint": "https://lrwe2r3ks7.execute-api.us-east-2.amazonaws.com/dev",
       "region": "us-east-2"
     }
   ]
