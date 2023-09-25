@@ -152,7 +152,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                                   });
                               }
                     }
-                >
+                > 
                     Next
                 </Link>
             ) : time === 0 && !soundEnabled ? (
