@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/gameScores/{teamName}": {
+      "name": "/gameScores/{teamName}",
+      "lambdaFunction": "agilegamee129b7d6",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}
