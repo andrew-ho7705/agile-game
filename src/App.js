@@ -6,10 +6,6 @@ import TimerPage from "./components/TimerPage";
 import EstimateScore from "./components/EstimateScore";
 import End from "./components/End";
 import { useState, createContext } from "react";
-import Amplify, { API } from "aws-amplify";
-
-const myApi = "apidbf93144";
-const path = "/gameScores";
 
 export const GameScoreContext = createContext();
 export const GameIterationContext = createContext();
@@ -26,7 +22,7 @@ export const scoreTable = [
 
 function App() {
     const [gameScore, setGameScore] = useState(scoreTable);
-    const [gameIteration, setGameIteration] = useState(1);
+    const [gameIteration, setGameIteration] = useState(5);
     const [typeOfTimer, setTypeOfTimer] = useState("");
     const [estimate, setEstimate] = useState(0);
     const [teamName, setTeamName] = useState("");

@@ -18,7 +18,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     const audio = useMemo(() => new Audio(sfx), []);
     const [, setGameScore] = useContext(GameScoreContext);
     const [gameIteration, setGameIteration] = useContext(GameIterationContext);
-    const [estimateScore, setEstimateScore] = useContext(EstimateContext);
+    const [, setEstimateScore] = useContext(EstimateContext);
     const [teamName, setTeamName] = useContext(TeamNameContext);
 
     useEffect(() => {

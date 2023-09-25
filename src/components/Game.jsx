@@ -2,13 +2,16 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import ScoreTable from "./ScoreTable";
 import { TimerContext, GameIterationContext, TeamNameContext } from "../App";
+import { API } from "aws-amplify";
+const myApi = "apidbf93144";
+const path = "/gameScore";
 
 const Game = () => {
     const [typeOfTimer, setTypeOfTimer] = useContext(TimerContext);
     const [gameIteration] = useContext(GameIterationContext);
     const [teamName] = useContext(TeamNameContext);
 
-    function handleRadioClick() {
+    const handleRadioClick = () => {
         const option1 = document.getElementById("One Minute Timer");
         const option2 = document.getElementById("Two Minute Timer");
 
@@ -19,7 +22,26 @@ const Game = () => {
         option2.addEventListener("change", () => {
             if (option2.checked) option1.checked = false;
         });
-    }
+    };
+
+    const requestBody = {
+        "TableName": "GameScores",
+        "Item": {
+            "teamName": {
+                "S": "testTeamName",
+            }
+        }
+    };
+
+    const handlePutGameScore = () => {
+        API.post(myApi, path, requestBody)
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.error("Error posting to DB: ", error);
+            });
+    };
 
     return (
         <div className="flex flex-row h-screen justify-center text-slate-50">
@@ -71,6 +93,7 @@ const Game = () => {
                                     <Link
                                         to="/end"
                                         className="text-6xl flex justify-center"
+                                        onClick={handlePutGameScore}
                                     >
                                         End
                                     </Link>
