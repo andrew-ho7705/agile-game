@@ -17,19 +17,19 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",
-      "lastBuildTimeStamp": "2023-09-25T02:43:49.484Z",
+      "lastBuildTimeStamp": "2023-09-25T03:54:30.418Z",
       "lastBuildType": "PROD",
-      "lastPackageTimeStamp": "2023-09-25T02:43:49.574Z",
-      "distZipFilename": "GameScoreHandler-7254454a4d414f515154-build.zip",
+      "lastPackageTimeStamp": "2023-09-25T03:54:30.453Z",
+      "distZipFilename": "GameScoreHandler-6f616d766b4e58446b43-build.zip",
       "s3Bucket": {
         "deploymentBucketName": "amplify-agilegame-dev-223723-deployment",
-        "s3Key": "amplify-builds/GameScoreHandler-7254454a4d414f515154-build.zip"
+        "s3Key": "amplify-builds/GameScoreHandler-6f616d766b4e58446b43-build.zip"
       },
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-agilegame-dev-223723-deployment/amplify-cfn-templates/function/GameScoreHandler-cloudformation-template.json",
         "logicalId": "functionGameScoreHandler"
       },
-      "lastPushTimeStamp": "2023-09-25T02:59:08.740Z",
+      "lastPushTimeStamp": "2023-09-25T03:55:33.322Z",
       "output": {
         "LambdaExecutionRoleArn": "arn:aws:iam::177856583877:role/agilegameLambdaRolecfc19b36-dev",
         "Region": "us-east-2",
@@ -37,7 +37,7 @@
         "Name": "GameScoreHandler-dev",
         "LambdaExecutionRole": "agilegameLambdaRolecfc19b36-dev"
       },
-      "lastPushDirHash": "uRmCKj9IMWHT/FuRN/nrOHTkMQ8="
+      "lastPushDirHash": "enH7V9pN2pVdZp1Mz5wkmVIS8Es="
     }
   },
   "api": {
@@ -58,11 +58,11 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-agilegame-dev-223723-deployment/amplify-cfn-templates/api/agileAcesAPI-cloudformation-template.json",
         "logicalId": "apiagileAcesAPI"
       },
-      "lastPushTimeStamp": "2023-09-25T02:59:08.741Z",
+      "lastPushTimeStamp": "2023-09-25T03:55:33.137Z",
       "output": {
         "ApiName": "agileAcesAPI",
-        "RootUrl": "https://lrwe2r3ks7.execute-api.us-east-2.amazonaws.com/dev",
-        "ApiId": "lrwe2r3ks7"
+        "RootUrl": "https://vpgrj907we.execute-api.us-east-2.amazonaws.com/dev",
+        "ApiId": "vpgrj907we"
       },
       "lastPushDirHash": "b/wpw1AAYSUInLzARoHETUC8XVE="
     }

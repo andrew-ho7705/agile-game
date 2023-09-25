@@ -10,9 +10,6 @@ import { Amplify }  from "aws-amplify";
 import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
 
-const myAPI = "agileAcesAPI";
-const path = "/gameScores";
-
 export const GameScoreContext = createContext();
 export const GameIterationContext = createContext();
 export const TimerContext = createContext();
