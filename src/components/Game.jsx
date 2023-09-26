@@ -1,15 +1,16 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import ScoreTable from "./ScoreTable";
-import { TimerContext, GameIterationContext, TeamNameContext } from "../App";
-// import { API } from "aws-amplify";
-// const myApi = "apidbf93144";
-// const path = "/gameScore";
+import { TimerContext, GameIterationContext, TeamNameContext, GameScoreContext } from "../App";
+import { API } from "aws-amplify";
+const myApi = "agileAcesAPI";
+const path = "/gameScores";
 
 const Game = () => {
     const [typeOfTimer, setTypeOfTimer] = useContext(TimerContext);
     const [gameIteration] = useContext(GameIterationContext);
     const [teamName] = useContext(TeamNameContext);
+    const [gameScore] = useContext(GameScoreContext);
 
     const handleRadioClick = () => {
         const option1 = document.getElementById("One Minute Timer");
@@ -25,13 +26,114 @@ const Game = () => {
     };
 
     // const requestBody = {
-    //     "TableName": "GameScores",
-    //     "Item": {
-    //         "teamName": {
-    //             "S": "testTeamName",
+    //     body: {
+    //         "TableName": "GameScores",
+    //         "Item": {
+    //             "teamName": {
+    //                 "S": teamName
+    //             },
+    //             "gameScore": {
+    //                 "L": [
+    //                     {
+    //                         "M": {
+    //                             "estimatedScore": {
+    //                                 "N": gameScore[0].estimatedScore
+    //                             },
+    //                             "ballsInBox": {
+    //                                 "N": gameScore[0].ballsInBox
+    //                             },
+    //                             "defects": {
+    //                                 "N": gameScore[0].defects
+    //                             },
+    //                             "totalScore": {
+    //                                 "N": gameScore[0].totalScore
+    //                             },
+    //                             "delta": {
+    //                                 "N": gameScore[0].delta
+    //                             }
+    //                         }
+    //                     },
+    //                     {
+    //                         "M": {
+    //                             "estimatedScore": {
+    //                                 "N": gameScore[1].estimatedScore
+    //                             },
+    //                             "ballsInBox": {
+    //                                 "N": gameScore[1].ballsInBox
+    //                             },
+    //                             "defects": {
+    //                                 "N": gameScore[1].defects
+    //                             },
+    //                             "totalScore": {
+    //                                 "N": gameScore[1].totalScore
+    //                             },
+    //                             "delta": {
+    //                                 "N": gameScore[1].delta
+    //                             }
+    //                         }
+    //                     },
+    //                     {
+    //                         "M": {
+    //                             "estimatedScore": {
+    //                                 "N": gameScore[2].estimatedScore
+    //                             },
+    //                             "ballsInBox": {
+    //                                 "N": gameScore[2].ballsInBox
+    //                             },
+    //                             "defects": {
+    //                                 "N": gameScore[2].defects
+    //                             },
+    //                             "totalScore": {
+    //                                 "N": gameScore[2].totalScore
+    //                             },
+    //                             "delta": {
+    //                                 "N": gameScore[2].delta
+    //                             }
+    //                         }
+    //                     },
+    //                     {
+    //                         "M": {
+    //                             "estimatedScore": {
+    //                                 "N": gameScore[3].estimatedScore
+    //                             },
+    //                             "ballsInBox": {
+    //                                 "N": gameScore[3].ballsInBox
+    //                             },
+    //                             "defects": {
+    //                                 "N": gameScore[3].defects
+    //                             },
+    //                             "totalScore": {
+    //                                 "N": gameScore[3].totalScore
+    //                             },
+    //                             "delta": {
+    //                                 "N": gameScore[3].delta
+    //                             }
+    //                         }
+    //                     },
+    //                     {
+    //                         "M": {
+    //                             "estimatedScore": {
+    //                                 "N": gameScore[4].estimatedScore
+    //                             },
+    //                             "ballsInBox": {
+    //                                 "N": gameScore[4].ballsInBox
+    //                             },
+    //                             "defects": {
+    //                                 "N": gameScore[4].defects
+    //                             },
+    //                             "totalScore": {
+    //                                 "N": gameScore[4].totalScore
+    //                             },
+    //                             "delta": {
+    //                                 "N": gameScore[4].delta
+    //                             }
+    //                         }
+    //                     }
+    //                 ]
+    //             }
     //         }
     //     }
-    // };
+    // }
 
     // const handlePutGameScore = () => {
     //     API.post(myApi, path, requestBody)

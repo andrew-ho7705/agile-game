@@ -8,6 +8,9 @@ exports.handler = async (event) => {
         // Handle GET request
         return {
             statusCode: 200,
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: "GET request processed successfully",
         };
     }
@@ -19,6 +22,9 @@ exports.handler = async (event) => {
         // ...
         return {
             statusCode: 200,
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: requestBody,
         };
     }

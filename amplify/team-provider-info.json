@@ -15,7 +15,7 @@
       "function": {
         "GameScoreHandler": {
           "deploymentBucketName": "amplify-agilegame-dev-223723-deployment",
-          "s3Key": "amplify-builds/GameScoreHandler-6f616d766b4e58446b43-build.zip"
+          "s3Key": "amplify-builds/GameScoreHandler-373662574d2f452f7262-build.zip"
         }
       },
       "api": {

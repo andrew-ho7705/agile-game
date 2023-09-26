@@ -25,7 +25,7 @@ export const scoreTable = [
 
 function App() {
     const [gameScore, setGameScore] = useState(scoreTable);
-    const [gameIteration, setGameIteration] = useState(5);
+    const [gameIteration, setGameIteration] = useState(1);
     const [typeOfTimer, setTypeOfTimer] = useState("");
     const [estimate, setEstimate] = useState(0);
     const [teamName, setTeamName] = useState("");
@@ -51,7 +51,7 @@ function App() {
                                     path="/game/timer1"
                                     element={
                                         <TimerPage
-                                            timeInSeconds={2}
+                                            timeInSeconds={120}
                                             soundEnabled={true}
                                         />
                                     }
@@ -60,7 +60,7 @@ function App() {
                                     path="/game/timer2"
                                     element={
                                         <TimerPage
-                                            timeInSeconds={1}
+                                            timeInSeconds={60}
                                             soundEnabled={true}
                                         />
                                     }
