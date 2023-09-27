@@ -1,36 +1,27 @@
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
-exports.handler = async (event) => {
-    console.log(`EVENT: ${JSON.stringify(event)}`);
 
-    if (event.httpMethod === "GET") {
-        // Handle GET request
-        return {
-            statusCode: 200,
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: "GET request processed successfully",
-        };
-    }
+import AWS from 'aws-sdk';
+var dynamodb = new AWS.DynamoDB({apiVersion: '2019-11-21'});
 
-    if (event.httpMethod === "POST") {
-        // Handle POST request
-        const requestBody = JSON.parse(event.body);
-        // Perform any necessary operations with the request data
-        // ...
-        return {
-            statusCode: 200,
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: requestBody,
-        };
-    }
-
-    return {
-        statusCode: 405,
-        body: JSON.stringify("Method Not Allowed"),
-    };
+exports.handler = (event, context, callback) => {
+    console.log(JSON.stringify(event, null, '  '));
+    const tableName = "GameScores";    
+    dynamodb.putItem({
+        "TableName": tableName,
+        "Item" : {
+            "teamName": "randomTeamName",
+            "gameScore": "123"
+        }
+    }, function(err, data) {
+        if (err) {
+            console.log('Error putting item into dynamodb failed: '+err);
+            context.done('error');
+        }
+        else {
+            console.log('great success: '+JSON.stringify(data, null, '  '));
+            context.done('Done');
+        }
+    });
 };
