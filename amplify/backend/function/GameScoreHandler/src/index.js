@@ -1,27 +1,68 @@
-/**
- * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
- */
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import {
+  DynamoDBDocumentClient,
+  PutCommand,
+  GetCommand,
+} from "@aws-sdk/lib-dynamodb";
 
-import AWS from 'aws-sdk';
-var dynamodb = new AWS.DynamoDB({apiVersion: '2019-11-21'});
+const client = new DynamoDBClient({});
 
-exports.handler = (event, context, callback) => {
-    console.log(JSON.stringify(event, null, '  '));
-    const tableName = "GameScores";    
-    dynamodb.putItem({
-        "TableName": tableName,
-        "Item" : {
-            "teamName": "randomTeamName",
-            "gameScore": "123"
-        }
-    }, function(err, data) {
-        if (err) {
-            console.log('Error putting item into dynamodb failed: '+err);
-            context.done('error');
-        }
-        else {
-            console.log('great success: '+JSON.stringify(data, null, '  '));
-            context.done('Done');
-        }
-    });
+const dynamo = DynamoDBDocumentClient.from(client, {
+  marshallOptions: {
+        removeUndefinedValues: false
+    }
+});
+
+const tableName = "GameScores";
+
+export const handler = async event => {
+  let body;
+  let statusCode = 200;
+  const headers = {
+    "Content-Type": "application/json",
+  };
+  const teamName = event.pathParameters;
+  const gameScore = event.Item.gameScore;
+
+  try {
+    switch (event.routeKey) {
+      case `GET /gameScores/${teamName}`:
+        body = await dynamo.send(
+          new GetCommand({
+            TableName: tableName,
+            Key: {
+              teamName,
+            },
+          })
+        );
+        body = body.Item;
+        break;
+      case "POST /gameScores":
+        await dynamo.send(
+          new PutCommand({
+            TableName: tableName,
+            Item: {
+              teamName,
+              gameScore
+            }
+          })
+        );
+        body = `Put item with teamName ${teamName} \n and gameScore ${JSON.stringify(gameScore)}`;
+        break;
+      default:
+        throw new Error(`Unsupported route: "${event.routeKey}"`);
+    }
+  } catch (err) {
+    statusCode = 400;
+    body = err.message;
+  } finally {
+    body = JSON.parse(JSON.stringify(body));
+  }
+
+  return {
+    statusCode,
+    body,
+    headers,
+  };
 };
+
