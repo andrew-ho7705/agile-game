@@ -19,7 +19,8 @@ export const handler = async event => {
   let body;
   let statusCode = 200;
   const headers = {
-    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    'Access-Control-Allow-Headers': '*',
   };
   const teamName = event.pathParameters;
   const gameScore = event.Item.gameScore;

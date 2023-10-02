@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ScoreTable from "./ScoreTable";
 import { TimerContext, GameIterationContext, TeamNameContext, GameScoreContext } from "../App";
@@ -25,124 +25,130 @@ const Game = () => {
         });
     };
 
-    // const requestBody = {
-    //     body: {
-    //         "TableName": "GameScores",
-    //         "Item": {
-    //             "teamName": {
-    //                 "S": teamName
-    //             },
-    //             "gameScore": {
-    //                 "L": [
-    //                     {
-    //                         "M": {
-    //                             "estimatedScore": {
-    //                                 "N": gameScore[0].estimatedScore
-    //                             },
-    //                             "ballsInBox": {
-    //                                 "N": gameScore[0].ballsInBox
-    //                             },
-    //                             "defects": {
-    //                                 "N": gameScore[0].defects
-    //                             },
-    //                             "totalScore": {
-    //                                 "N": gameScore[0].totalScore
-    //                             },
-    //                             "delta": {
-    //                                 "N": gameScore[0].delta
-    //                             }
-    //                         }
-    //                     },
-    //                     {
-    //                         "M": {
-    //                             "estimatedScore": {
-    //                                 "N": gameScore[1].estimatedScore
-    //                             },
-    //                             "ballsInBox": {
-    //                                 "N": gameScore[1].ballsInBox
-    //                             },
-    //                             "defects": {
-    //                                 "N": gameScore[1].defects
-    //                             },
-    //                             "totalScore": {
-    //                                 "N": gameScore[1].totalScore
-    //                             },
-    //                             "delta": {
-    //                                 "N": gameScore[1].delta
-    //                             }
-    //                         }
-    //                     },
-    //                     {
-    //                         "M": {
-    //                             "estimatedScore": {
-    //                                 "N": gameScore[2].estimatedScore
-    //                             },
-    //                             "ballsInBox": {
-    //                                 "N": gameScore[2].ballsInBox
-    //                             },
-    //                             "defects": {
-    //                                 "N": gameScore[2].defects
-    //                             },
-    //                             "totalScore": {
-    //                                 "N": gameScore[2].totalScore
-    //                             },
-    //                             "delta": {
-    //                                 "N": gameScore[2].delta
-    //                             }
-    //                         }
-    //                     },
-    //                     {
-    //                         "M": {
-    //                             "estimatedScore": {
-    //                                 "N": gameScore[3].estimatedScore
-    //                             },
-    //                             "ballsInBox": {
-    //                                 "N": gameScore[3].ballsInBox
-    //                             },
-    //                             "defects": {
-    //                                 "N": gameScore[3].defects
-    //                             },
-    //                             "totalScore": {
-    //                                 "N": gameScore[3].totalScore
-    //                             },
-    //                             "delta": {
-    //                                 "N": gameScore[3].delta
-    //                             }
-    //                         }
-    //                     },
-    //                     {
-    //                         "M": {
-    //                             "estimatedScore": {
-    //                                 "N": gameScore[4].estimatedScore
-    //                             },
-    //                             "ballsInBox": {
-    //                                 "N": gameScore[4].ballsInBox
-    //                             },
-    //                             "defects": {
-    //                                 "N": gameScore[4].defects
-    //                             },
-    //                             "totalScore": {
-    //                                 "N": gameScore[4].totalScore
-    //                             },
-    //                             "delta": {
-    //                                 "N": gameScore[4].delta
-    //                             }
+    useEffect(() => {
+        API.get(myApi, `${path}/randomTeamName`).then((response) => {
+            console.log(response);
+        });
+    })
+
+    // const postBody = {
+    //     "routeKey": "POST /gameScores",
+    //     "pathParameters": "newTeamName",
+    //     "TableName": "GameScores",
+    //     "Item": {
+    //         "teamName": {
+    //             "S": teamName
+    //         },
+    //         "gameScore": {
+    //             "L": [
+    //                 {
+    //                     "M": {
+    //                         "estimatedScore": {
+    //                             "N": gameScore[0].estimatedScore
+    //                         },
+    //                         "ballsInBox": {
+    //                             "N": gameScore[0].ballsInBox
+    //                         },
+    //                         "defects": {
+    //                             "N": gameScore[0].defects
+    //                         },
+    //                         "totalScore": {
+    //                             "N": gameScore[0].totalScore
+    //                         },
+    //                         "delta": {
+    //                             "N": gameScore[0].delta
     //                         }
     //                     }
-    //                 ]
-    //             }
+    //                 },
+    //                 {
+    //                     "M": {
+    //                         "estimatedScore": {
+    //                             "N": gameScore[1].estimatedScore
+    //                         },
+    //                         "ballsInBox": {
+    //                             "N": gameScore[1].ballsInBox
+    //                         },
+    //                         "defects": {
+    //                             "N": gameScore[1].defects
+    //                         },
+    //                         "totalScore": {
+    //                             "N": gameScore[1].totalScore
+    //                         },
+    //                         "delta": {
+    //                             "N": gameScore[1].delta
+    //                         }
+    //                     }
+    //                 },
+    //                 {
+    //                     "M": {
+    //                         "estimatedScore": {
+    //                             "N": gameScore[2].estimatedScore
+    //                         },
+    //                         "ballsInBox": {
+    //                             "N": gameScore[2].ballsInBox
+    //                         },
+    //                         "defects": {
+    //                             "N": gameScore[2].defects
+    //                         },
+    //                         "totalScore": {
+    //                             "N": gameScore[2].totalScore
+    //                         },
+    //                         "delta": {
+    //                             "N": gameScore[2].delta
+    //                         }
+    //                     }
+    //                 },
+    //                 {
+    //                     "M": {
+    //                         "estimatedScore": {
+    //                             "N": gameScore[3].estimatedScore
+    //                         },
+    //                         "ballsInBox": {
+    //                             "N": gameScore[3].ballsInBox
+    //                         },
+    //                         "defects": {
+    //                             "N": gameScore[3].defects
+    //                         },
+    //                         "totalScore": {
+    //                             "N": gameScore[3].totalScore
+    //                         },
+    //                         "delta": {
+    //                             "N": gameScore[3].delta
+    //                         }
+    //                     }
+    //                 },
+    //                 {
+    //                     "M": {
+    //                         "estimatedScore": {
+    //                             "N": gameScore[4].estimatedScore
+    //                         },
+    //                         "ballsInBox": {
+    //                             "N": gameScore[4].ballsInBox
+    //                         },
+    //                         "defects": {
+    //                             "N": gameScore[4].defects
+    //                         },
+    //                         "totalScore": {
+    //                             "N": gameScore[4].totalScore
+    //                         },
+    //                         "delta": {
+    //                             "N": gameScore[4].delta
+    //                         }
+    //                     }
+    //                 }
+    //             ]
     //         }
     //     }
     // }
 
-    // const handlePutGameScore = () => {
-    //     API.post(myApi, path, requestBody)
-    //         .then(response => {
-    //             console.log(response);
-    //         })
-    //         .catch(error => {
-    //             console.error("Error posting to DB: ", error);
-    //         });
+    // const handlePutGameScore = async () => {
+    //     try {
+    //         const response = API.post(myApi, path, postBody);
+    //         console.log(response);
+    //     } catch (err) {
+    //         console.log(err)
+    //     }
+        
     // };
 
     return (

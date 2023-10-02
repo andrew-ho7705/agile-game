@@ -3,7 +3,7 @@ import TimerPage from "./TimerPage";
 const EstimateScore = () => {
     return (
         <>
-            <TimerPage timeInSeconds={120} soundEnabled={false} />
+            <TimerPage timeInSeconds={2} soundEnabled={false} />
         </>
     );
 };
