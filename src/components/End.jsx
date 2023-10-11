@@ -5,10 +5,9 @@ import {
     TeamNameContext,
 } from "../App";
 import { Link } from "react-router-dom";
-import { scoreTable } from "../App";
 
 export const End = () => {
-    const [gameScore, setGameScore] = useContext(GameScoreContext);
+    const [gameScore] = useContext(GameScoreContext);
     const [gameIteration] = useContext(GameIterationContext);
     const [teamName] = useContext(TeamNameContext);
 

@@ -26,11 +26,13 @@ const Home = () => {
     // handleGetGameScores();
     return (
         <div className="p-16 text-slate-50">
-            <header className="text-center text-8xl py-48">
+            <header className="text-center text-8xl py-48 sm:text-6xl md:text-7xl lg:text-8xl">
                 Agile Aces Game
             </header>
             <Link to="/estimate" className="flex">
-                <span className="m-auto text-6xl">Click Here To Begin!</span>
+                <span className="m-auto text-6xl sm:text-4xl md:text-5xl lg:text-6xl">
+                    Click Here To Begin!
+                </span>
             </Link>
         </div>
     );

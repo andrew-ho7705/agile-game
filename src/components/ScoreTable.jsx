@@ -35,9 +35,9 @@ const ScoreTable = () => {
     }, [gameIteration, gameScore, setGameScore]);
 
     return (
-        <div className="text-slate-50">
+        <div className="text-slate-50 sm:w-auto md:w-auto lg:w-auto left-0">
             <div className="border border-cyan-900 mt-2">
-                <div className="ml-36 mt-1">
+                <div className="ml-36 mt-1 flex flex-wrap left-0">
                     {[
                         "Estimated Score",
                         "Balls In Box",
@@ -47,7 +47,7 @@ const ScoreTable = () => {
                     ].map((header, key) => (
                         <span
                             key={key}
-                            className="border px-4 text-5xl border-cyan-900"
+                            className="border border-cyan-900 px-4 sm:text-3xl md:text-4xl lg:text-5xl flex-grow-0 flex-shrink-0 w-auto"
                         >
                             {header}
                         </span>
@@ -67,7 +67,7 @@ const ScoreTable = () => {
                                     iteration={iteration}
                                     className="flex flex-row"
                                 >
-                                    <span className="mx-2 text-3xl">
+                                    <span className="mx-2 sm:text-xl md:text-2xl lg:text-3xl">
                                         {"Iteration " + parseInt(iteration + 1)}
                                     </span>
                                     {iteration === 0 ? (
