@@ -31,7 +31,7 @@
         "RootUrl": "https://vpgrj907we.execute-api.us-east-2.amazonaws.com/dev",
         "ApiId": "vpgrj907we"
       },
-      "lastPushTimeStamp": "2023-10-11T16:57:22.272Z",
+      "lastPushTimeStamp": "2023-10-11T16:59:19.494Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-agilegame-dev-223723-deployment/amplify-cfn-templates/api/agileAcesAPI-cloudformation-template.json",
         "logicalId": "apiagileAcesAPI"
@@ -51,7 +51,7 @@
         "Name": "GameScoreHandler-dev",
         "LambdaExecutionRole": "agilegameLambdaRolecfc19b36-dev"
       },
-      "lastPushTimeStamp": "2023-10-11T16:57:22.274Z",
+      "lastPushTimeStamp": "2023-10-11T16:59:19.495Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-agilegame-dev-223723-deployment/amplify-cfn-templates/function/GameScoreHandler-cloudformation-template.json",
         "logicalId": "functionGameScoreHandler"
