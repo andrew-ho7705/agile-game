@@ -18,13 +18,13 @@ const ScoreTable = () => {
                                 ...score,
                                 delta:
                                     -1 *
-                                          (prevGameScore[index].estimatedScore -
-                                              prevGameScore[index].ballsInBox +
-                                              prevGameScore[index].defects),
+                                    (prevGameScore[index].estimatedScore -
+                                        prevGameScore[index].ballsInBox +
+                                        prevGameScore[index].defects),
 
                                 totalScore:
                                     prevGameScore[index].ballsInBox -
-                                          prevGameScore[index].defects,
+                                    prevGameScore[index].defects,
                             };
                         }
                         return score;
@@ -90,7 +90,7 @@ const ScoreTable = () => {
                                                 )
                                                     ? ""
                                                     : gameScore[iteration]
-                                                          .estimatedScore
+                                                        .estimatedScore
                                             }
                                             onChange={(e) => {
                                                 setGameScore(
@@ -130,52 +130,15 @@ const ScoreTable = () => {
                                             }
                                         </div>
                                     )}
-                                    {iteration > gameIteration - 2 ? (
-                                        <input
-                                            autoComplete="false"
-                                            id="ballsInBox"
-                                            type="number"
-                                            className="border border-red-700 w-52 ml-2 mr-14 text-center"
-                                            onChange={(e) => {
-                                                setGameScore(
-                                                    (prevGameScore) => {
-                                                        return prevGameScore.map(
-                                                            (score, index) => {
-                                                                if (
-                                                                    index ===
-                                                                    iteration
-                                                                ) {
-                                                                    return {
-                                                                        ...score,
-                                                                        ballsInBox:
-                                                                            parseInt(
-                                                                                e
-                                                                                    .target
-                                                                                    .value
-                                                                            ) |
-                                                                            0,
-                                                                    };
-                                                                } else {
-                                                                    return score;
-                                                                }
-                                                            }
-                                                        );
-                                                    }
-                                                );
-                                            }}
-                                        />
-                                    ) : (
-                                        <div
-                                            id="ballsInBox"
-                                            className="w-52 ml-2 mr-14 text-black text-center"
-                                        >
-                                            {
-                                                gameScore[currIteration]
-                                                    .ballsInBox
-                                            }
-                                        </div>
-                                    )}
-
+                                    <div
+                                        id="ballsInBox"
+                                        className="w-52 ml-2 mr-14 text-black text-center"
+                                    >
+                                        {
+                                            gameScore[currIteration]
+                                                .ballsInBox
+                                        }
+                                    </div>
                                     {iteration > gameIteration - 2 ? (
                                         <input
                                             autoComplete="false"
@@ -224,11 +187,11 @@ const ScoreTable = () => {
                                     >
                                         {isNaN(
                                             gameScore[iteration].ballsInBox -
-                                                gameScore[iteration].defects
+                                            gameScore[iteration].defects
                                         )
                                             ? 0
                                             : gameScore[iteration].ballsInBox -
-                                              gameScore[iteration].defects}
+                                            gameScore[iteration].defects}
                                     </div>
                                     <div
                                         id="delta"
@@ -236,20 +199,20 @@ const ScoreTable = () => {
                                     >
                                         {isNaN(
                                             -1 *
-                                                (gameScore[iteration]
-                                                    .estimatedScore -
-                                                    gameScore[iteration]
-                                                        .ballsInBox +
-                                                    gameScore[iteration]
-                                                        .defects)
+                                            (gameScore[iteration]
+                                                .estimatedScore -
+                                                gameScore[iteration]
+                                                    .ballsInBox +
+                                                gameScore[iteration]
+                                                    .defects)
                                         )
                                             ? 0
                                             : -1 *
-                                              (gameScore[iteration]
-                                                  .estimatedScore -
-                                                  gameScore[iteration]
-                                                      .ballsInBox +
-                                                  gameScore[iteration].defects)}
+                                            (gameScore[iteration]
+                                                .estimatedScore -
+                                                gameScore[iteration]
+                                                    .ballsInBox +
+                                                gameScore[iteration].defects)}
                                     </div>
                                 </div>
                             </div>

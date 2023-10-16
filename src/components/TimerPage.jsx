@@ -13,6 +13,7 @@ import {
 
 const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     const [time, setTime] = useState(timeInSeconds);
+    const [halfSecs, setHalfSecs] = useState(timeInSeconds);
     const [typeOfTimer] = useContext(TimerContext);
     const navigate = useNavigate();
     const audio = useMemo(() => new Audio(sfx), []);
@@ -22,7 +23,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     const [teamName, setTeamName] = useContext(TeamNameContext);
 
     useEffect(() => {
-        const timerId = setInterval(() => {
+        const timerId2 = setInterval(() => {
             if (Math.round(time * 10) / 10 >= 0.1) {
                 setTime((time) => time - 1);
                 return;
@@ -36,30 +37,31 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
         }
 
         return () => {
-            clearInterval(timerId);
+            // clearInterval(timerId1);
+            clearInterval(timerId2);
         };
     }, [time, navigate, timeInSeconds, audio, soundEnabled]);
 
     useEffect(() => {
-        let intervalId;
+        const endpoint = 'http://10.32.23.61:5000/check-light';
 
-        if (soundEnabled && typeOfTimer === "oneMin" && time !== 0) {
-            intervalId = setInterval(() => {
-                setGameScore((prevGameScore) => {
-                    const updatedGameScore = [...prevGameScore];
-                    updatedGameScore[gameIteration - 1] = {
-                        ...updatedGameScore[gameIteration - 1],
-                        ballsInBox:
-                            updatedGameScore[gameIteration - 1].ballsInBox + 1,
-                    };
-                    return updatedGameScore;
-                });
-            }, 1000);
-        }
-
-        return () => {
-            clearInterval(intervalId);
-        };
+        fetch(endpoint)
+            .then(res => res.json())
+            .then(data => {
+                if (data > 5 && typeOfTimer === 'twoMin') {
+                    // console.log(halfSecs);
+                    setGameScore((prevGameScore) => {
+                        const updatedGameScore = [...prevGameScore];
+                        updatedGameScore[gameIteration - 1] = {
+                            ...updatedGameScore[gameIteration - 1],
+                            ballsInBox:
+                                updatedGameScore[gameIteration - 1].ballsInBox + 1,
+                        };
+                        return updatedGameScore;
+                    });
+                }
+            })
+            .catch(error => console.error("Error fetching light status:", error))
     }, [time, gameIteration, gameScore, soundEnabled, setGameScore, typeOfTimer]);
 
     return (
@@ -128,57 +130,57 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                     onClick={
                         typeOfTimer === "oneMin"
                             ? () => {
-                                  audio.pause();
-                                  setGameIteration(gameIteration + 1);
-                                  setGameScore((prevGameScore) => {
-                                      return prevGameScore.map(
-                                          (score, index) => {
-                                              if (index === gameIteration - 1) {
-                                                  return {
-                                                      ...score,
-                                                      delta:
-                                                          -1 *
-                                                          (prevGameScore[index]
-                                                              .estimatedScore -
-                                                              prevGameScore[
-                                                                  index
-                                                              ].ballsInBox +
-                                                              prevGameScore[
-                                                                  index
-                                                              ].defects),
+                                audio.pause();
+                                setGameIteration(gameIteration + 1);
+                                setGameScore((prevGameScore) => {
+                                    return prevGameScore.map(
+                                        (score, index) => {
+                                            if (index === gameIteration - 1) {
+                                                return {
+                                                    ...score,
+                                                    delta:
+                                                        -1 *
+                                                        (prevGameScore[index]
+                                                            .estimatedScore -
+                                                            prevGameScore[
+                                                                index
+                                                            ].ballsInBox +
+                                                            prevGameScore[
+                                                                index
+                                                            ].defects),
 
-                                                      totalScore:
-                                                          prevGameScore[index]
-                                                              .ballsInBox -
-                                                          prevGameScore[index]
-                                                              .defects,
-                                                  };
-                                              } else {
-                                                  return score;
-                                              }
-                                          }
-                                      );
-                                  });
-                              }
+                                                    totalScore:
+                                                        prevGameScore[index]
+                                                            .ballsInBox -
+                                                        prevGameScore[index]
+                                                            .defects,
+                                                };
+                                            } else {
+                                                return score;
+                                            }
+                                        }
+                                    );
+                                });
+                            }
                             : () => {
-                                  audio.pause();
-                                  setGameScore((prevGameScore) => {
-                                      return prevGameScore.map(
-                                          (score, index) => {
-                                              if (index === gameIteration - 1) {
-                                                  return {
-                                                      ...score,
-                                                      estimatedScore:
-                                                          prevGameScore[index]
-                                                              .estimatedScore,
-                                                  };
-                                              } else {
-                                                  return score;
-                                              }
-                                          }
-                                      );
-                                  });
-                              }
+                                audio.pause();
+                                setGameScore((prevGameScore) => {
+                                    return prevGameScore.map(
+                                        (score, index) => {
+                                            if (index === gameIteration - 1) {
+                                                return {
+                                                    ...score,
+                                                    estimatedScore:
+                                                        prevGameScore[index]
+                                                            .estimatedScore,
+                                                };
+                                            } else {
+                                                return score;
+                                            }
+                                        }
+                                    );
+                                });
+                            }
                     }
                 >
                     Next
