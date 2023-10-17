@@ -10,6 +10,7 @@ import {
     EstimateContext,
     TeamNameContext,
 } from "../App";
+import os from "os";
 
 const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     const [time, setTime] = useState(timeInSeconds);
@@ -21,6 +22,18 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     const [gameIteration, setGameIteration] = useContext(GameIterationContext);
     const [, setEstimateScore] = useContext(EstimateContext);
     const [teamName, setTeamName] = useContext(TeamNameContext);
+
+    function getIpAddress() {
+        const interfaces = os.networkInterfaces();
+        for (const name of Object.keys(interfaces)) {
+            for (const iface of interfaces[name]) {
+                if (iface.family === 'IPv4' && !iface.internal) {
+                    return iface.address;
+                }
+            }
+        }
+        return '127.0.0.1';
+    }
 
     useEffect(() => {
         const timerId2 = setInterval(() => {
@@ -43,12 +56,12 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     }, [time, navigate, timeInSeconds, audio, soundEnabled]);
 
     useEffect(() => {
-        const endpoint = 'http://10.32.23.61:5000/check-light';
+        const endpoint = `http://${getIpAddress()}/check-light`;
 
         fetch(endpoint)
             .then(res => res.json())
             .then(data => {
-                if (data > 5 && typeOfTimer === 'twoMin') {
+                if (data[1] > 5 && typeOfTimer === 'twoMin') {
                     // console.log(halfSecs);
                     setGameScore((prevGameScore) => {
                         const updatedGameScore = [...prevGameScore];
