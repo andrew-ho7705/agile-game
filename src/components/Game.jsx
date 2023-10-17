@@ -28,113 +28,114 @@ const Game = () => {
     };
 
     const handlePutGameScore = async () => {
-        const apiURL = "https://vpgrj907we.execute-api.us-east-2.amazonaws.com/dev/gameScores";
+        const apiURL =
+            "https://vpgrj907we.execute-api.us-east-2.amazonaws.com/dev/gameScores";
         const requestBody = {
-            "TableName": "GameScores",
-            "Item": {
-                "teamName": {
-                    "S": teamName
+            TableName: "GameScores",
+            Item: {
+                teamName: {
+                    S: teamName,
                 },
-                "gameScore": {
-                    "L": [
+                gameScore: {
+                    L: [
                         {
-                            "M": {
-                                "estimatedScore": {
-                                    "N": gameScore[0].estimatedScore.toString(),
+                            M: {
+                                estimatedScore: {
+                                    N: gameScore[0].estimatedScore.toString(),
                                 },
-                                "ballsInBox": {
-                                    "N": gameScore[0].ballsInBox.toString(),
+                                ballsInBox: {
+                                    N: gameScore[0].ballsInBox.toString(),
                                 },
-                                "defects": {
-                                    "N": gameScore[0].defects.toString(),
+                                defects: {
+                                    N: gameScore[0].defects.toString(),
                                 },
-                                "totalScore": {
-                                    "N": gameScore[0].totalScore.toString(),
+                                totalScore: {
+                                    N: gameScore[0].totalScore.toString(),
                                 },
-                                "delta": {
-                                    "N": gameScore[0].delta.toString(),
-                                }
-                            }
+                                delta: {
+                                    N: gameScore[0].delta.toString(),
+                                },
+                            },
                         },
                         {
-                            "M": {
-                                "estimatedScore": {
-                                    "N": gameScore[1].estimatedScore.toString(),
+                            M: {
+                                estimatedScore: {
+                                    N: gameScore[1].estimatedScore.toString(),
                                 },
-                                "ballsInBox": {
-                                    "N": gameScore[1].ballsInBox.toString(),
+                                ballsInBox: {
+                                    N: gameScore[1].ballsInBox.toString(),
                                 },
-                                "defects": {
-                                    "N": gameScore[1].defects.toString(),
+                                defects: {
+                                    N: gameScore[1].defects.toString(),
                                 },
-                                "totalScore": {
-                                    "N": gameScore[1].totalScore.toString(),
+                                totalScore: {
+                                    N: gameScore[1].totalScore.toString(),
                                 },
-                                "delta": {
-                                    "N": gameScore[1].delta.toString(),
-                                }
-                            }
+                                delta: {
+                                    N: gameScore[1].delta.toString(),
+                                },
+                            },
                         },
                         {
-                            "M": {
-                                "estimatedScore": {
-                                    "N": gameScore[2].estimatedScore.toString(),
+                            M: {
+                                estimatedScore: {
+                                    N: gameScore[2].estimatedScore.toString(),
                                 },
-                                "ballsInBox": {
-                                    "N": gameScore[2].ballsInBox.toString(),
+                                ballsInBox: {
+                                    N: gameScore[2].ballsInBox.toString(),
                                 },
-                                "defects": {
-                                    "N": gameScore[2].defects.toString(),
+                                defects: {
+                                    N: gameScore[2].defects.toString(),
                                 },
-                                "totalScore": {
-                                    "N": gameScore[2].totalScore.toString(),
+                                totalScore: {
+                                    N: gameScore[2].totalScore.toString(),
                                 },
-                                "delta": {
-                                    "N": gameScore[2].delta.toString(),
-                                }
-                            }
+                                delta: {
+                                    N: gameScore[2].delta.toString(),
+                                },
+                            },
                         },
                         {
-                            "M": {
-                                "estimatedScore": {
-                                    "N": gameScore[3].estimatedScore.toString(),
+                            M: {
+                                estimatedScore: {
+                                    N: gameScore[3].estimatedScore.toString(),
                                 },
-                                "ballsInBox": {
-                                    "N": gameScore[3].ballsInBox.toString(),
+                                ballsInBox: {
+                                    N: gameScore[3].ballsInBox.toString(),
                                 },
-                                "defects": {
-                                    "N": gameScore[3].defects.toString(),
+                                defects: {
+                                    N: gameScore[3].defects.toString(),
                                 },
-                                "totalScore": {
-                                    "N": gameScore[3].totalScore.toString(),
+                                totalScore: {
+                                    N: gameScore[3].totalScore.toString(),
                                 },
-                                "delta": {
-                                    "N": gameScore[3].delta.toString(),
-                                }
-                            }
+                                delta: {
+                                    N: gameScore[3].delta.toString(),
+                                },
+                            },
                         },
                         {
-                            "M": {
-                                "estimatedScore": {
-                                    "N": gameScore[4].estimatedScore.toString(),
+                            M: {
+                                estimatedScore: {
+                                    N: gameScore[4].estimatedScore.toString(),
                                 },
-                                "ballsInBox": {
-                                    "N": gameScore[4].ballsInBox.toString(),
+                                ballsInBox: {
+                                    N: gameScore[4].ballsInBox.toString(),
                                 },
-                                "defects": {
-                                    "N": gameScore[4].defects.toString(),
+                                defects: {
+                                    N: gameScore[4].defects.toString(),
                                 },
-                                "totalScore": {
-                                    "N": gameScore[4].totalScore.toString(),
+                                totalScore: {
+                                    N: gameScore[4].totalScore.toString(),
                                 },
-                                "delta": {
-                                    "N": gameScore[4].delta.toString(),
-                                }
-                            }
-                        }
-                    ]
-                }
-            }
+                                delta: {
+                                    N: gameScore[4].delta.toString(),
+                                },
+                            },
+                        },
+                    ],
+                },
+            },
         };
 
         try {
@@ -143,7 +144,7 @@ const Game = () => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(requestBody)
+                body: JSON.stringify(requestBody),
             });
         } catch (error) {
             console.error("An error occurred:", error);
@@ -183,7 +184,16 @@ const Game = () => {
                                 One Minute Timer
                             </ul>
                             <div className="flex flex-col">
-                                {gameIteration <= 5 ? (
+                                {gameIteration === 5 &&
+                                gameScore[4].ballsInBox !== 0 ? (
+                                    <Link
+                                        to="/end"
+                                        className="text-6xl flex justify-center"
+                                        onClick={handlePutGameScore}
+                                    >
+                                        End
+                                    </Link>
+                                ) : (
                                     <Link
                                         to={
                                             typeOfTimer === "oneMin"
@@ -195,14 +205,6 @@ const Game = () => {
                                         className="text-6xl flex justify-center"
                                     >
                                         Start
-                                    </Link>
-                                ) : (
-                                    <Link
-                                        to="/end"
-                                        className="text-6xl flex justify-center"
-                                        onClick={handlePutGameScore}
-                                    >
-                                        End
                                     </Link>
                                 )}
                             </div>
