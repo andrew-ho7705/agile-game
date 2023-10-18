@@ -20,16 +20,10 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     const [gameIteration, setGameIteration] = useContext(GameIterationContext);
     const [, setEstimateScore] = useContext(EstimateContext);
     const [teamName, setTeamName] = useContext(TeamNameContext);
-
-    const getIpAddress = () => {
-        const { hostname } = window.location;
-        return hostname;
-    };
-
+    
     useEffect(() => {
         const timerId = setInterval(() => {
             if (Math.round(time * 10) / 10 >= 0.1) {
-                console.log(time);
                 setTime((time) => time - 0.25);
                 return;
             }
@@ -47,38 +41,45 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     }, [time, navigate, timeInSeconds, audio, soundEnabled]);
 
     useEffect(() => {
-        const endpoint = `http://${getIpAddress()}/check-light`;
-
-        if (soundEnabled) {
-            fetch(endpoint)
-                .then((res) => res.json())
-                .then((data) => {
-                    if (data[1] > 5 && typeOfTimer === "twoMin") {
-                        // console.log(halfSecs);
-                        setGameScore((prevGameScore) => {
-                            const updatedGameScore = [...prevGameScore];
-                            updatedGameScore[gameIteration - 1] = {
-                                ...updatedGameScore[gameIteration - 1],
-                                ballsInBox:
-                                    updatedGameScore[gameIteration - 1]
-                                        .ballsInBox + 1,
-                            };
-                            return updatedGameScore;
-                        });
-                    }
-                })
-                .catch((error) =>
-                    console.error("Error fetching light status:", error)
-                );
-        }
-    }, [
-        time,
-        gameIteration,
-        gameScore,
-        soundEnabled,
-        setGameScore,
-        typeOfTimer,
-    ]);
+        const getIpAddress = async () => {
+            try {
+                const response = await fetch('https://api.ipify.org/?format=json');
+                const data = await response.json();
+                return data.ip;
+            } catch (error) {
+                console.error('Error fetching IP address:', error);
+                return null;
+            }
+        };
+        const fetchIpAddress = async () => {
+            const ipAddress = await getIpAddress();
+            const endpoint = `http://${ipAddress}/check-light`;
+    
+            if (soundEnabled) {
+                fetch(endpoint)
+                    .then((res) => res.json())
+                    .then((data) => {
+                        if (data[1] > 5 && typeOfTimer === "twoMin") {
+                            setGameScore((prevGameScore) => {
+                                const updatedGameScore = [...prevGameScore];
+                                updatedGameScore[gameIteration - 1] = {
+                                    ...updatedGameScore[gameIteration - 1],
+                                    ballsInBox:
+                                        updatedGameScore[gameIteration - 1]
+                                            .ballsInBox + 1,
+                                };
+                                return updatedGameScore;
+                            });
+                        }
+                    })
+                    .catch((error) =>
+                        console.error("Error fetching light status:", error)
+                    );
+            }
+        };
+    
+        fetchIpAddress();
+    }, [soundEnabled, typeOfTimer, gameIteration, setGameScore]);
 
     const {minutes, seconds} = getTime(time);
 
