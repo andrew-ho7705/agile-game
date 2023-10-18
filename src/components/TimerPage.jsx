@@ -20,7 +20,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     const [gameIteration, setGameIteration] = useContext(GameIterationContext);
     const [, setEstimateScore] = useContext(EstimateContext);
     const [teamName, setTeamName] = useContext(TeamNameContext);
-    
+
     useEffect(() => {
         const timerId = setInterval(() => {
             if (Math.round(time * 10) / 10 >= 0.1) {
@@ -41,20 +41,24 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     }, [time, navigate, timeInSeconds, audio, soundEnabled]);
 
     useEffect(() => {
-        const getIpAddress = async () => {
-            try {
-                const response = await fetch('https://api.ipify.org/?format=json');
-                const data = await response.json();
-                return data.ip;
-            } catch (error) {
-                console.error('Error fetching IP address:', error);
-                return null;
+        const os = require("os");
+
+        const getIpAddress = () => {
+            const interfaces = os.networkInterfaces();
+            for (const interfaceName in interfaces) {
+                const iface = interfaces[interfaceName];
+                for (const address of iface) {
+                    if (address.family === "IPv4" && !address.internal) {
+                        return address.address;
+                    }
+                }
             }
+            return null;
         };
         const fetchIpAddress = async () => {
             const ipAddress = await getIpAddress();
             const endpoint = `http://${ipAddress}/check-light`;
-    
+
             if (soundEnabled) {
                 fetch(endpoint)
                     .then((res) => res.json())
@@ -77,16 +81,17 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                     );
             }
         };
-    
+
         fetchIpAddress();
     }, [soundEnabled, typeOfTimer, gameIteration, setGameScore]);
 
-    const {minutes, seconds} = getTime(time);
+    const { minutes, seconds } = getTime(time);
 
     return (
         <div className="text-center py-40 text-slate-50">
             <div className="text-7xl md:text-8xl lg:text-9xl">
-                {minutes}:{seconds < 10 ? `0${Math.floor(seconds)}` : Math.floor(seconds)}
+                {minutes}:
+                {seconds < 10 ? `0${Math.floor(seconds)}` : Math.floor(seconds)}
             </div>
             {!soundEnabled && (
                 <div className="flex flex-col justify-center items-center">
