@@ -41,14 +41,15 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     }, [time, navigate, timeInSeconds, audio, soundEnabled]);
 
     useEffect(() => {
-        const endpoint = `http://10.32.53.194:5000/check-light`;
+        const endpoint = `http://0.0.0.0:5000/check-light`;
 
-        if (soundEnabled) {
+        if (soundEnabled && time !== 0) {
             fetch(endpoint)
                 .then((res) => res.json())
                 .then((data) => {
                     console.log(data)
-                    if (data > 5 && typeOfTimer === "twoMin") {
+                    if (data > 10 && typeOfTimer === "twoMin") {
+                        console.log('ball detected')
                         setGameScore((prevGameScore) => {
                             const updatedGameScore = [...prevGameScore];
                             updatedGameScore[gameIteration - 1] = {
