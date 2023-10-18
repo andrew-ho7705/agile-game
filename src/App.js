@@ -51,7 +51,7 @@ function App() {
                                     path="/game/timer1"
                                     element={
                                         <TimerPage
-                                            timeInSeconds={30}
+                                            timeInSeconds={10}
                                             soundEnabled={true}
                                         />
                                     }
@@ -60,7 +60,7 @@ function App() {
                                     path="/game/timer2"
                                     element={
                                         <TimerPage
-                                            timeInSeconds={15}
+                                            timeInSeconds={5}
                                             soundEnabled={true}
                                         />
                                     }

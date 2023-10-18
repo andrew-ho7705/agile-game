@@ -13,13 +13,12 @@ CORS(app)
 
 @app.route('/check-light', methods=['GET'])
 def check_light():
-    IP = get_ip_address()
     initial_lux = ltr559.get_lux()
-    time.sleep(0.2)
+    time.sleep(1)
     current_lux = ltr559.get_lux()
     difference = abs(current_lux - initial_lux)
 
-    return [IP, str(difference)]
+    return str(difference)
 
 if __name__ == '__main__':
     IP = get_ip_address()
