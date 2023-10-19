@@ -2,7 +2,6 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Game from "./components/Game";
-import TimerPage from "./components/TimerPage";
 import EstimateScore from "./components/EstimateScore";
 import End from "./components/End";
 import { useState, createContext } from "react";
@@ -42,28 +41,10 @@ function App() {
                         >
                             <Routes>
                                 <Route path="/" element={<Home />} />
-                                <Route path="/game" element={<Game />} />
+                                <Route path="/game" element={<Game/>} />
                                 <Route
                                     path="/estimate"
                                     element={<EstimateScore />}
-                                />
-                                <Route
-                                    path="/game/timer1"
-                                    element={
-                                        <TimerPage
-                                            timeInSeconds={10}
-                                            soundEnabled={true}
-                                        />
-                                    }
-                                />
-                                <Route
-                                    path="/game/timer2"
-                                    element={
-                                        <TimerPage
-                                            timeInSeconds={5}
-                                            soundEnabled={true}
-                                        />
-                                    }
                                 />
                                 <Route path="/end" element={<End />} />
                             </Routes>

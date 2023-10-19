@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useState, useEffect, useContext, useMemo } from "react";
 import { Link } from "react-router-dom";
 import ScoreTable from "./ScoreTable";
 import {
@@ -7,12 +7,18 @@ import {
     TeamNameContext,
     GameScoreContext,
 } from "../App";
+import sfx from "../sounds/mixkit-alert-alarm-1005.mp3";
+import { formatTime } from "../utils/Utils";
 
 const Game = () => {
     const [typeOfTimer, setTypeOfTimer] = useContext(TimerContext);
     const [gameIteration] = useContext(GameIterationContext);
     const [teamName] = useContext(TeamNameContext);
-    const [gameScore] = useContext(GameScoreContext);
+    const [gameScore, setGameScore] = useContext(GameScoreContext);
+    const [time, setTime] = useState(0);
+    const [timeTicking, setTimeTicking] = useState(false);
+    const [audioPlaying, setAudioPlaying] = useState(false);
+    const audio = useMemo(() => new Audio(sfx), []);
 
     const handleRadioClick = () => {
         const option1 = document.getElementById("One Minute Timer");
@@ -151,13 +157,64 @@ const Game = () => {
         }
     };
 
+    useEffect(() => {
+        if (timeTicking) {
+            const timerId = setInterval(() => {
+                if (Math.round(time * 10) / 10 >= 0.1) {
+                    setTime((time) => time - 1);
+                    return;
+                }
+            }, 1000);
+
+            if (Math.round(time * 10) / 10 === 0) {
+                setTimeTicking(false);
+                setTime(0);
+                setAudioPlaying(true);
+                audio.play();
+                return;
+            }
+
+            return () => {
+                clearInterval(timerId);
+            };
+        }
+    }, [time, timeTicking, audio]);
+
+    useEffect(() => {
+        const endpoint = `http://0.0.0.0:5000/check-light`;
+
+        if (timeTicking && typeOfTimer === "twoMin") {
+            fetch(endpoint)
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data);
+                    if (data > 10 && typeOfTimer === "twoMin") {
+                        console.log("ball detected");
+                        setGameScore((prevGameScore) => {
+                            const updatedGameScore = [...prevGameScore];
+                            updatedGameScore[gameIteration - 1] = {
+                                ...updatedGameScore[gameIteration - 1],
+                                ballsInBox:
+                                    updatedGameScore[gameIteration - 1]
+                                        .ballsInBox + 1,
+                            };
+                            return updatedGameScore;
+                        });
+                    }
+                })
+                .catch((error) =>
+                    console.error("Error fetching light status:", error)
+                );
+        }
+    }, [typeOfTimer, gameIteration, setGameScore, timeTicking]);
+
     return (
         <div className="flex flex-row h-screen justify-center text-slate-50">
             <div>
                 <span className="text-3xl">{teamName}</span>
                 <div>
                     <ScoreTable />
-                    <footer className="absolute bottom-0 ml-80 px-24 mb-5">
+                    <footer className="absolute bottom-0 ml-80 mb-5 flex flex-row items-center">
                         <div>
                             <ul className="px-5 text-3xl">
                                 <input
@@ -167,6 +224,7 @@ const Game = () => {
                                     className="text-6xl mx-2 h-5 w-5"
                                     onClick={() => {
                                         setTypeOfTimer("twoMin");
+                                        setTime(5);
                                         handleRadioClick();
                                     }}
                                 />
@@ -178,6 +236,7 @@ const Game = () => {
                                     className="mx-2 h-5 w-5"
                                     onClick={() => {
                                         setTypeOfTimer("oneMin");
+                                        setTime(2);
                                         handleRadioClick();
                                     }}
                                 />
@@ -193,20 +252,29 @@ const Game = () => {
                                     >
                                         End
                                     </Link>
-                                ) : (
-                                    <Link
-                                        to={
-                                            typeOfTimer === "oneMin"
-                                                ? "timer2"
-                                                : typeOfTimer === ""
-                                                ? null
-                                                : "timer1"
-                                        }
+                                ) : !timeTicking && !audioPlaying ? (
+                                    <button
+                                        onClick={() => setTimeTicking(true)}
                                         className="text-6xl flex justify-center"
                                     >
                                         Start
-                                    </Link>
+                                    </button>
+                                ) : (
+                                    <button
+                                        onClick={() => {
+                                            audio.pause();
+                                            setAudioPlaying(false);
+                                        }}
+                                        className="text-6xl flex justify-center"
+                                    >
+                                        Stop
+                                    </button>
                                 )}
+                            </div>
+                        </div>
+                        <div>
+                            <div className="text-6xl">
+                                {typeOfTimer === "" ? "0:00" : formatTime(time)}
                             </div>
                         </div>
                     </footer>
