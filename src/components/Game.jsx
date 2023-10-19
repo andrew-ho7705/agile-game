@@ -259,7 +259,7 @@ const Game = () => {
                                     >
                                         Start
                                     </button>
-                                ) : (
+                                ) : timeTicking ? '' : (
                                     <button
                                         onClick={() => {
                                             audio.pause();
@@ -270,7 +270,7 @@ const Game = () => {
                                         }}
                                         className="text-6xl flex justify-center"
                                     >
-                                        Stop Audio
+                                        {typeOfTimer === 'oneMin' ? 'Next Iteration' : 'Stop Audio'}
                                     </button>
                                 )}
                             </div>
