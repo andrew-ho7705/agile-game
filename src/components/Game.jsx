@@ -12,7 +12,7 @@ import { formatTime } from "../utils/Utils";
 
 const Game = () => {
     const [typeOfTimer, setTypeOfTimer] = useContext(TimerContext);
-    const [gameIteration] = useContext(GameIterationContext);
+    const [gameIteration, setGameIteration] = useContext(GameIterationContext);
     const [teamName] = useContext(TeamNameContext);
     const [gameScore, setGameScore] = useContext(GameScoreContext);
     const [time, setTime] = useState(0);
@@ -161,10 +161,10 @@ const Game = () => {
         if (timeTicking) {
             const timerId = setInterval(() => {
                 if (Math.round(time * 10) / 10 >= 0.1) {
-                    setTime((time) => time - 1);
+                    setTime((time) => time - 0.25);
                     return;
                 }
-            }, 1000);
+            }, 250);
 
             if (Math.round(time * 10) / 10 === 0) {
                 setTimeTicking(false);
@@ -206,7 +206,7 @@ const Game = () => {
                     console.error("Error fetching light status:", error)
                 );
         }
-    }, [typeOfTimer, gameIteration, setGameScore, timeTicking]);
+    }, [typeOfTimer, gameIteration, setGameScore, timeTicking, time]);
 
     return (
         <div className="flex flex-row h-screen justify-center text-slate-50">
@@ -264,10 +264,13 @@ const Game = () => {
                                         onClick={() => {
                                             audio.pause();
                                             setAudioPlaying(false);
+                                            if(typeOfTimer === 'oneMin') {
+                                                setGameIteration(gameIteration + 1);
+                                            }
                                         }}
                                         className="text-6xl flex justify-center"
                                     >
-                                        Stop
+                                        Stop Audio
                                     </button>
                                 )}
                             </div>

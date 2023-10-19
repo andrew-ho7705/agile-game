@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { getTime } from "../utils/Utils";
+import { formatTime } from "../utils/Utils";
 import {
     GameScoreContext,
     GameIterationContext,
@@ -20,10 +20,10 @@ const TimerPage = ({ timeInSeconds }) => {
     useEffect(() => {
         const timerId = setInterval(() => {
             if (Math.round(time * 10) / 10 >= 0.1) {
-                setTime((time) => time - 0.25);
+                setTime((time) => time - 1);
                 return;
             }
-        }, 250);
+        }, 1000);
 
         if (Math.round(time * 10) / 10 === 0) {
             setTime(0);
@@ -35,13 +35,10 @@ const TimerPage = ({ timeInSeconds }) => {
         };
     }, [time, timeInSeconds]);
 
-    const { minutes, seconds } = getTime(time);
-
     return (
         <div className="text-center py-40 text-slate-50">
             <div className="text-7xl md:text-8xl lg:text-9xl">
-                {minutes}:
-                {seconds < 10 ? `0${Math.floor(seconds)}` : Math.floor(seconds)}
+                {formatTime(time)}
             </div>
             {
                 <div className="flex flex-col justify-center items-center">
