@@ -161,10 +161,10 @@ const Game = () => {
         if (timeTicking) {
             const timerId = setInterval(() => {
                 if (Math.round(time * 10) / 10 >= 0.1) {
-                    setTime((time) => time - 0.25);
+                    setTime((time) => time - 0.5);
                     return;
                 }
-            }, 250);
+            }, 500);
 
             if (Math.round(time * 10) / 10 === 0) {
                 setTimeTicking(false);
@@ -188,7 +188,7 @@ const Game = () => {
                 .then((res) => res.json())
                 .then((data) => {
                     console.log(data);
-                    if (data > 10 && typeOfTimer === "twoMin") {
+                    if (data > 3 && typeOfTimer === "twoMin") {
                         console.log("ball detected");
                         setGameScore((prevGameScore) => {
                             const updatedGameScore = [...prevGameScore];
@@ -224,7 +224,7 @@ const Game = () => {
                                     className="text-6xl mx-2 h-5 w-5"
                                     onClick={() => {
                                         setTypeOfTimer("twoMin");
-                                        setTime(5);
+                                        setTime(60);
                                         handleRadioClick();
                                     }}
                                 />
@@ -236,7 +236,7 @@ const Game = () => {
                                     className="mx-2 h-5 w-5"
                                     onClick={() => {
                                         setTypeOfTimer("oneMin");
-                                        setTime(2);
+                                        setTime(15);
                                         handleRadioClick();
                                     }}
                                 />
