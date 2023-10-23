@@ -184,7 +184,7 @@ const Game = () => {
         const endpoint = `http://0.0.0.0:5000/check-light`;
 
         if (timeTicking && typeOfTimer === "twoMin") {
-            fetch(endpoint)
+            fetch(endpoint, { mode: 'no-cors' })
                 .then((res) => res.json())
                 .then((data) => {
                     console.log(data);
