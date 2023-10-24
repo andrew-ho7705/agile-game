@@ -18,7 +18,23 @@ const Game = () => {
     const [time, setTime] = useState(0);
     const [timeTicking, setTimeTicking] = useState(false);
     const [audioPlaying, setAudioPlaying] = useState(false);
+    const [endpoint, setEndpoint] = useState("");
     const audio = useMemo(() => new Audio(sfx), []);
+
+    useEffect(() => {
+        async function fetchIP() {
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                const constructedEndpoint = `http://${data.ip}:5000/check-light`;
+                console.log(constructedEndpoint);
+                setEndpoint(constructedEndpoint);
+            } catch (error) {
+                console.error('Error getting public IP:', error);
+            }
+        }
+        fetchIP();
+    }, []);
 
     const handleRadioClick = () => {
         const option1 = document.getElementById("One Minute Timer");
@@ -181,8 +197,6 @@ const Game = () => {
     }, [time, timeTicking, audio]);
 
     useEffect(() => {
-        const endpoint = `http://10.32.93.38:5000/check-light`;
-
         if (timeTicking && typeOfTimer === "twoMin") {
             fetch(endpoint)
                 .then((res) => res.json())
@@ -206,7 +220,7 @@ const Game = () => {
                     console.error("Error fetching light status:", error)
                 );
         }
-    }, [typeOfTimer, gameIteration, setGameScore, timeTicking, time]);
+    }, [typeOfTimer, gameIteration, setGameScore, timeTicking, time, endpoint]);
 
     return (
         <div className="flex flex-row h-screen justify-center text-slate-50">
