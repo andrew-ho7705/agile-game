@@ -20,6 +20,13 @@ const Game = () => {
     const [audioPlaying, setAudioPlaying] = useState(false);
     const audio = useMemo(() => new Audio(sfx), []);
 
+    const uncheck = () => {
+        const option1 = document.getElementById("One Minute Timer");
+        const option2 = document.getElementById("Two Minute Timer");
+        option1.checked = false;
+        option2.checked = false;
+    }
+
     const handleRadioClick = () => {
         const option1 = document.getElementById("One Minute Timer");
         const option2 = document.getElementById("Two Minute Timer");
@@ -224,7 +231,7 @@ const Game = () => {
                                     className="text-6xl mx-2 h-5 w-5"
                                     onClick={() => {
                                         setTypeOfTimer("twoMin");
-                                        setTime(60);
+                                        setTime(10);
                                         handleRadioClick();
                                     }}
                                 />
@@ -236,7 +243,7 @@ const Game = () => {
                                     className="mx-2 h-5 w-5"
                                     onClick={() => {
                                         setTypeOfTimer("oneMin");
-                                        setTime(15);
+                                        setTime(5);
                                         handleRadioClick();
                                     }}
                                 />
@@ -254,7 +261,10 @@ const Game = () => {
                                     </Link>
                                 ) : !timeTicking && !audioPlaying ? (
                                     <button
-                                        onClick={() => setTimeTicking(true)}
+                                        onClick={() => {
+                                            setTimeTicking(true)
+                                            uncheck()
+                                            }}
                                         className="text-6xl flex justify-center"
                                     >
                                         Start
@@ -276,7 +286,7 @@ const Game = () => {
                             </div>
                         </div>
                         <div>
-                            <div className="text-6xl">
+                            <div className="text-8xl">
                                 {typeOfTimer === "" ? "0:00" : formatTime(time)}
                             </div>
                         </div>
