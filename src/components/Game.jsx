@@ -181,7 +181,7 @@ const Game = () => {
     }, [time, timeTicking, audio]);
 
     useEffect(() => {
-        const endpoint = `http://0.0.0.0:5000/check-light`;
+        const endpoint = `http://10.32.93.38:5000/check-light`;
 
         if (timeTicking && typeOfTimer === "twoMin") {
             fetch(endpoint)

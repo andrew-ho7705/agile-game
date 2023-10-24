@@ -21,4 +21,4 @@ def check_light():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='10.32.93.38', port=5000)
