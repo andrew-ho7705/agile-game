@@ -18,24 +18,7 @@ const Game = () => {
     const [time, setTime] = useState(0);
     const [timeTicking, setTimeTicking] = useState(false);
     const [audioPlaying, setAudioPlaying] = useState(false);
-    const [endpoint, setEndpoint] = useState("");
     const audio = useMemo(() => new Audio(sfx), []);
-
-    useEffect(() => {
-        async function fetchServerIP() {
-            try {
-                const response = await fetch('http://0.0.0.0:5000/check-light');
-                const data = await response.json();
-                const serverIP = data.ip;
-                // Now you can make further calls using this IP
-                setEndpoint(`http://${serverIP}:5000/check-light`)
-            } catch (error) {
-                console.error('Error getting server public IP:', error);
-            }
-        }
-        
-        fetchServerIP();
-    }, []);
 
     const handleRadioClick = () => {
         const option1 = document.getElementById("One Minute Timer");
@@ -197,13 +180,15 @@ const Game = () => {
         }
     }, [time, timeTicking, audio]);
 
+    const endpoint = 'http://0.0.0.0:5000/check-light'
+
     useEffect(() => {
         if (timeTicking && typeOfTimer === "twoMin") {
             fetch(endpoint)
                 .then((res) => res.json())
                 .then((data) => {
-                    console.log(data.diff);
-                    if (data.diff > 3 && typeOfTimer === "twoMin") {
+                    console.log(data);
+                    if (data > 3 && typeOfTimer === "twoMin") {
                         console.log("ball detected");
                         setGameScore((prevGameScore) => {
                             const updatedGameScore = [...prevGameScore];
