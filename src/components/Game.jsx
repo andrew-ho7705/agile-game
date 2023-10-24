@@ -49,6 +49,14 @@ const Game = () => {
         });
     };
 
+    const ip = fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => console.log(data.ip))
+        .catch(error => {
+            console.error('Error getting public IP:', error);
+    });
+    const endpoint = `http://${ip}:5000/check-light`;
+
     const handlePutGameScore = async () => {
         const apiURL =
             "https://vpgrj907we.execute-api.us-east-2.amazonaws.com/dev/gameScores";
@@ -258,7 +266,7 @@ const Game = () => {
                             </ul>
                             <div className="flex flex-col">
                                 {gameIteration === 5 &&
-                                gameScore[4].ballsInBox !== 0 ? (
+                                    gameScore[4].ballsInBox !== 0 ? (
                                     <Link
                                         to="/end"
                                         className="text-6xl flex justify-center"
@@ -278,7 +286,7 @@ const Game = () => {
                                         onClick={() => {
                                             audio.pause();
                                             setAudioPlaying(false);
-                                            if(typeOfTimer === 'oneMin') {
+                                            if (typeOfTimer === 'oneMin') {
                                                 setGameIteration(gameIteration + 1);
                                             }
                                         }}

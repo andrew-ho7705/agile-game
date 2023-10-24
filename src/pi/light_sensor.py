@@ -6,6 +6,7 @@ except ImportError:
     import ltr559
 from flask_cors import CORS
 import time
+import requests
 
 app = Flask(__name__)
 CORS(app)
@@ -19,4 +20,8 @@ def check_light():
     return str(difference)
 
 if __name__ == '__main__':
+<<<<<<< HEAD
     app.run(host="0.0.0.0", port=5000)
+=======
+    app.run(host=0.0.0.0, port=5000)
+>>>>>>> a31a6fdb5654937cb75908cf44ae372ef36866d2
