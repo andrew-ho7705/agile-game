@@ -161,10 +161,10 @@ const Game = () => {
         if (timeTicking) {
             const timerId = setInterval(() => {
                 if (Math.round(time * 10) / 10 >= 0.1) {
-                    setTime((time) => time - 0.5);
+                    setTime((time) => time - 0.25);
                     return;
                 }
-            }, 500);
+            }, 250);
 
             if (Math.round(time * 10) / 10 === 0) {
                 setTimeTicking(false);
