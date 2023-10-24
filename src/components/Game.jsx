@@ -22,18 +22,19 @@ const Game = () => {
     const audio = useMemo(() => new Audio(sfx), []);
 
     useEffect(() => {
-        async function fetchIP() {
+        async function fetchServerIP() {
             try {
-                const response = await fetch('https://api.ipify.org?format=json');
+                const response = await fetch('http://0.0.0.0:5000/check-light');
                 const data = await response.json();
-                const constructedEndpoint = `http://${data.ip}:5000/check-light`;
-                console.log(constructedEndpoint);
-                setEndpoint(constructedEndpoint);
+                const serverIP = data.ip;
+                // Now you can make further calls using this IP
+                setEndpoint(`http://${serverIP}:5000/check-light`)
             } catch (error) {
-                console.error('Error getting public IP:', error);
+                console.error('Error getting server public IP:', error);
             }
         }
-        fetchIP();
+        
+        fetchServerIP();
     }, []);
 
     const handleRadioClick = () => {
@@ -201,8 +202,8 @@ const Game = () => {
             fetch(endpoint)
                 .then((res) => res.json())
                 .then((data) => {
-                    console.log(data);
-                    if (data > 3 && typeOfTimer === "twoMin") {
+                    console.log(data.diff);
+                    if (data.diff > 3 && typeOfTimer === "twoMin") {
                         console.log("ball detected");
                         setGameScore((prevGameScore) => {
                             const updatedGameScore = [...prevGameScore];
