@@ -8,24 +8,18 @@ import {
     GameScoreContext,
 } from "../App";
 import sfx from "../sounds/mixkit-alert-alarm-1005.mp3";
-import { formatTime } from "../utils/Utils";
+import { useNavigate } from "react-router-dom";
 
 const Game = () => {
     const [typeOfTimer, setTypeOfTimer] = useContext(TimerContext);
-    const [gameIteration, setGameIteration] = useContext(GameIterationContext);
+    const [gameIteration] = useContext(GameIterationContext);
     const [teamName] = useContext(TeamNameContext);
     const [gameScore, setGameScore] = useContext(GameScoreContext);
     const [time, setTime] = useState(0);
-    const [timeTicking, setTimeTicking] = useState(false);
-    const [audioPlaying, setAudioPlaying] = useState(false);
+    const [timeTicking, setTimeTicking] = useState(true);
+    const [, setAudioPlaying] = useState(false);
     const audio = useMemo(() => new Audio(sfx), []);
-
-    const uncheck = () => {
-        const option1 = document.getElementById("One Minute Timer");
-        const option2 = document.getElementById("Two Minute Timer");
-        option1.checked = false;
-        option2.checked = false;
-    }
+    const navigate = useNavigate();
 
     const handleRadioClick = () => {
         const option1 = document.getElementById("One Minute Timer");
@@ -185,35 +179,7 @@ const Game = () => {
                 clearInterval(timerId);
             };
         }
-    }, [time, timeTicking, audio]);
-
-    const endpoint = 'http://0.0.0.0:5000/check-light'
-
-    useEffect(() => {
-        if (timeTicking && typeOfTimer === "twoMin") {
-            fetch(endpoint)
-                .then((res) => res.json())
-                .then((data) => {
-                    console.log(data);
-                    if (data > 3 && typeOfTimer === "twoMin") {
-                        console.log("ball detected");
-                        setGameScore((prevGameScore) => {
-                            const updatedGameScore = [...prevGameScore];
-                            updatedGameScore[gameIteration - 1] = {
-                                ...updatedGameScore[gameIteration - 1],
-                                ballsInBox:
-                                    updatedGameScore[gameIteration - 1]
-                                        .ballsInBox + 1,
-                            };
-                            return updatedGameScore;
-                        });
-                    }
-                })
-                .catch((error) =>
-                    console.error("Error fetching light status:", error)
-                );
-        }
-    }, [typeOfTimer, gameIteration, setGameScore, timeTicking, time, endpoint]);
+    }, [time, timeTicking, audio, setAudioPlaying]);
 
     return (
         <div className="flex flex-row h-screen justify-center text-slate-50">
@@ -231,7 +197,6 @@ const Game = () => {
                                     className="text-6xl mx-2 h-5 w-5"
                                     onClick={() => {
                                         setTypeOfTimer("twoMin");
-                                        setTime(10);
                                         handleRadioClick();
                                     }}
                                 />
@@ -243,7 +208,6 @@ const Game = () => {
                                     className="mx-2 h-5 w-5"
                                     onClick={() => {
                                         setTypeOfTimer("oneMin");
-                                        setTime(5);
                                         handleRadioClick();
                                     }}
                                 />
@@ -259,35 +223,18 @@ const Game = () => {
                                     >
                                         End
                                     </Link>
-                                ) : !timeTicking && !audioPlaying ? (
+                                ) : typeOfTimer !== "" ? (
                                     <button
                                         onClick={() => {
-                                            setTimeTicking(true)
-                                            uncheck()
-                                            }}
+                                            setTimeTicking(true);
+                                            navigate(`/game/timer${typeOfTimer === 'oneMin' ? 2 : 1}`)
+                                            console.log(typeOfTimer)
+                                        }}
                                         className="text-6xl flex justify-center"
                                     >
                                         Start
                                     </button>
-                                ) : timeTicking ? '' : (
-                                    <button
-                                        onClick={() => {
-                                            audio.pause();
-                                            setAudioPlaying(false);
-                                            if (typeOfTimer === 'oneMin') {
-                                                setGameIteration(gameIteration + 1);
-                                            }
-                                        }}
-                                        className="text-6xl flex justify-center"
-                                    >
-                                        {typeOfTimer === 'oneMin' ? 'Next Iteration' : 'Stop Audio'}
-                                    </button>
-                                )}
-                            </div>
-                        </div>
-                        <div>
-                            <div className="text-8xl">
-                                {typeOfTimer === "" ? "0:00" : formatTime(time)}
+                                ) : <div className="text-6xl flex justify-center">Select a timer!</div>}
                             </div>
                         </div>
                     </footer>
