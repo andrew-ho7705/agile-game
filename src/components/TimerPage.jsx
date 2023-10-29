@@ -1,8 +1,6 @@
-import { useEffect, useState, useMemo, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { getTime } from "../utils/Utils";
-import { useNavigate } from "react-router-dom";
-import sfx from "../sounds/mixkit-alert-alarm-1005.mp3";
+import { formatTime } from "../utils/Utils";
 import {
     GameScoreContext,
     GameIterationContext,
@@ -11,19 +9,16 @@ import {
     TeamNameContext,
 } from "../App";
 
-const TimerPage = ({ timeInSeconds, soundEnabled }) => {
+const TimerPage = ({ timeInSeconds }) => {
     const [time, setTime] = useState(timeInSeconds);
-    const [halfSecs, setHalfSecs] = useState(timeInSeconds);
     const [typeOfTimer] = useContext(TimerContext);
-    const navigate = useNavigate();
-    const audio = useMemo(() => new Audio(sfx), []);
-    const [gameScore, setGameScore] = useContext(GameScoreContext);
+    const [, setGameScore] = useContext(GameScoreContext);
     const [gameIteration, setGameIteration] = useContext(GameIterationContext);
     const [, setEstimateScore] = useContext(EstimateContext);
     const [teamName, setTeamName] = useContext(TeamNameContext);
 
     useEffect(() => {
-        const timerId2 = setInterval(() => {
+        const timerId = setInterval(() => {
             if (Math.round(time * 10) / 10 >= 0.1) {
                 setTime((time) => time - 1);
                 return;
@@ -32,44 +27,20 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
 
         if (Math.round(time * 10) / 10 === 0) {
             setTime(0);
-            if (soundEnabled) audio.play();
             return;
         }
 
         return () => {
-            // clearInterval(timerId1);
-            clearInterval(timerId2);
+            clearInterval(timerId);
         };
-    }, [time, navigate, timeInSeconds, audio, soundEnabled]);
-
-    useEffect(() => {
-        const endpoint = 'http://10.32.23.61:5000/check-light';
-
-        fetch(endpoint)
-            .then(res => res.json())
-            .then(data => {
-                if (data > 5 && typeOfTimer === 'twoMin') {
-                    // console.log(halfSecs);
-                    setGameScore((prevGameScore) => {
-                        const updatedGameScore = [...prevGameScore];
-                        updatedGameScore[gameIteration - 1] = {
-                            ...updatedGameScore[gameIteration - 1],
-                            ballsInBox:
-                                updatedGameScore[gameIteration - 1].ballsInBox + 1,
-                        };
-                        return updatedGameScore;
-                    });
-                }
-            })
-            .catch(error => console.error("Error fetching light status:", error))
-    }, [time, gameIteration, gameScore, soundEnabled, setGameScore, typeOfTimer]);
+    }, [time, timeInSeconds]);
 
     return (
         <div className="text-center py-40 text-slate-50">
             <div className="text-7xl md:text-8xl lg:text-9xl">
-                {getTime(time)}
+                {formatTime(time)}
             </div>
-            {!soundEnabled && (
+            {
                 <div className="flex flex-col justify-center items-center">
                     <div className="w-4/5 mb-10 text-3xl md:text-4xl lg:text-5xl">
                         Enter Your Team Name and Estimate How Many Points You
@@ -118,19 +89,18 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                         />
                     </div>
                 </div>
-            )}
+            }
             <div className="text-4xl md:text-5xl lg:text-6xl">
                 {" "}
                 {time === 0 ? "Time's Up!" : ""}
             </div>
-            {time === 0 && soundEnabled ? (
+            {time === 0 ? (
                 <Link
                     to="/game"
                     className="text-6xl px-5"
                     onClick={
                         typeOfTimer === "oneMin"
                             ? () => {
-                                audio.pause();
                                 setGameIteration(gameIteration + 1);
                                 setGameScore((prevGameScore) => {
                                     return prevGameScore.map(
@@ -163,7 +133,6 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                                 });
                             }
                             : () => {
-                                audio.pause();
                                 setGameScore((prevGameScore) => {
                                     return prevGameScore.map(
                                         (score, index) => {
@@ -185,7 +154,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                 >
                     Next
                 </Link>
-            ) : time === 0 && !soundEnabled ? (
+            ) : time === 0 ? (
                 <Link
                     to="/game"
                     className="px-5 text-3xl md:text-4xl lg:text-5xl"

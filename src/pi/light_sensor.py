@@ -13,11 +13,10 @@ CORS(app)
 @app.route('/check-light', methods=['GET'])
 def check_light():
     initial_lux = ltr559.get_lux()
-    time.sleep(1)
+    time.sleep(0.25)
     current_lux = ltr559.get_lux()
     difference = abs(current_lux - initial_lux)
-
     return str(difference)
 
 if __name__ == '__main__':
-    app.run(host='10.32.23.61', port=5000)
+    app.run(host='0.0.0.0', port=5000)
