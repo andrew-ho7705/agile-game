@@ -23,10 +23,10 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     useEffect(() => {
         const timerId = setInterval(() => {
             if (Math.round(time * 10) / 10 >= 0.1) {
-                setTime((time) => time - 1);
+                setTime((time) => time - 0.25);
                 return;
             }
-        }, 1000);
+        }, 250);
 
         if (Math.round(time * 10) / 10 === 0) {
             setTime(0);
@@ -62,7 +62,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
         };
     }, [time, gameIteration, gameScore, soundEnabled, setGameScore, typeOfTimer]);
 
-    const endpoint = 'http://0.0.0.0:5000/check-light'
+    const endpoint = 'http://0.0.0.0:5000/check-beam'
     
     useEffect(() => {
         if (timeTicking && typeOfTimer === "twoMin") {

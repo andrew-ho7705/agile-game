@@ -14,7 +14,7 @@ const Game = () => {
     const [typeOfTimer, setTypeOfTimer] = useContext(TimerContext);
     const [gameIteration] = useContext(GameIterationContext);
     const [teamName] = useContext(TeamNameContext);
-    const [gameScore, setGameScore] = useContext(GameScoreContext);
+    const [gameScore] = useContext(GameScoreContext);
     const [time, setTime] = useState(0);
     const [timeTicking, setTimeTicking] = useState(true);
     const [, setAudioPlaying] = useState(false);
@@ -228,7 +228,6 @@ const Game = () => {
                                         onClick={() => {
                                             setTimeTicking(true);
                                             navigate(`/game/timer${typeOfTimer === 'oneMin' ? 2 : 1}`)
-                                            console.log(typeOfTimer)
                                         }}
                                         className="text-6xl flex justify-center"
                                     >
