@@ -171,7 +171,7 @@ const Game = () => {
                 setTimeTicking(false);
                 setTime(0);
                 setAudioPlaying(true);
-                audio.play();
+                // audio.play();
                 return;
             }
 
@@ -182,63 +182,66 @@ const Game = () => {
     }, [time, timeTicking, audio, setAudioPlaying]);
 
     return (
-        <div className="flex flex-row h-screen justify-center text-slate-50">
-            <div>
-                <span className="text-3xl">{teamName}</span>
-                <div>
-                    <ScoreTable />
-                    <footer className="absolute bottom-0 ml-80 mb-5 flex flex-row items-center">
-                        <div>
-                            <ul className="px-5 text-3xl">
-                                <input
-                                    autoComplete="false"
-                                    type="radio"
-                                    id="Two Minute Timer"
-                                    className="text-6xl mx-2 h-5 w-5"
-                                    onClick={() => {
-                                        setTypeOfTimer("twoMin");
-                                        handleRadioClick();
-                                    }}
-                                />
-                                Two Minute Timer
-                                <input
-                                    autoComplete="false"
-                                    type="radio"
-                                    id="One Minute Timer"
-                                    className="mx-2 h-5 w-5"
-                                    onClick={() => {
-                                        setTypeOfTimer("oneMin");
-                                        handleRadioClick();
-                                    }}
-                                />
-                                One Minute Timer
-                            </ul>
-                            <div className="flex flex-col">
-                                {gameIteration === 5 &&
-                                    gameScore[4].ballsInBox !== 0 ? (
-                                    <Link
-                                        to="/end"
-                                        className="text-6xl flex justify-center"
-                                        onClick={handlePutGameScore}
-                                    >
-                                        End
-                                    </Link>
-                                ) : typeOfTimer !== "" ? (
-                                    <button
-                                        onClick={() => {
-                                            setTimeTicking(true);
-                                            navigate(`/game/timer${typeOfTimer === 'oneMin' ? 2 : 1}`)
-                                        }}
-                                        className="text-6xl flex justify-center"
-                                    >
-                                        Start
-                                    </button>
-                                ) : <div className="text-6xl flex justify-center">Select a timer!</div>}
+        <div className="h-screen lg:justify-center text-slate-50">
+            <span className="text-3xl">{teamName}</span>
+            <ScoreTable />
+            <footer className="absolute lg:bottom-0 bottom-auto md:ml-[280px] lg:ml-[440px] items-center">
+                    <ul className="px-5 md:text-xl lg:text-3xl">
+                        <input
+                            autoComplete="false"
+                            type="radio"
+                            id="Two Minute Timer"
+                            className="mx-2 md:h-3 md:w-3 lg:h-5 lg:w-5"
+                            onClick={() => {
+                                setTypeOfTimer("twoMin");
+                                handleRadioClick();
+                            }}
+                        />
+                        Two Minute Timer
+                        <input
+                            autoComplete="false"
+                            type="radio"
+                            id="One Minute Timer"
+                            className="mx-2 md:h-3 md:w-3 lg:h-5 lg:w-5"
+                            onClick={() => {
+                                setTypeOfTimer("oneMin");
+                                handleRadioClick();
+                            }}
+                        />
+                        One Minute Timer
+                    </ul>
+                    <div className="flex flex-col">
+                        {gameIteration === 5 &&
+                        gameScore[4].ballsInBox !== 0 ? (
+                            <Link
+                                to="/end"
+                                className="md:text-4xl lg:text-6xl flex justify-center"
+                                onClick={handlePutGameScore}
+                            >
+                                End
+                            </Link>
+                        ) : typeOfTimer !== "" ? (
+                            <button
+                                onClick={() => {
+                                    setTimeTicking(true);
+                                    navigate(
+                                        `/game/timer${
+                                            typeOfTimer === "oneMin" ? 2 : 1
+                                        }`
+                                    );
+                                }}
+                                className="md:text-4xl lg:text-6xl flex justify-center"
+                            >
+                                Start
+                            </button>
+                        ) : (
+                            <div className="md:text-4xl lg:text-6xl flex justify-center">
+                                Select a timer!
                             </div>
-                        </div>
-                    </footer>
-                </div>
-            </div>
+                        )}
+                    </div>
+                
+            </footer>
         </div>
     );
 };

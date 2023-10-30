@@ -31,7 +31,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
         if (Math.round(time * 10) / 10 === 0) {
             setTime(0);
             setTimeTicking(false);
-            if (soundEnabled) audio.play();
+            // if (soundEnabled) audio.play();
             return;
         }
 
@@ -60,10 +60,17 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
         return () => {
             clearInterval(intervalId);
         };
-    }, [time, gameIteration, gameScore, soundEnabled, setGameScore, typeOfTimer]);
+    }, [
+        time,
+        gameIteration,
+        gameScore,
+        soundEnabled,
+        setGameScore,
+        typeOfTimer,
+    ]);
 
-    const endpoint = 'http://0.0.0.0:5000/check-beam'
-    
+    const endpoint = "http://0.0.0.0:5000/check-beam";
+
     useEffect(() => {
         if (timeTicking && typeOfTimer === "twoMin") {
             fetch(endpoint)
@@ -91,7 +98,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     }, [typeOfTimer, gameIteration, setGameScore, timeTicking, time, endpoint]);
 
     return (
-        <div className="text-center py-40 text-slate-50">
+        <div className="text-center md:py-[25px] lg:py-40 text-slate-50">
             <div className="text-7xl md:text-8xl lg:text-9xl">
                 {formatTime(time)}
             </div>
@@ -102,24 +109,24 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                         Will Score In Iteration 1!
                     </div>
                     <div className="flex flex-row mb-10">
-                        <span className="mx-2 mt-2 text-2xl md:text-3xl lg:text-4xl">
+                        <span className="mx-2 mt-2 text-xl md:text-2xl lg:text-4xl">
                             Team Name:
                         </span>
                         <input
                             autoComplete="false"
                             type="text"
-                            className="border border-black rounded-lg w-fit h-16 text-center text-2xl md:text-3xl lg:text-4xl"
+                            className="border border-black rounded-lg h-fit lg:h-16 text-center text-xl md:text-2xl lg:text-4xl"
                             placeholder="Enter Team Name..."
                             value={teamName}
                             onChange={(e) => setTeamName(e.target.value)}
                         />
-                        <span className="mx-2 mt-2 text-2xl md:text-3xl lg:text-4xl">
+                        <span className="mx-2 mt-2 text-xl md:text-2xl lg:text-4xl">
                             Estimated Score:
                         </span>
                         <input
                             autoComplete="false"
                             type="number"
-                            className="border border-black rounded-lg w-44 h-16 text-center text-2xl md:text-3xl lg:text-4xl"
+                            className="border border-black rounded-lg w-44 h-fit text-center text-2xl md:text-3xl lg:text-4xl"
                             onChange={(e) => {
                                 setEstimateScore(
                                     isNaN(parseInt(e.target.value))
