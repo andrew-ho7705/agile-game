@@ -24,11 +24,10 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     useEffect(() => {
         const timerId = setInterval(() => {
             if (Math.round(time * 10) / 10 >= 0.1) {
-                setTime((time) => time - 0.1);
-                console.log(countBalls(sensorList));
+                setTime((time) => time - 0.01);
                 return;
             }
-        }, 100);
+        }, 10);
 
         if (Math.round(time * 10) / 10 === 0) {
             setTime(0);
@@ -77,7 +76,12 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
         if (timeTicking && typeOfTimer === "twoMin" && soundEnabled) {
             fetch(endpoint)
                 .then((res) => res.json())
-                .then((data) => setSensorList(list =>[...list, data]))
+                .then((data) => {
+                    if(sensorList[sensorList.length - 1] !== data) {
+                        console.log(countBalls(sensorList));
+                        setSensorList(list =>[...list, data])
+                    }
+                })
                 .catch((error) =>
                     console.error("Error fetching light status:", error)
                 );

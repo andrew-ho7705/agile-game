@@ -185,7 +185,7 @@ const Game = () => {
         <div className="h-screen lg:justify-center text-slate-50">
             <span className="text-3xl">{teamName}</span>
             <ScoreTable />
-            <footer className="absolute lg:bottom-0 bottom-auto md:ml-[200px] lg:ml-[440px] items-center">
+            <footer className="absolute bottom-0 md:ml-[200px] lg:ml-[440px] items-center">
                     <ul className="px-5 md:text-xl lg:text-3xl">
                         <input
                             autoComplete="false"
