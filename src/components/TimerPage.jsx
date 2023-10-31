@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo, useContext } from "react";
 import { Link } from "react-router-dom";
-import { formatTime } from "../utils/Utils";
+import { formatTime, countBalls } from "../utils/Utils";
 import sfx from "../sounds/mixkit-alert-alarm-1005.mp3";
 import {
     GameScoreContext,
@@ -19,14 +19,16 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     const [, setEstimateScore] = useContext(EstimateContext);
     const [teamName, setTeamName] = useContext(TeamNameContext);
     const [timeTicking, setTimeTicking] = useState(true);
+    const [sensorList, setSensorList] = useState([]);
 
     useEffect(() => {
         const timerId = setInterval(() => {
             if (Math.round(time * 10) / 10 >= 0.1) {
-                setTime((time) => time - 0.25);
+                setTime((time) => time - 0.1);
+                console.log(countBalls(sensorList));
                 return;
             }
-        }, 250);
+        }, 100);
 
         if (Math.round(time * 10) / 10 === 0) {
             setTime(0);
@@ -69,28 +71,13 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
         typeOfTimer,
     ]);
 
-    const endpoint = "http://0.0.0.0:5000/check-beam";
+    const endpoint = "http://0.0.0.0:5001/check-beam";
 
     useEffect(() => {
         if (timeTicking && typeOfTimer === "twoMin") {
             fetch(endpoint)
                 .then((res) => res.json())
-                .then((data) => {
-                    console.log(data);
-                    if (data > 3 && typeOfTimer === "twoMin") {
-                        console.log("ball detected");
-                        setGameScore((prevGameScore) => {
-                            const updatedGameScore = [...prevGameScore];
-                            updatedGameScore[gameIteration - 1] = {
-                                ...updatedGameScore[gameIteration - 1],
-                                ballsInBox:
-                                    updatedGameScore[gameIteration - 1]
-                                        .ballsInBox + 1,
-                            };
-                            return updatedGameScore;
-                        });
-                    }
-                })
+                .then((data) => setSensorList(list =>[...list, data]))
                 .catch((error) =>
                     console.error("Error fetching light status:", error)
                 );
@@ -99,17 +86,17 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
 
     return (
         <div className="text-center md:py-[25px] lg:py-40 text-slate-50">
-            <div className="text-7xl md:text-8xl lg:text-9xl">
+            <div className="md:text-7xl lg:text-9xl">
                 {formatTime(time)}
             </div>
             {!soundEnabled && (
                 <div className="flex flex-col justify-center items-center">
-                    <div className="w-4/5 mb-10 text-3xl md:text-4xl lg:text-5xl">
+                    <div className="w-4/5 lg:mb-10 md:text-2xl lg:text-5xl">
                         Enter Your Team Name and Estimate How Many Points You
                         Will Score In Iteration 1!
                     </div>
-                    <div className="flex flex-row mb-10">
-                        <span className="mx-2 mt-2 text-xl md:text-2xl lg:text-4xl">
+                    <div className="flex flex-row md:mb-6 lg:mb-10">
+                        <span className="lg:mx-2 mt-2 md:text-xl lg:text-4xl">
                             Team Name:
                         </span>
                         <input
@@ -120,7 +107,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                             value={teamName}
                             onChange={(e) => setTeamName(e.target.value)}
                         />
-                        <span className="mx-2 mt-2 text-xl md:text-2xl lg:text-4xl">
+                        <span className="mx-2 mt-2 md:text-xl lg:text-4xl">
                             Estimated Score:
                         </span>
                         <input
@@ -207,6 +194,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                                                       estimatedScore:
                                                           prevGameScore[index]
                                                               .estimatedScore,
+                                                        ballsInBox: countBalls(sensorList)
                                                   };
                                               } else {
                                                   return score;
@@ -214,6 +202,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                                           }
                                       );
                                   });
+                                  setSensorList([]);
                                   setTypeOfTimer("");
                               }
                     }

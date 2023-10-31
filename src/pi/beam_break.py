@@ -7,11 +7,11 @@ app = Flask(__name__)
 CORS(app)
 GPIO.setmode(GPIO.BCM)
 beamBreakerPin = 17
-GPIO.setup(beamBreakerPin, GPIO.IN)
+GPIO.setup(beamBreakerPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 @app.route('/check-beam', methods=['GET'])
 def check_beam():
     return str(GPIO.input(beamBreakerPin))
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5001)

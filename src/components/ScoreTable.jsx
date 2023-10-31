@@ -47,7 +47,7 @@ const ScoreTable = () => {
                     ].map((header, key) => (
                         <span
                             key={key}
-                            className="border border-cyan-900 px-4 text-3xl md:text-4xl lg:text-5xl flex-grow-0 flex-shrink-0 w-auto"
+                            className="border border-cyan-900 px-4 md:text-xl lg:text-3xl md:text-4xl lg:text-5xl flex-grow-0 flex-shrink-0 w-auto"
                         >
                             {header}
                         </span>
@@ -61,19 +61,19 @@ const ScoreTable = () => {
                                 id={iteration}
                                 key={iteration}
                                 hidden={iteration > gameIteration - 1}
-                                className="text-3xl py-8"
+                                className="text-3xl lg:py-9"
                             >
                                 <div
                                     iteration={iteration}
                                     className="flex flex-row"
                                 >
-                                    <span className="mx-2 text-xl md:text-2xl lg:text-3xl">
-                                        {"Iteration " + parseInt(iteration + 1)}
+                                    <span className="md:w-48 lg:mx-2 md:text-xl lg:text-3xl">
+                                        Iteration {parseInt(iteration + 1)}
                                     </span>
                                     {iteration === 0 ? (
                                         <div
                                             id="estimated"
-                                            className="w-80 ml-6 mr-12 text-center"
+                                            className="md:w-[180px] md:ml-[65px] md:mr-10 lg:w-80 lg:ml-5 mr-12 text-center"
                                         >
                                             {score.estimatedScore}
                                         </div>
@@ -82,7 +82,7 @@ const ScoreTable = () => {
                                             autoComplete="false"
                                             id="estimatedScore"
                                             type="number"
-                                            className="border w-80 ml-5 mr-12 text-center"
+                                            className="border md:w-[80px] md:ml-[65px] md:mr-20 lg:w-80 lg:ml-5 mr-12 text-center"
                                             value={
                                                 isNaN(
                                                     gameScore[iteration]
@@ -122,7 +122,7 @@ const ScoreTable = () => {
                                     ) : (
                                         <div
                                             id="estimatedScore"
-                                            className="w-80 ml-5 mr-12 text-center"
+                                            className=" md:w-[180px] md:ml-[65px] md:mr-10 lg:w-80 lg:ml-5 mr-12 text-center"
                                         >
                                             {
                                                 gameScore[currIteration]
@@ -132,7 +132,7 @@ const ScoreTable = () => {
                                     )}
                                     <div
                                         id="ballsInBox"
-                                        className="w-52 ml-2 mr-14 text-black text-center"
+                                        className=" md:w-[140px] md:ml-10 lg:w-52 lg:ml-2 mr-14 text-black text-center"
                                     >
                                         {
                                             gameScore[currIteration]
@@ -144,7 +144,7 @@ const ScoreTable = () => {
                                             autoComplete="false"
                                             id="defects"
                                             type="number"
-                                            className="border border-red-700 w-32 mr-12 text-center"
+                                            className="border border-red-700 md:w-[100px] md:mr-8 lg:w-32 lg:mr-12 text-center"
                                             onChange={(e) => {
                                                 setGameScore(
                                                     (prevGameScore) => {
@@ -176,7 +176,7 @@ const ScoreTable = () => {
                                     ) : (
                                         <div
                                             id="defects"
-                                            className="w-32 mr-12 text-center"
+                                            className="lg:w-32 lg:mr-12 text-center"
                                         >
                                             {gameScore[currIteration].defects}
                                         </div>
@@ -195,7 +195,7 @@ const ScoreTable = () => {
                                     </div>
                                     <div
                                         id="delta"
-                                        className="w-28 mr-1 text-center"
+                                        className="md:w-28 md:mr-1 lg:w-28 lg:mr-1 text-center"
                                     >
                                         {isNaN(
                                             -1 *
