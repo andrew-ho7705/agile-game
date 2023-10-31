@@ -20,6 +20,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     const [teamName, setTeamName] = useContext(TeamNameContext);
     const [timeTicking, setTimeTicking] = useState(true);
     const [sensorList, setSensorList] = useState([]);
+    const [timeReachedZero, setTimeReachedZero] = useState(false);
 
     useEffect(() => {
         const timerId = setInterval(() => {
@@ -33,6 +34,9 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
             setTime(0);
             setTimeTicking(false);
             if (soundEnabled) audio.play();
+            setTimeout(() => {
+                setTimeReachedZero(true);
+            }, 3000);
             return;
         }
 
@@ -86,7 +90,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                     console.error("Error fetching light status:", error)
                 );
         }
-    }, [typeOfTimer, gameIteration, setGameScore, timeTicking, time, endpoint, soundEnabled]);
+    }, [typeOfTimer, gameIteration, setGameScore, timeTicking, time, endpoint, soundEnabled, sensorList]);
 
     return (
         <div className="text-center md:py-[60px] lg:py-40 text-slate-50">
@@ -138,7 +142,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                     </div>
                 </div>
             )}
-            {time === 0 && soundEnabled ? (
+            {time === 0 && soundEnabled && timeReachedZero ? (
                 <Link
                     to="/game"
                     className="text-6xl px-5"
