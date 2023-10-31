@@ -33,14 +33,14 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
         if (Math.round(time * 10) / 10 === 0) {
             setTime(0);
             setTimeTicking(false);
-            // if (soundEnabled) audio.play();
+            if (soundEnabled) audio.play();
             return;
         }
 
         return () => {
             clearInterval(timerId);
         };
-    }, [time, timeInSeconds, audio, soundEnabled]);
+    }, [time, timeInSeconds, audio, soundEnabled, sensorList]);
 
     useEffect(() => {
         let intervalId;
@@ -74,7 +74,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     const endpoint = "http://0.0.0.0:5001/check-beam";
 
     useEffect(() => {
-        if (timeTicking && typeOfTimer === "twoMin") {
+        if (timeTicking && typeOfTimer === "twoMin" && soundEnabled) {
             fetch(endpoint)
                 .then((res) => res.json())
                 .then((data) => setSensorList(list =>[...list, data]))
@@ -82,7 +82,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                     console.error("Error fetching light status:", error)
                 );
         }
-    }, [typeOfTimer, gameIteration, setGameScore, timeTicking, time, endpoint]);
+    }, [typeOfTimer, gameIteration, setGameScore, timeTicking, time, endpoint, soundEnabled]);
 
     return (
         <div className="text-center md:py-[60px] lg:py-40 text-slate-50">
