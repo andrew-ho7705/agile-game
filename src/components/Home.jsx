@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const Home = () => {
     return (
         <div className="p-16 text-slate-50">
-            <header className="text-center md:py-[30px] lg:py-48 text-6xl md:text-7xl lg:text-8xl">
+            <header className="text-center md:py-[80px] lg:py-48 text-6xl md:text-7xl lg:text-8xl">
                 Agile Aces Game
             </header>
             <Link to="/estimate" className="flex">

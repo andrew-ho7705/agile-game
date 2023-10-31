@@ -85,20 +85,17 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     }, [typeOfTimer, gameIteration, setGameScore, timeTicking, time, endpoint]);
 
     return (
-        <div className="text-center md:py-[25px] lg:py-40 text-slate-50">
-            <div className="md:text-7xl lg:text-9xl">
+        <div className="text-center md:py-[60px] lg:py-40 text-slate-50">
+            <div className="md:text-7xl lg:text-9xl md:mb-12">
                 {formatTime(time)}
             </div>
             {!soundEnabled && (
                 <div className="flex flex-col justify-center items-center">
-                    <div className="w-4/5 lg:mb-10 md:text-2xl lg:text-5xl">
+                    <div className="w-4/5 md:mb-10 lg:mb-10 md:text-2xl lg:text-5xl">
                         Enter Your Team Name and Estimate How Many Points You
                         Will Score In Iteration 1!
                     </div>
-                    <div className="flex flex-row md:mb-6 lg:mb-10">
-                        <span className="lg:mx-2 mt-2 md:text-xl lg:text-4xl">
-                            Team Name:
-                        </span>
+                    <div className="flex flex-row md:mb-14 lg:mb-10">
                         <input
                             autoComplete="false"
                             type="text"
@@ -107,13 +104,11 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                             value={teamName}
                             onChange={(e) => setTeamName(e.target.value)}
                         />
-                        <span className="mx-2 mt-2 md:text-xl lg:text-4xl">
-                            Estimated Score:
-                        </span>
                         <input
                             autoComplete="false"
                             type="number"
-                            className="border border-black rounded-lg w-44 h-fit text-center text-2xl md:text-3xl lg:text-4xl"
+                            className="border border-black rounded-lg h-fit text-center md:text-2xl lg:text-4xl"
+                            placeholder="Enter Estimated Score..."
                             onChange={(e) => {
                                 setEstimateScore(
                                     isNaN(parseInt(e.target.value))
@@ -139,10 +134,6 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                     </div>
                 </div>
             )}
-            <div className="text-4xl md:text-5xl lg:text-6xl">
-                {" "}
-                {time === 0 ? "Time's Up!" : ""}
-            </div>
             {time === 0 && soundEnabled ? (
                 <Link
                     to="/game"
