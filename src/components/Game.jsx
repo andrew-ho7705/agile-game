@@ -41,102 +41,102 @@ const Game = () => {
             TableName: "GameScores",
             Item: {
                 teamName: {
-                    S: teamName,
+                    "S": teamName,
                 },
                 gameScore: {
-                    L: [
+                    "L": [
                         {
-                            M: {
+                            "M": {
                                 estimatedScore: {
-                                    N: gameScore[0].estimatedScore.toString(),
+                                    "N": gameScore[0].estimatedScore.toString(),
                                 },
                                 ballsInBox: {
-                                    N: gameScore[0].ballsInBox.toString(),
+                                    "N": gameScore[0].ballsInBox.toString(),
                                 },
                                 defects: {
-                                    N: gameScore[0].defects.toString(),
+                                    "N": gameScore[0].defects.toString(),
                                 },
                                 totalScore: {
-                                    N: gameScore[0].totalScore.toString(),
+                                    "N": gameScore[0].totalScore.toString(),
                                 },
                                 delta: {
-                                    N: gameScore[0].delta.toString(),
+                                    "N": gameScore[0].delta.toString(),
                                 },
                             },
                         },
                         {
-                            M: {
+                            "M": {
                                 estimatedScore: {
-                                    N: gameScore[1].estimatedScore.toString(),
+                                    "N": gameScore[1].estimatedScore.toString(),
                                 },
                                 ballsInBox: {
-                                    N: gameScore[1].ballsInBox.toString(),
+                                    "N": gameScore[1].ballsInBox.toString(),
                                 },
                                 defects: {
-                                    N: gameScore[1].defects.toString(),
+                                    "N": gameScore[1].defects.toString(),
                                 },
                                 totalScore: {
-                                    N: gameScore[1].totalScore.toString(),
+                                    "N": gameScore[1].totalScore.toString(),
                                 },
                                 delta: {
-                                    N: gameScore[1].delta.toString(),
+                                    "N": gameScore[1].delta.toString(),
                                 },
                             },
                         },
                         {
-                            M: {
+                            "M": {
                                 estimatedScore: {
-                                    N: gameScore[2].estimatedScore.toString(),
+                                    "N": gameScore[2].estimatedScore.toString(),
                                 },
                                 ballsInBox: {
-                                    N: gameScore[2].ballsInBox.toString(),
+                                    "N": gameScore[2].ballsInBox.toString(),
                                 },
                                 defects: {
-                                    N: gameScore[2].defects.toString(),
+                                    "N": gameScore[2].defects.toString(),
                                 },
                                 totalScore: {
-                                    N: gameScore[2].totalScore.toString(),
+                                    "N": gameScore[2].totalScore.toString(),
                                 },
                                 delta: {
-                                    N: gameScore[2].delta.toString(),
+                                    "N": gameScore[2].delta.toString(),
                                 },
                             },
                         },
                         {
-                            M: {
+                            "M": {
                                 estimatedScore: {
-                                    N: gameScore[3].estimatedScore.toString(),
+                                    "N": gameScore[3].estimatedScore.toString(),
                                 },
                                 ballsInBox: {
-                                    N: gameScore[3].ballsInBox.toString(),
+                                    "N": gameScore[3].ballsInBox.toString(),
                                 },
                                 defects: {
-                                    N: gameScore[3].defects.toString(),
+                                    "N": gameScore[3].defects.toString(),
                                 },
                                 totalScore: {
-                                    N: gameScore[3].totalScore.toString(),
+                                    "N": gameScore[3].totalScore.toString(),
                                 },
                                 delta: {
-                                    N: gameScore[3].delta.toString(),
+                                    "N": gameScore[3].delta.toString(),
                                 },
                             },
                         },
                         {
-                            M: {
+                            "M": {
                                 estimatedScore: {
-                                    N: gameScore[4].estimatedScore.toString(),
+                                    "N": gameScore[4].estimatedScore.toString(),
                                 },
                                 ballsInBox: {
-                                    N: gameScore[4].ballsInBox.toString(),
+                                    "N": gameScore[4].ballsInBox.toString(),
                                 },
                                 defects: {
-                                    N: gameScore[4].defects.toString(),
+                                    "N": gameScore[4].defects.toString(),
                                 },
                                 totalScore: {
-                                    N: gameScore[4].totalScore.toString(),
+                                    "N": gameScore[4].totalScore.toString(),
                                 },
                                 delta: {
-                                    N: gameScore[4].delta.toString(),
+                                    "N": gameScore[4].delta.toString(),
                                 },
                             },
                         },
