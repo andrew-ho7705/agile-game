@@ -111,7 +111,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                         <input
                             autoComplete="false"
                             type="text"
-                            className="border border-black rounded-lg h-fit lg:h-16 text-center text-xl md:text-2xl lg:text-4xl"
+                            className="border border-black rounded-lg lg:h-16 text-center text-xl md:text-2xl lg:text-4xl"
                             placeholder="Enter Team Name..."
                             value={teamName}
                             onChange={(e) => setTeamName(e.target.value)}
@@ -119,7 +119,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                         <input
                             autoComplete="false"
                             type="number"
-                            className="border border-black rounded-lg h-fit text-center md:text-2xl lg:text-4xl"
+                            className="border border-black rounded-lg text-center md:text-2xl lg:text-4xl"
                             placeholder="Enter Estimated Score..."
                             onChange={(e) => {
                                 setEstimateScore(
