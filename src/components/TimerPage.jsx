@@ -26,10 +26,10 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     useEffect(() => {
         const timerId = setInterval(() => {
             if (Math.round(time * 10) / 10 >= 0.1) {
-                setTime((time) => time - 0.01);
+                setTime((time) => time - 0.05);
                 return;
             }
-        }, 10);
+        }, 50);
 
         if (Math.round(time * 10) / 10 === 0) {
             setTime(0);
@@ -83,9 +83,8 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                 .then((res) => res.json())
                 .then((data) => {
                     if(sensorList[sensorList.length - 1] !== data) {
-                        console.log(countBalls(sensorList));
-                        setBallCount(count => count + 1);
-                        setSensorList(list =>[...list, data])
+                        setBallCount(countBalls(sensorList));
+                        setSensorList((list) => [...list, data])
                     }
                 })
                 .catch((error) =>
@@ -99,9 +98,9 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
             <div className="md:text-7xl lg:text-9xl md:mb-12">
                 {formatTime(time)}
             </div>
-            <div className="md:text-4xl lg:text-6xl md:mb-12">
+            {soundEnabled && <div className="md:text-4xl lg:text-6xl md:mb-12">
                 Count for Iteration {gameIteration}: {ballCount}
-            </div>
+            </div>}
             {!soundEnabled && (
                 <div className="flex flex-col justify-center items-center">
                     <div className="w-4/5 md:mb-10 lg:mb-10 md:text-2xl lg:text-5xl">
