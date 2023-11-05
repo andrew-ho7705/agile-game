@@ -21,6 +21,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     const [timeTicking, setTimeTicking] = useState(true);
     const [sensorList, setSensorList] = useState([]);
     const [timeReachedZero, setTimeReachedZero] = useState(false);
+    const [ballCount, setBallCount] = useState(0);
 
     useEffect(() => {
         const timerId = setInterval(() => {
@@ -83,6 +84,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                 .then((data) => {
                     if(sensorList[sensorList.length - 1] !== data) {
                         console.log(countBalls(sensorList));
+                        setBallCount(count => count + 1);
                         setSensorList(list =>[...list, data])
                     }
                 })
@@ -96,6 +98,9 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
         <div className="text-center md:py-[60px] lg:py-40 text-slate-50">
             <div className="md:text-7xl lg:text-9xl md:mb-12">
                 {formatTime(time)}
+            </div>
+            <div className="md:text-4xl lg:text-6xl md:mb-12">
+                Count for Iteration {gameIteration}: {ballCount}
             </div>
             {!soundEnabled && (
                 <div className="flex flex-col justify-center items-center">
