@@ -98,16 +98,15 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     useEffect(() => {
         const socket = io(endpoint);
         //npm install socket.io-client
-
-        if (timeTicking && typeOfTimer === "twoMin" && soundEnabled) {
-            socket.on('beam_break', (data) => {
+        socket.on('beam_break', (data) => {
+            if (timeTicking && typeOfTimer === "twoMin" && soundEnabled) {
                 if(sensorList[sensorList.length - 1] !== data) {
                     setBallCount(countBalls(sensorList));
                     setSensorList((list) => [...list, data])
                 }
-            });
-        }
-
+            }
+        });
+        
         socketRef.current = socket;
 
         return () => {
