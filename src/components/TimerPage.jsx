@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, useContext } from "react";
+import { useEffect, useState, useMemo, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import { formatTime, countBalls } from "../utils/Utils";
 import sfx from "../sounds/mixkit-alert-alarm-1005.mp3";
@@ -9,6 +9,7 @@ import {
     EstimateContext,
     TeamNameContext,
 } from "../App";
+import io from 'socket.io-client';
 
 const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     const [time, setTime] = useState(timeInSeconds);
@@ -22,14 +23,15 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     const [sensorList, setSensorList] = useState([]);
     const [timeReachedZero, setTimeReachedZero] = useState(false);
     const [ballCount, setBallCount] = useState(0);
+    const socketRef = useRef(null);
 
     useEffect(() => {
         const timerId = setInterval(() => {
             if (Math.round(time * 10) / 10 >= 0.1) {
-                setTime((time) => time - 0.05);
+                setTime((time) => time - 1);
                 return;
             }
-        }, 50);
+        }, 1000);
 
         if (Math.round(time * 10) / 10 === 0) {
             setTime(0);
@@ -77,21 +79,42 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
 
     const endpoint = "http://0.0.0.0:5001/check-beam";
 
+    // useEffect(() => {
+    //     if (timeTicking && typeOfTimer === "twoMin" && soundEnabled) {
+    //         fetch(endpoint)
+    //             .then((res) => res.json())
+    //             .then((data) => {
+    //                 if(sensorList[sensorList.length - 1] !== data) {
+    //                     setBallCount(countBalls(sensorList));
+    //                     setSensorList((list) => [...list, data])
+    //                 }
+    //             })
+    //             .catch((error) =>
+    //                 console.error("Error fetching light status:", error)
+    //             );
+    //     }
+    // }, [typeOfTimer, gameIteration, setGameScore, timeTicking, time, endpoint, soundEnabled, sensorList]);
+
     useEffect(() => {
+        const socket = io(endpoint);
+        //npm install socket.io-client
+
         if (timeTicking && typeOfTimer === "twoMin" && soundEnabled) {
-            fetch(endpoint)
-                .then((res) => res.json())
-                .then((data) => {
-                    if(sensorList[sensorList.length - 1] !== data) {
-                        setBallCount(countBalls(sensorList));
-                        setSensorList((list) => [...list, data])
-                    }
-                })
-                .catch((error) =>
-                    console.error("Error fetching light status:", error)
-                );
+            socket.on('beam_break', (data) => {
+                if(sensorList[sensorList.length - 1] !== data) {
+                    setBallCount(countBalls(sensorList));
+                    setSensorList((list) => [...list, data])
+                }
+            });
         }
-    }, [typeOfTimer, gameIteration, setGameScore, timeTicking, time, endpoint, soundEnabled, sensorList]);
+
+        socketRef.current = socket;
+
+        return () => {
+            socket.disconnect();
+        };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <div className="text-center md:py-[60px] lg:py-40 text-slate-50">
