@@ -77,7 +77,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
         typeOfTimer,
     ]);
 
-    const endpoint = "http://0.0.0.0:5001/check-beam";
+    const endpoint = "http://localhost:5001";
 
     // useEffect(() => {
     //     if (timeTicking && typeOfTimer === "twoMin" && soundEnabled) {
