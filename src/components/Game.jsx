@@ -184,7 +184,7 @@ const Game = () => {
     return (
         <div className="h-screen lg:justify-center text-slate-50">
             <span className="text-3xl">{teamName}</span>
-            <div className="flex flex-col justify-center items-center">
+            <div className="flex flex-col justify-center lg:items-center">
                 <ScoreTable />
             </div>
             <footer className=" border absolute bottom-0 md:ml-[200px] lg:ml-[440px]">
