@@ -47,7 +47,7 @@ const ScoreTable = () => {
                     ].map((header, key) => (
                         <span
                             key={key}
-                            className="border border-cyan-900 px-4 lg:text-3xl md:text-xl lg:text-5xl flex-grow-0 flex-shrink-0 w-auto"
+                            className="border border-cyan-900 md:px-4 md:text-xl lg:text-5xl flex-grow-0 flex-shrink-0 w-auto"
                         >
                             {header}
                         </span>
@@ -73,7 +73,7 @@ const ScoreTable = () => {
                                     {iteration === 0 ? (
                                         <div
                                             id="estimated"
-                                            className="md:w-[180px] md:ml-[35px] lg:w-80 lg:ml-5 lg:mr-12 text-center"
+                                            className="md:w-[180px] md:ml-[35px] lg:w-76 lg:ml-5 lg:mr-12 text-center"
                                         >
                                             {score.estimatedScore}
                                         </div>
@@ -82,7 +82,7 @@ const ScoreTable = () => {
                                             autoComplete="false"
                                             id="estimatedScore"
                                             type="number"
-                                            className="border md:w-[180px] md:h-fit md:ml-[65px] md:ml-4 lg:w-80 lg:ml-5 text-center"
+                                            className="border md:w-[180px] md:h-fit md:ml-[65px] lg:w-76 lg:ml-5 lg:mr-10 text-center"
                                             value={
                                                 isNaN(
                                                     gameScore[iteration]
@@ -122,7 +122,7 @@ const ScoreTable = () => {
                                     ) : (
                                         <div
                                             id="estimatedScore"
-                                            className=" md:w-[180px] md:ml-[65px] md:mr-10 lg:w-80 lg:ml-5 mr-12 text-center"
+                                            className="border md:w-[180px] md:ml-[65px] md:mr-10 lg:w-76 lg:ml-5 text-center"
                                         >
                                             {
                                                 gameScore[currIteration]
@@ -132,7 +132,7 @@ const ScoreTable = () => {
                                     )}
                                     <div
                                         id="ballsInBox"
-                                        className=" md:w-[140px] md:ml-10 lg:w-52 lg:ml-2 mr-14 text-black text-center"
+                                        className="border md:w-[140px] md:ml-10 lg:w-52 lg:ml-20 text-black text-center"
                                     >
                                         {
                                             gameScore[currIteration]
@@ -144,7 +144,7 @@ const ScoreTable = () => {
                                             autoComplete="false"
                                             id="defects"
                                             type="number"
-                                            className="border border-red-700 md:w-[100px] md:h-fit md:-ml-12 md:-mr-12 lg:w-32 lg:mr-12 text-center"
+                                            className="border border-red-700 md:w-[100px] md:h-fit md:-ml-12 md:-mr-12 lg:w-32 lg:mr-12 lg:ml-16 text-center"
                                             onChange={(e) => {
                                                 setGameScore(
                                                     (prevGameScore) => {
@@ -176,14 +176,14 @@ const ScoreTable = () => {
                                     ) : (
                                         <div
                                             id="defects"
-                                            className="md:-mr-8 lg:w-32 lg:mr-12 text-center"
+                                            className="md:-mr-10 lg:w-32 lg:mr-12 lg:ml-16 text-center"
                                         >
                                             {gameScore[currIteration].defects}
                                         </div>
                                     )}
                                     <div
                                         id="totalScore"
-                                        className="md:w-52 md:ml-12 lg:w-56 lg:mr-8 text-center"
+                                        className="md:w-52 md:ml-12 lg:w-56 lg:mr-8 lg:-ml-0 text-center"
                                     >
                                         {isNaN(
                                             gameScore[iteration].ballsInBox -

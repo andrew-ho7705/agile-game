@@ -187,7 +187,7 @@ const Game = () => {
             <div className="flex flex-col justify-center lg:items-center">
                 <ScoreTable />
             </div>
-            <footer className=" border absolute bottom-0 md:ml-[200px] lg:ml-[440px]">
+            <footer className="flex flex-col text-center">
                     <ul className="px-5 md:text-xl lg:text-3xl">
                         <input
                             autoComplete="false"
