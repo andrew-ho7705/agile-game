@@ -22,7 +22,7 @@ export const scoreTable = [
 
 function App() {
     const [gameScore, setGameScore] = useState(scoreTable);
-    const [gameIteration, setGameIteration] = useState(5);
+    const [gameIteration, setGameIteration] = useState(1);
     const [typeOfTimer, setTypeOfTimer] = useState("");
     const [estimate, setEstimate] = useState(0);
     const [teamName, setTeamName] = useState("");
