@@ -35,16 +35,20 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
             setTime(0);
             setTimeTicking(false);
             if (soundEnabled) audio.play();
-            setTimeout(() => {
+            if(typeOfTimer === "oneMin") {
                 setTimeReachedZero(true);
-            }, 3000);
+            } else {
+                setTimeout(() => {
+                    setTimeReachedZero(true);
+                }, 3000);
+            }
             return;
         }
 
         return () => {
             clearInterval(timerId);
         };
-    }, [time, timeInSeconds, audio, soundEnabled, sensorList]);
+    }, [time, timeInSeconds, audio, soundEnabled, sensorList, typeOfTimer]);
 
     useEffect(() => {
         let intervalId;
