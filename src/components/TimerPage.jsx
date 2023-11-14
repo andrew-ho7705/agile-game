@@ -95,10 +95,10 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
 
     return (
         <div className="text-center md:py-[60px] lg:py-40 text-slate-50">
-            <div className="md:text-7xl lg:text-9xl md:mb-12">
+            <div className="text-9xl md:mb-12">
                 {formatTime(time)}
             </div>
-            {(soundEnabled && typeOfTimer === "twoMin") && <div className="md:text-4xl lg:text-6xl md:mb-12">
+            {(soundEnabled && typeOfTimer === "twoMin") && <div className="text-7xl md:mb-12">
                 Count for Iteration {gameIteration}: {ballCount}
             </div>}
             {!soundEnabled && (
