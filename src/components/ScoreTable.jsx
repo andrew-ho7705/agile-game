@@ -38,7 +38,7 @@ const ScoreTable = () => {
     return (
         <div className="flex flex-row h-fit justify-center text-slate-50">
             <div>
-                <span className="text-3xl">{teamName}qwe</span>
+                <span className="text-3xl">{teamName}</span>
                 <div className="flex flex-row h-fit justify-center">
                     <div className="border">
                         <div className="ml-36 mt-1 left-0">
