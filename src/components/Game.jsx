@@ -21,19 +21,6 @@ const Game = () => {
     const audio = useMemo(() => new Audio(sfx), []);
     const navigate = useNavigate();
 
-    const handleRadioClick = () => {
-        const option1 = document.getElementById("One Minute Timer");
-        const option2 = document.getElementById("Two Minute Timer");
-
-        option1.addEventListener("change", () => {
-            if (option1.checked) option2.checked = false;
-        });
-
-        option2.addEventListener("change", () => {
-            if (option2.checked) option1.checked = false;
-        });
-    };
-
     useEffect(() => {
         if (timeTicking) {
             const timerId = setInterval(() => {
@@ -47,7 +34,6 @@ const Game = () => {
                 setTimeTicking(false);
                 setTime(0);
                 setAudioPlaying(true);
-                // audio.play();
                 return;
             }
 
@@ -59,65 +45,78 @@ const Game = () => {
 
     return (
         <div className="h-screen lg:justify-center text-slate-50">
-            
+
             <div className="flex flex-col lg:mx-8">
                 <ScoreTable />
             </div>
             <footer className="flex flex-col text-center">
-                    <ul className="px-5 md:text-xl lg:text-3xl">
-                        <input
-                            autoComplete="false"
-                            type="radio"
-                            id="Two Minute Timer"
-                            className="mx-2 md:h-3 md:w-3 lg:h-5 lg:w-5"
-                            onClick={() => {
-                                setTypeOfTimer("twoMin");
-                                handleRadioClick();
-                            }}
-                        />
+                <ul className="px-5 md:text-xl lg:text-3xl">
+                    <input
+                        autoComplete="false"
+                        type="radio"
+                        id="Two Minute Timer"
+                        className="mx-2 md:h-3 md:w-3 lg:h-5 lg:w-5"
+                        onClick={() => {
+                            setTypeOfTimer("twoMin")
+                        }}
+                        checked={typeOfTimer === "twoMin"}
+                    />
+                    <span
+                        onClick={() => {
+                            setTypeOfTimer("twoMin");
+                        }}
+                    >
                         Two Minute Timer
-                        <input
-                            autoComplete="false"
-                            type="radio"
-                            id="One Minute Timer"
-                            className="mx-2 md:h-3 md:w-3 lg:h-5 lg:w-5"
-                            onClick={() => {
-                                setTypeOfTimer("oneMin");
-                                handleRadioClick();
-                            }}
-                        />
+                    </span>
+                    <input
+                        autoComplete="false"
+                        type="radio"
+                        id="One Minute Timer"
+                        className="mx-2 md:h-3 md:w-3 lg:h-5 lg:w-5"
+                        onClick={() => {
+                            setTypeOfTimer("oneMin");
+                        }}
+                        checked={typeOfTimer === "oneMin"}
+                    />
+                    <span
+                        onClick={() => {
+                            setTypeOfTimer("oneMin");
+                        }}
+                    >
                         One Minute Timer
-                    </ul>
-                    <div className="flex flex-col">
-                        {gameIteration === 5 &&
+                    </span>
+                </ul>
+                <div className="flex flex-col">
+                    {gameIteration === 5 &&
                         gameScore[4].ballsInBox !== 0 ? (
-                            <Link
-                                to="/end"
-                                className="md:text-4xl lg:text-6xl flex justify-center"
-                            >
-                                End
-                            </Link>
-                        ) : typeOfTimer !== "" ? (
+                        <Link
+                            to="/end"
+                            className="md:text-4xl lg:text-6xl flex justify-center"
+                        >
+                            End
+                        </Link>
+                    ) : typeOfTimer !== "" ? (
+                        <div className="flex justify-center">
                             <button
                                 onClick={() => {
                                     setTimeTicking(true);
                                     navigate(
-                                        `/game/timer${
-                                            typeOfTimer === "oneMin" ? 2 : 1
+                                        `/game/timer${typeOfTimer === "oneMin" ? 2 : 1
                                         }`
                                     );
                                 }}
-                                className="md:text-4xl lg:text-6xl flex justify-center"
+                                className="md:text-4xl lg:text-6xl "
                             >
                                 Start
                             </button>
-                        ) : (
-                            <div className="md:text-4xl lg:text-6xl flex justify-center">
-                                Select a timer!
-                            </div>
-                        )}
-                    </div>
-                    
+                        </div>
+                    ) : (
+                        <div className="md:text-4xl lg:text-6xl flex justify-center">
+                            Select a timer!
+                        </div>
+                    )}
+                </div>
+
             </footer>
         </div>
     );

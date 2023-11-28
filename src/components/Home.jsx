@@ -2,14 +2,14 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
     return (
-        <div className="p-16 text-slate-50">
-            <header className="text-center md:py-[80px] lg:py-48 text-6xl md:text-7xl lg:text-8xl">
+        <div className="grid justify-items-center text-slate-50">
+            <div className="text-center py-56 text-6xl md:text-7xl lg:text-[150px]">
                 Agile Aces Game
-            </header>
-            <Link to="/estimate" className="flex">
-                <span className="m-auto mt-[20px] text-4xl md:text-5xl lg:text-6xl">
+            </div>
+            <Link to="/estimate">
+                <div className="text-center text-4xl md:text-5xl lg:text-[100px]">
                     Click Here To Begin!
-                </span>
+                </div>
             </Link>
         </div>
     );

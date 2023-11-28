@@ -91,7 +91,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
 
     return (
         <div className="text-center md:py-[60px] lg:py-40 text-slate-50">
-            <div className="text-9xl md:mb-12">
+            <div className="text-[150px] md:mb-12">
                 {formatTime(time)}
             </div>
             {(soundEnabled && typeOfTimer === "twoMin") && <div className="text-7xl md:mb-12">
