@@ -20,7 +20,6 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     const [teamName, setTeamName] = useContext(TeamNameContext);
     const [timeTicking, setTimeTicking] = useState(true);
     const [sensorList, setSensorList] = useState([]);
-    const [timeReachedZero, setTimeReachedZero] = useState(false);
     const [ballCount, setBallCount] = useState(0);
 
     useEffect(() => {
@@ -35,13 +34,6 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
             setTime(0);
             setTimeTicking(false);
             if (soundEnabled) audio.play();
-            if(typeOfTimer === "oneMin") {
-                setTimeReachedZero(true);
-            } else {
-                setTimeout(() => {
-                    setTimeReachedZero(true);
-                }, 3000);
-            }
             return;
         }
 
@@ -150,7 +142,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                     </div>
                 </div>
             )}
-            {time === 0 && soundEnabled && timeReachedZero ? (
+            {time === 0 && soundEnabled ? (
                 <Link
                     to="/game"
                     className="text-6xl px-5"

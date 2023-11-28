@@ -34,130 +34,6 @@ const Game = () => {
         });
     };
 
-    const handlePutGameScore = async () => {
-        const apiURL =
-            "https://vpgrj907we.execute-api.us-east-2.amazonaws.com/dev/gameScores";
-        const requestBody = {
-            TableName: "GameScores",
-            Item: {
-                teamName: {
-                    "S": teamName,
-                },
-                gameScore: {
-                    "L": [
-                        {
-                            "M": {
-                                estimatedScore: {
-                                    "N": gameScore[0].estimatedScore.toString(),
-                                },
-                                ballsInBox: {
-                                    "N": gameScore[0].ballsInBox.toString(),
-                                },
-                                defects: {
-                                    "N": gameScore[0].defects.toString(),
-                                },
-                                totalScore: {
-                                    "N": gameScore[0].totalScore.toString(),
-                                },
-                                delta: {
-                                    "N": gameScore[0].delta.toString(),
-                                },
-                            },
-                        },
-                        {
-                            "M": {
-                                estimatedScore: {
-                                    "N": gameScore[1].estimatedScore.toString(),
-                                },
-                                ballsInBox: {
-                                    "N": gameScore[1].ballsInBox.toString(),
-                                },
-                                defects: {
-                                    "N": gameScore[1].defects.toString(),
-                                },
-                                totalScore: {
-                                    "N": gameScore[1].totalScore.toString(),
-                                },
-                                delta: {
-                                    "N": gameScore[1].delta.toString(),
-                                },
-                            },
-                        },
-                        {
-                            "M": {
-                                estimatedScore: {
-                                    "N": gameScore[2].estimatedScore.toString(),
-                                },
-                                ballsInBox: {
-                                    "N": gameScore[2].ballsInBox.toString(),
-                                },
-                                defects: {
-                                    "N": gameScore[2].defects.toString(),
-                                },
-                                totalScore: {
-                                    "N": gameScore[2].totalScore.toString(),
-                                },
-                                delta: {
-                                    "N": gameScore[2].delta.toString(),
-                                },
-                            },
-                        },
-                        {
-                            "M": {
-                                estimatedScore: {
-                                    "N": gameScore[3].estimatedScore.toString(),
-                                },
-                                ballsInBox: {
-                                    "N": gameScore[3].ballsInBox.toString(),
-                                },
-                                defects: {
-                                    "N": gameScore[3].defects.toString(),
-                                },
-                                totalScore: {
-                                    "N": gameScore[3].totalScore.toString(),
-                                },
-                                delta: {
-                                    "N": gameScore[3].delta.toString(),
-                                },
-                            },
-                        },
-                        {
-                            "M": {
-                                estimatedScore: {
-                                    "N": gameScore[4].estimatedScore.toString(),
-                                },
-                                ballsInBox: {
-                                    "N": gameScore[4].ballsInBox.toString(),
-                                },
-                                defects: {
-                                    "N": gameScore[4].defects.toString(),
-                                },
-                                totalScore: {
-                                    "N": gameScore[4].totalScore.toString(),
-                                },
-                                delta: {
-                                    "N": gameScore[4].delta.toString(),
-                                },
-                            },
-                        },
-                    ],
-                },
-            },
-        };
-
-        try {
-            await fetch(apiURL, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(requestBody),
-            });
-        } catch (error) {
-            console.error("An error occurred:", error);
-        }
-    };
-
     useEffect(() => {
         if (timeTicking) {
             const timerId = setInterval(() => {
@@ -183,8 +59,8 @@ const Game = () => {
 
     return (
         <div className="h-screen lg:justify-center text-slate-50">
-            <span className="text-3xl">{teamName}</span>
-            <div className="flex flex-col justify-center lg:items-center">
+            
+            <div className="flex flex-col lg:mx-8">
                 <ScoreTable />
             </div>
             <footer className="flex flex-col text-center">
@@ -218,7 +94,6 @@ const Game = () => {
                             <Link
                                 to="/end"
                                 className="md:text-4xl lg:text-6xl flex justify-center"
-                                onClick={handlePutGameScore}
                             >
                                 End
                             </Link>
@@ -242,7 +117,7 @@ const Game = () => {
                             </div>
                         )}
                     </div>
-                
+                    
             </footer>
         </div>
     );
