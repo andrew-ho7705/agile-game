@@ -44,7 +44,7 @@ const Game = () => {
     }, [time, timeTicking, audio, setAudioPlaying]);
 
     return (
-        <div className=" grid h-screen place-items-center lg:justify-center text-slate-50">
+        <div className="grid h-screen place-items-center lg:justify-center text-slate-50">
 
             <div className="flex flex-col lg:mx-8">
                 <ScoreTable />

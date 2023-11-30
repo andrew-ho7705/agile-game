@@ -11,7 +11,7 @@ export const End = () => {
     const [teamName] = useContext(TeamNameContext);
 
     return (
-        <div className="flex flex-row h-screen justify-center text-slate-50">
+        <div className=" grid h-screen place-items-center text-slate-50">
             <div>
                 <span className="text-3xl">{teamName}</span>
                 <div className="flex flex-row h-fit justify-center">
@@ -102,16 +102,9 @@ export const End = () => {
                         </div>
                     </div>
                 </div>
-                <footer className="absolute bottom-0 left-1/3 ml-12">
-                    <h1 className="text-5xl mb-12">Thanks for Playing!</h1>
-                    {/* <Link
-                        to="/"
-                        className="text-5xl w-fit ml-20"
-                    >
-                        New Game?
-                    </Link> */}
-                </footer>
             </div>
+            <div className="text-8xl mx-auto">Thanks for Playing!</div>
+
         </div>
     );
 };
