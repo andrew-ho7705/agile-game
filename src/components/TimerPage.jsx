@@ -1,7 +1,8 @@
 import { useEffect, useState, useMemo, useContext } from "react";
 import { Link } from "react-router-dom";
 import { formatTime, countBalls } from "../utils/Utils";
-import { sfx, sfx2 } from "../sounds/mixkit-alert-alarm-1005.mp3";
+import sfx from "../sounds/mixkit-alert-alarm-1005.mp3";
+import sfx2 from "../sounds/coinSound.mp3";
 import {
     GameScoreContext,
     GameIterationContext,
@@ -74,7 +75,11 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
 
     const endpoint = "http://0.0.0.0:5001/check-beam";
 
-    useEffect(() => ballCount !== 0 ? () => audio2.play() : null, [ballCount])
+    useEffect(() => {
+        if(ballCount !== 0) {
+            audio2.play();
+        }
+    }, [ballCount])
 
      useEffect(() => {
          if (timeTicking && typeOfTimer === "twoMin" && soundEnabled) {
