@@ -50,7 +50,7 @@ const Game = () => {
                 <ScoreTable />
             </div>
             <footer className="flex flex-col text-center">
-                <ul className="px-5 md:text-xl lg:text-3xl">
+                <ul className="px-5 md:text-3xl lg:text-5xl">
                     <input
                         autoComplete="false"
                         type="radio"

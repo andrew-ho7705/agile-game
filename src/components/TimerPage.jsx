@@ -90,7 +90,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
      }, [typeOfTimer, gameIteration, setGameScore, timeTicking, time, endpoint, soundEnabled, sensorList]);
 
     return (
-        <div className="text-center md:py-[60px] lg:py-40 text-slate-50">
+        <div className="grid h-screen place-items-center text-center md:py-[60px] lg:py-40 text-slate-50">
             <div className="text-[150px] md:mb-12">
                 {formatTime(time)}
             </div>
