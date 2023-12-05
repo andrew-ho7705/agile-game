@@ -1,19 +1,13 @@
 import { useState, useEffect, useContext, useMemo } from "react";
 import { Link } from "react-router-dom";
 import ScoreTable from "./ScoreTable";
-import {
-    TimerContext,
-    GameIterationContext,
-    TeamNameContext,
-    GameScoreContext,
-} from "../App";
+import { TimerContext, GameIterationContext, GameScoreContext } from "../App";
 import sfx from "../sounds/mixkit-alert-alarm-1005.mp3";
 import { useNavigate } from "react-router-dom";
 
 const Game = () => {
     const [typeOfTimer, setTypeOfTimer] = useContext(TimerContext);
     const [gameIteration] = useContext(GameIterationContext);
-    const [teamName] = useContext(TeamNameContext);
     const [gameScore] = useContext(GameScoreContext);
     const [time, setTime] = useState(0);
     const [timeTicking, setTimeTicking] = useState(true);
@@ -45,7 +39,6 @@ const Game = () => {
 
     return (
         <div className="grid h-screen place-items-center lg:justify-center text-slate-50">
-
             <div className="flex flex-col lg:mx-8">
                 <ScoreTable />
             </div>
@@ -57,7 +50,7 @@ const Game = () => {
                         id="Two Minute Timer"
                         className="mx-2 md:h-3 md:w-3 lg:h-5 lg:w-5"
                         onClick={() => {
-                            setTypeOfTimer("twoMin")
+                            setTypeOfTimer("twoMin");
                         }}
                         checked={typeOfTimer === "twoMin"}
                     />
@@ -87,8 +80,7 @@ const Game = () => {
                     </span>
                 </ul>
                 <div className="flex flex-col">
-                    {gameIteration === 5 &&
-                        gameScore[4].ballsInBox !== 0 ? (
+                    {gameIteration === 5 && gameScore[4].ballsInBox !== 0 ? (
                         <Link
                             to="/end"
                             className="md:text-4xl lg:text-6xl flex justify-center"
@@ -101,7 +93,8 @@ const Game = () => {
                                 onClick={() => {
                                     setTimeTicking(true);
                                     navigate(
-                                        `/game/timer${typeOfTimer === "oneMin" ? 2 : 1
+                                        `/game/timer${
+                                            typeOfTimer === "oneMin" ? 2 : 1
                                         }`
                                     );
                                 }}
@@ -116,7 +109,6 @@ const Game = () => {
                         </div>
                     )}
                 </div>
-
             </footer>
         </div>
     );

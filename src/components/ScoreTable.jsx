@@ -1,5 +1,9 @@
 import { useContext, useEffect } from "react";
-import { GameScoreContext, GameIterationContext, TeamNameContext } from "../App";
+import {
+    GameScoreContext,
+    GameIterationContext,
+    TeamNameContext,
+} from "../App";
 
 const ScoreTable = () => {
     const [gameScore, setGameScore] = useContext(GameScoreContext);
@@ -72,7 +76,8 @@ const ScoreTable = () => {
                                             className="flex flex-row"
                                         >
                                             <span className="md:w-48 lg:mx-2 md:text-2xl lg:text-3xl">
-                                                Iteration {parseInt(iteration + 1)}
+                                                Iteration{" "}
+                                                {parseInt(iteration + 1)}
                                             </span>
                                             {iteration === 0 ? (
                                                 <div
@@ -81,7 +86,8 @@ const ScoreTable = () => {
                                                 >
                                                     {score.estimatedScore}
                                                 </div>
-                                            ) : iteration === gameIteration - 1 ? (
+                                            ) : iteration ===
+                                              gameIteration - 1 ? (
                                                 <input
                                                     autoComplete="false"
                                                     id="estimatedScore"
@@ -93,14 +99,18 @@ const ScoreTable = () => {
                                                                 .estimatedScore
                                                         )
                                                             ? ""
-                                                            : gameScore[iteration]
-                                                                .estimatedScore
+                                                            : gameScore[
+                                                                  iteration
+                                                              ].estimatedScore
                                                     }
                                                     onChange={(e) => {
                                                         setGameScore(
                                                             (prevGameScore) => {
                                                                 return prevGameScore.map(
-                                                                    (score, index) => {
+                                                                    (
+                                                                        score,
+                                                                        index
+                                                                    ) => {
                                                                         if (
                                                                             index ===
                                                                             iteration
@@ -153,7 +163,10 @@ const ScoreTable = () => {
                                                         setGameScore(
                                                             (prevGameScore) => {
                                                                 return prevGameScore.map(
-                                                                    (score, index) => {
+                                                                    (
+                                                                        score,
+                                                                        index
+                                                                    ) => {
                                                                         if (
                                                                             index ===
                                                                             iteration
@@ -182,7 +195,10 @@ const ScoreTable = () => {
                                                     id="defects"
                                                     className="md:-mr-10 md:ml-10 lg:w-32 lg:mr-12 lg:ml-16 text-center"
                                                 >
-                                                    {gameScore[currIteration].defects}
+                                                    {
+                                                        gameScore[currIteration]
+                                                            .defects
+                                                    }
                                                 </div>
                                             )}
                                             <div
@@ -190,12 +206,16 @@ const ScoreTable = () => {
                                                 className="md:w-52 md:ml-12 lg:w-56 lg:mr-8 lg:-ml-0 text-center"
                                             >
                                                 {isNaN(
-                                                    gameScore[iteration].ballsInBox -
-                                                    gameScore[iteration].defects
+                                                    gameScore[iteration]
+                                                        .ballsInBox -
+                                                        gameScore[iteration]
+                                                            .defects
                                                 )
                                                     ? 0
-                                                    : gameScore[iteration].ballsInBox -
-                                                    gameScore[iteration].defects}
+                                                    : gameScore[iteration]
+                                                          .ballsInBox -
+                                                      gameScore[iteration]
+                                                          .defects}
                                             </div>
                                             <div
                                                 id="delta"
@@ -203,20 +223,21 @@ const ScoreTable = () => {
                                             >
                                                 {isNaN(
                                                     -1 *
-                                                    (gameScore[iteration]
-                                                        .estimatedScore -
-                                                        gameScore[iteration]
-                                                            .ballsInBox +
-                                                        gameScore[iteration]
-                                                            .defects)
+                                                        (gameScore[iteration]
+                                                            .estimatedScore -
+                                                            gameScore[iteration]
+                                                                .ballsInBox +
+                                                            gameScore[iteration]
+                                                                .defects)
                                                 )
                                                     ? 0
                                                     : -1 *
-                                                    (gameScore[iteration]
-                                                        .estimatedScore -
-                                                        gameScore[iteration]
-                                                            .ballsInBox +
-                                                        gameScore[iteration].defects)}
+                                                      (gameScore[iteration]
+                                                          .estimatedScore -
+                                                          gameScore[iteration]
+                                                              .ballsInBox +
+                                                          gameScore[iteration]
+                                                              .defects)}
                                             </div>
                                         </div>
                                     </div>

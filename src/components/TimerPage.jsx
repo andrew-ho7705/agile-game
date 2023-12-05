@@ -15,7 +15,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     const [time, setTime] = useState(timeInSeconds);
     const [typeOfTimer, setTypeOfTimer] = useContext(TimerContext);
     const audio1 = useMemo(() => new Audio(sfx), []);
-    const audio2 = useMemo(() => new Audio(sfx2), [])
+    const audio2 = useMemo(() => new Audio(sfx2), []);
     const [gameScore, setGameScore] = useContext(GameScoreContext);
     const [gameIteration, setGameIteration] = useContext(GameIterationContext);
     const [, setEstimateScore] = useContext(EstimateContext);
@@ -76,35 +76,44 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     const endpoint = "http://0.0.0.0:5001/check-beam";
 
     useEffect(() => {
-        if(ballCount !== 0) {
+        if (ballCount !== 0) {
             audio2.play();
         }
-    }, [ballCount])
+    }, [ballCount]);
 
-     useEffect(() => {
-         if (timeTicking && typeOfTimer === "twoMin" && soundEnabled) {
-             fetch(endpoint)
-                 .then((res) => res.json())
-                 .then((data) => {
-                     if(sensorList[sensorList.length - 1] !== data) {
-                         setBallCount(countBalls(sensorList));
-                         setSensorList((list) => [...list, data])
-                     }
-                 })
-                 .catch((error) =>
-                     console.error("Error fetching light status:", error)
-                 );
-         }
-     }, [typeOfTimer, gameIteration, setGameScore, timeTicking, time, endpoint, soundEnabled, sensorList]);
+    useEffect(() => {
+        if (timeTicking && typeOfTimer === "twoMin" && soundEnabled) {
+            fetch(endpoint)
+                .then((res) => res.json())
+                .then((data) => {
+                    if (sensorList[sensorList.length - 1] !== data) {
+                        setBallCount(countBalls(sensorList));
+                        setSensorList((list) => [...list, data]);
+                    }
+                })
+                .catch((error) =>
+                    console.error("Error fetching light status:", error)
+                );
+        }
+    }, [
+        typeOfTimer,
+        gameIteration,
+        setGameScore,
+        timeTicking,
+        time,
+        endpoint,
+        soundEnabled,
+        sensorList,
+    ]);
 
     return (
         <div className="grid h-screen place-items-center text-center md:py-[60px] lg:py-40 text-slate-50">
-            <div className="text-[150px] md:mb-12">
-                {formatTime(time)}
-            </div>
-            {(soundEnabled && typeOfTimer === "twoMin") && <div className="text-7xl md:mb-12">
-                Count for Iteration {gameIteration}: {ballCount}
-            </div>}
+            <div className="text-[150px] md:mb-12">{formatTime(time)}</div>
+            {soundEnabled && typeOfTimer === "twoMin" && (
+                <div className="text-7xl md:mb-12">
+                    Count for Iteration {gameIteration}: {ballCount}
+                </div>
+            )}
             {!soundEnabled && (
                 <div className="flex flex-col justify-center items-center">
                     <div className="w-4/5 md:mb-10 lg:mb-10 md:text-2xl lg:text-5xl">
@@ -201,7 +210,10 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                                                       estimatedScore:
                                                           prevGameScore[index]
                                                               .estimatedScore,
-                                                        ballsInBox: countBalls(sensorList)
+                                                      ballsInBox:
+                                                          countBalls(
+                                                              sensorList
+                                                          ),
                                                   };
                                               } else {
                                                   return score;
