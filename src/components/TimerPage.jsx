@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo, useContext } from "react";
 import { Link } from "react-router-dom";
 import { formatTime, countBalls } from "../utils/Utils";
-import sfx from "../sounds/mixkit-alert-alarm-1005.mp3";
+import { sfx, sfx2 } from "../sounds/mixkit-alert-alarm-1005.mp3";
 import {
     GameScoreContext,
     GameIterationContext,
@@ -13,7 +13,8 @@ import {
 const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     const [time, setTime] = useState(timeInSeconds);
     const [typeOfTimer, setTypeOfTimer] = useContext(TimerContext);
-    const audio = useMemo(() => new Audio(sfx), []);
+    const audio1 = useMemo(() => new Audio(sfx), []);
+    const audio2 = useMemo(() => new Audio(sfx2), [])
     const [gameScore, setGameScore] = useContext(GameScoreContext);
     const [gameIteration, setGameIteration] = useContext(GameIterationContext);
     const [, setEstimateScore] = useContext(EstimateContext);
@@ -33,14 +34,14 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
         if (Math.round(time * 10) / 10 === 0) {
             setTime(0);
             setTimeTicking(false);
-            if (soundEnabled) audio.play();
+            if (soundEnabled) audio1.play();
             return;
         }
 
         return () => {
             clearInterval(timerId);
         };
-    }, [time, timeInSeconds, audio, soundEnabled, sensorList, typeOfTimer]);
+    }, [time, timeInSeconds, audio1, soundEnabled, sensorList, typeOfTimer]);
 
     useEffect(() => {
         let intervalId;
@@ -72,6 +73,8 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
     ]);
 
     const endpoint = "http://0.0.0.0:5001/check-beam";
+
+    useEffect(() => ballCount !== 0 ? () => audio2.play() : null, [ballCount])
 
      useEffect(() => {
          if (timeTicking && typeOfTimer === "twoMin" && soundEnabled) {
@@ -149,7 +152,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                     onClick={
                         typeOfTimer === "oneMin"
                             ? () => {
-                                  audio.pause();
+                                  audio1.pause();
                                   setGameIteration(gameIteration + 1);
                                   setGameScore((prevGameScore) => {
                                       return prevGameScore.map(
@@ -183,7 +186,7 @@ const TimerPage = ({ timeInSeconds, soundEnabled }) => {
                                   setTypeOfTimer("");
                               }
                             : () => {
-                                  audio.pause();
+                                  audio1.pause();
                                   setGameScore((prevGameScore) => {
                                       return prevGameScore.map(
                                           (score, index) => {
