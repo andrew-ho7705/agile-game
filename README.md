@@ -1,70 +1,80 @@
-# Getting Started with Create React App
+# CMPEN 482W FA23 Capstone Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Penn State Engineering Leadership Develpment- Electronic Agile Workshop Game
 
-## Available Scripts
+## Before following any of the steps below, ensure you are connected to psu_guest wifi
+Even if it looks like you are on the wifi, you must ensure you are connected to it, otherwise some of the major functionalities listed below may not work.
+1. Click on the wifi symbol in the top right.
+2. If it is not already checked, click on the psu_guest wifi and connect to it.
+3. If a popup appears, follow the necessary steps to get connected to the wifi.\
+   ___If the wifi is checked and you did not see the popup, follow these next few steps___
+4. Open up the browser and search up an http website (http://httpforever.com/)
+5. If you were not connected to the wifi before, you will see the popup. Follow the steps on the popup to connect to the wifi.
+6. If you see the content on the page, you are already connected to the wifi.
 
-In the project directory, you can run:
+## Getting started on a new Raspberry Pi
+1. First, go to https://nodejs.org/en and install the latest version of node.
+2. Then, go to https://www.python.org/ and install the latest version of python.
+3. Next open the command line and enter the following:\
+    ```
+    pip install --user RPi.GPIO
+    pip install --user Flask
+    pip install --user Flask-CORS
+    ```
+    ___This will install the necessary Python dependencies.___
+4. To clone the repository, open the command line, navigate to your intended directory and run the following command:\
+``` git clone https://github.com/andrew-ho7705/agile-game.git && npm install ```\
+___This will clone the source code and install the necessary npm dependencies.___
 
-### `npm start`
+At this point, if the new Raspberry Pi has not been set up to run the game upon startup yet, run the command:\
+```npm start```\
+to run the game.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## To set up your Raspberry Pi to run Agile Aces on startup
+1. Open your terminal and enter the following command:\
+   ```sudo nano /etc/systemd/system/agile-game.service```
+2. This will open a new, empty .service file. Within this file, copy and paste the following in:                      
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```[Unit]
+Description=Agile Game npm start
+After=network.target
 
-### `npm test`
+[Service]
+Type=simple
+ExecStart=/home/pi/.config/nvm/versions/node/v18.17.0/bin/npm start
+WorkingDirectory=/home/pi/agile-game
+Restart=on-failure
+User=pi
+Group=pi
+Environment="DISPLAY=:O"
+Environment="XAUTHORITY=/home/pi/Xauthority"
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+[Install]
+WantedBy=multi-user.target
+```
+\
+***NOTICE:*** This should have no problem running, but if the game stops running in the backround on startup, open up the command line and enter:\
+```run npm install npm@latest -g```\
+This will get the latest version of node on the system. Now enter in:\
+```node -v```\
+Copy this value, renavigate to the agile-game.service file with:\
+```sudo nano /etc/systemd/system/agile-game.service```\
+and replace the old version with the one you have copied.
+\
+3. Press Control + o to save, press enter, then Control + x to exit the file. From now on, the game should start in the background on Raspberry Pi startup.\
+***I have found it convenient to add the game to the browser's bookmarks tab for quicker access***
 
-### `npm run build`
+# To install screensharing application (for laptops)
+1. Go to https://anydesk.com/en/downloads/ and select Raspberry Pi for the Pi and the correct one for the respective laptop.
+2. Install the application and open it on both devices.
+3. In the top left corner of the AnyDesk application on the laptop, enter in the 9-10 digit number displayed on the Pi.
+4. Press enter and you should have full access to the mouse with the laptop's keyboard and the ability to listen to audio from the Pi on your laptop.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Help/Support
+If there are ever any issues with any of the software aspects of thsi game, please email me at andrewh6591@gmail.com and I will be happy to help. 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Acknowledgements
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+We would like to extend our heartfelt thanks to our esteemed sponsor, Paul Mittan, the Director of Engineering Leadership Development at Penn State. His generous support and guidance have been invaluable to the success of our project. His commitment to fostering leadership and development in the field of engineering has greatly inspired our team and contributed significantly to the progress and achievements of our project.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Thank you, Paul Mittan, for your unwavering support and belief in our work.
