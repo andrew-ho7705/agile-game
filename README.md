@@ -1,6 +1,4 @@
-# CMPEN 482W FA23 Capstone Project
-
-## Penn State Engineering Leadership Develpment- Electronic Agile Workshop Game
+# Penn State Engineering Leadership Develpment- Electronic Agile Workshop Game
 
 ## Before following any of the steps below, ensure you are connected to psu_guest wifi
 Even if it looks like you are on the wifi, you must ensure you are connected to it, otherwise some of the major functionalities listed below may not work.
@@ -64,7 +62,18 @@ and replace the old version with the one you have copied.
 3. Press Control + o to save, press enter, then Control + x to exit the file. From now on, the game should start in the background on Raspberry Pi startup.\
 ***I have found it convenient to add the game to the browser's bookmarks tab for quicker access***
 
-# To install screensharing application (for laptops)
+# To mount break-beam sensors onto Raspberry Pi
+![image](https://github.com/andrew-ho7705/agile-game/assets/109812305/69c9fb6c-bfd7-406a-93e5-9536516d6308)
+
+Pins 2, 4: Power (Red wires)\
+Pins 9, 39: Ground (Black wires)\
+Pin 11: GPIO 17 (White wire)\
+
+(___Should look like this___)
+![IMG_5747](https://github.com/andrew-ho7705/agile-game/assets/109812305/d989a233-e2fb-42e1-84b8-a5ac7f95f7e2)
+
+
+# To install AnyDesk screensharing application (for laptops)
 1. Go to https://anydesk.com/en/downloads/ and select Raspberry Pi for the Pi and the correct one for the respective laptop.
 2. Install the application and open it on both devices.
 3. In the top left corner of the AnyDesk application on the laptop, enter in the 9-10 digit number displayed on the Pi.
